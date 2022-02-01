@@ -3,12 +3,11 @@ import '../styles/Home.css';
 
 export default function Home() {
     return(
-        <body class="background">
-            <h1>Home Screen</h1>
+        <div class="background">
             <br></br>
             <div class="ChooseAlgo">Choose a Sorting Algorithm</div>
             <br></br>
-            <button class="btnDiv">Merge Sort</button>
+            <a href = "/mergeSort" type = "button">Merge Sort</a>
             <br></br>
             <button class="btnDiv">Level 2</button>
             <br></br>
@@ -20,7 +19,7 @@ export default function Home() {
             <br></br>
             <button class="btnDiv">Level 6</button>
             <br></br>
-        </body>
+        </div>
         
     )
 }
