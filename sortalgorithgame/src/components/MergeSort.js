@@ -84,20 +84,20 @@ function createArr(size) {
     return arr;
 }
 
-let element = document.querySelector("#mergeSort");
-console.log(element);
+// let element = document.querySelector("#mergeSort");
+// console.log(element);
 
 var arr = createArr(10);
 var arr_size = 10;
 
-console.log(arr);
-element.innerHTML = "Given Array is: ";
-element.innerHTML += arr;
+console.log("Array: " + arr);
+// element.innerHTML = "Given Array is: ";
+// element.innerHTML += arr;
 
 mergeSort(arr, 0, arr_size - 1);
-
-element.innerHTML += "<br> Sorted Array is: ";
-element.innerHTML += arr;
+console.log("Sorted: " + arr);
+// element.innerHTML += "<br> Sorted Array is: ";
+// element.innerHTML += arr;
 
 
 
