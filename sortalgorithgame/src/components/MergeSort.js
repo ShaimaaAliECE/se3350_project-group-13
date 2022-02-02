@@ -64,15 +64,34 @@ function merge(arr, left, middle, right) {
     }
 }
 
+var step = 1;
 //mergeSort function to sort array
 function mergeSort(arr, left, right) {
+
     if (left >= right) {
         return; //returns recursively
     }
-    var m = left + parseInt((right - left) / 2);
-    mergeSort(arr, left, m);
-    mergeSort(arr, m + 1, right);
-    merge(arr, left, m, right);
+    var middle = left + parseInt((right - left) / 2);
+
+    console.log("Step: " + step);
+    for (var a = left; a <= middle; a++) {
+        console.log(arr[a]);
+    }
+    step++;
+    mergeSort(arr, left, middle);
+    console.log("Step: " + step);
+    for (var b = middle + 1; b <= right; b++) {
+        console.log(arr[b]);
+    }
+    step++;
+    mergeSort(arr, middle + 1, right);
+    
+    merge(arr, left, middle, right);
+    console.log("Step: " + step);
+    for (var c = left; c <= right; c++) {
+        console.log(arr[c]);
+    }
+    step++;
 }
 
 //create array with random numbers in range
@@ -84,20 +103,14 @@ function createArr(size) {
     return arr;
 }
 
-// let element = document.querySelector("#mergeSort");
-// console.log(element);
-
 var arr = createArr(10);
 var arr_size = 10;
 
 console.log("Array: " + arr);
-// element.innerHTML = "Given Array is: ";
-// element.innerHTML += arr;
 
 mergeSort(arr, 0, arr_size - 1);
 console.log("Sorted: " + arr);
-// element.innerHTML += "<br> Sorted Array is: ";
-// element.innerHTML += arr;
+
 
 
 
