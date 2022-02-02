@@ -1,9 +1,8 @@
-
 import React from "react";
 import App from "./App.js"
 import InvalidPath from "./components/InvalidPath.js";
 import Navbar from "./components/Navbar";
-import MergeSort from "./components/MergeSort.js";
+import MergeSort from "./components/MergeSort";
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
 
 //router component for switching between pages (views)
