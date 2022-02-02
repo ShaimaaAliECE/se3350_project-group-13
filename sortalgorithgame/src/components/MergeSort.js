@@ -12,7 +12,7 @@ export default function MergeSort() {
 
 }
 
-// Merges two subarrays of arr[].
+// Merges two subarrays of arr[]
 // First subarray is arr[l..m]
 // Second subarray is arr[m+1..r]
 function merge(arr, left, middle, right) {
@@ -29,8 +29,6 @@ function merge(arr, left, middle, right) {
     for (var j = 0; j < n2; j++)
         Right[j] = arr[middle + 1 + j];
 
-    // Merge the temp arrays back into arr[l..r]
-
     // Initial index of first subarray
     var i = 0;
     // Initial index of second subarray
@@ -38,6 +36,7 @@ function merge(arr, left, middle, right) {
     // Initial index of merged subarray
     var k = left;
 
+    // Merge the temp arrays back into arr[l..r]
     while (i < n1 && j < n2) {
         if (Left[i] <= Right[j]) {
             arr[k] = Left[i];
