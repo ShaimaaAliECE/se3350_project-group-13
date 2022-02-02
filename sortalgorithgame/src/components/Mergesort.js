@@ -2,7 +2,7 @@ import { React, useState } from 'react';
 import '../styles/Mergesort.css';
 
 export default function Mergesort() {
-    const arr = createArr(10);
+    const arr = createArr(5);
     // Array
     const [array, setArray] = useState(arr);
     // Step to walkthrough
