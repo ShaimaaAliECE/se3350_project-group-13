@@ -12,7 +12,7 @@ const Router = () => (
       <Switch>
         {/* redirect to home page */}
         <Route path="/" exact component={App} />
-
+  
 
         {/* redirect to NO MATCH page */}
         <Route component={InvalidPath} />
