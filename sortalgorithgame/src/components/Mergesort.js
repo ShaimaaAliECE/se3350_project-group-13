@@ -3,7 +3,6 @@ import '../styles/Mergesort.css';
 
 export default function Mergesort() {
     // Array
-    // let arr = [1, 2, 3, 4, 5];
     const [array, setArray] = useState([20,3,1,50,4]);
     // Step to walkthrough
     const [steps, setSteps] = useState(0);
@@ -12,9 +11,9 @@ export default function Mergesort() {
         return (
             <div className="array">
                 {
-                    array.map(element => {
+                    array.map((element, id) => {
                         return (
-                            <div className="elements">{element}</div>
+                            <div className="elements" key={id}>{element}</div>
                         );
                     })
                 }
@@ -22,29 +21,48 @@ export default function Mergesort() {
         );
     }
 
-    // Split array in half 
-    function splitArray(array){
+    function split(array){
         let counter = 0;
-        let arrayOne = [];
-        let arrayTwo = [];
+        let left = [];
+        let right = [];
         let halfIndex = Math.ceil(array.length/2);
         while(counter < array.length){
-            if(counter<halfIndex){
-                arrayOne.push(array[counter]);
+            if(array.length == 1){
+                return array;
+            }
+            else if(counter<halfIndex){
+                left.push(array[counter]);
             } else {
-                arrayTwo.push(array[counter]);
+                right.push(array[counter]);
             }
             counter++;
         }
+        return {left, right};
+    }
+
+    // Split array in half 
+    function Merge(array){
+        let arrayOne = split(array);
+        let arrayOneLeft = arrayOne.left;
+        let arrayOneRight = arrayOne.right;
+        
+        let arrayTwo = split(arrayOneLeft);
+        let arrayTwoLeft = arrayTwo.left;
+        let arrayTwoRight = arrayTwo.right;
+
+        let arrayThree = split(arrayOneRight);
+        let arrayThreeLeft = arrayThree.left;
+        let arrayThreeRight = arrayThree.right;
 
         return (
+            <div className="visual-container">
             <div className="split-container">
                 <div className="array" id="array-split-one">
                     {
                         /* Display arrayOne */
-                        arrayOne.map(element=>{
+                        arrayOneLeft.map((element, id)=>{
                             return (
-                                <div className="elements">{element}</div>
+                                <div className="elements" key={id}>{element}</div>
                             );
                         })
                     }
@@ -53,21 +71,76 @@ export default function Mergesort() {
                 <div className="array" id="array-split-two">
                     {
                         /* Display arrayTwo */
-                        arrayTwo.map(element=>{
+                        arrayOneRight.map((element, id)=>{
                             return (
-                                <div className="elements">{element}</div>
+                                <div className="elements" key={id}>{element}</div>
                             );
                         })
                     }
                 </div>
             </div>
+
+            <div className="split-container">
+                <div className="array" id="array-split-one">
+                    {
+                        /* Display arrayOne */
+                        arrayTwoLeft.map((element, id)=>{
+                            return (
+                                <div className="elements" key={id}>{element}</div>
+                            );
+                        })
+                    }
+                </div>
+
+                <div className="array" id="array-split-two">
+                    {
+                        /* Display arrayTwo */
+                        arrayTwoRight.map((element, id)=>{
+                            return (
+                                <div className="elements" key={id}>{element}</div>
+                            );
+                        })
+                    }
+                </div> 
+
+                <div className="array" id="array-split-three">
+                    {
+                        /* Display arrayOne */
+                        arrayThreeLeft.map((element, id)=>{
+                            return (
+                                <div className="elements" key={id}>{element}</div>
+                            );
+                        })
+                    }
+                </div>
+
+                <div className="array" id="array-split-four">
+                    {
+                        /* Display arrayTwo */
+                        arrayThreeRight.map((element, id)=>{
+                            return (
+                                <div className="elements" key={id}>{element}</div>
+                            );
+                        })
+                    }
+                </div> 
+            </div>
+            </div>
         );
     }
+
+    /*
+
+        - Non-recursive merge sort 
+        - Seperate splitting function so it can return both arrays 
+        - Function to display step by step?
+
+    */
 
     return (
         <div className="mergesort-container">
             {Array(array)}
-            {splitArray(array)}
+            {Merge(array)}
         </div>
     );
 }

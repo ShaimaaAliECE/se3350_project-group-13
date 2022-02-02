@@ -25,7 +25,14 @@
 }
 
 .split-container{
+    display:flex;
+    justify-content: space-around;
+}
+
+
+.visual-container{
     display: flex;
+    flex-direction: column;
 }
 
 #array-split-one{
@@ -33,5 +40,13 @@
 }
 
 #array-split-two{
+    margin:4rem 2rem 0rem 2rem;
+}
+
+#array-split-three{
+    margin:4rem 2rem 0rem 2rem;
+}
+
+#array-split-four{
     margin:4rem 2rem 0rem 2rem;
 }
