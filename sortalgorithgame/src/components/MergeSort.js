@@ -75,6 +75,7 @@ function mergeSort(arr, left, right) {
     merge(arr, left, m, right);
 }
 
+//create array with random numbers in range
 function createArr(size) {
     var arr = [];
     for (var i = 0; i < size; i++) {
