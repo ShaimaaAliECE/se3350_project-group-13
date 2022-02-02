@@ -3,21 +3,21 @@ import '../styles/Home.css';
 
 export default function Home() {
     return(
-        <div class="background">
+        <div className="background">
             <br></br>
-            <div class="ChooseAlgo">Choose a Sorting Algorithm</div>
+            <div className="ChooseAlgo">Choose a Sorting Algorithm</div>
             <br></br>
-            <a href = "/mergeSort" type = "button">Merge Sort</a>
+            <button className="btnDiv">Merge Sort</button>
             <br></br>
-            <button class="btnDiv">Level 2</button>
+            <button className="btnDiv">Level 2</button>
             <br></br>
-            <button class="btnDiv">Level 3</button>
+            <button className="btnDiv">Level 3</button>
             <br></br>
-            <button class="btnDiv">Level 4</button>
+            <button className="btnDiv">Level 4</button>
             <br></br>
-            <button class="btnDiv">Level 5</button>
+            <button className="btnDiv">Level 5</button>
             <br></br>
-            <button class="btnDiv">Level 6</button>
+            <button className="btnDiv">Level 6</button>
             <br></br>
         </div>
         
