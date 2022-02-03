@@ -3,6 +3,7 @@ import App from "./App.js"
 import InvalidPath from "./components/InvalidPath.js";
 import Navbar from "./components/Navbar";
 import MergeSort from './components/Mergesort';
+import LevlesPage from "./components/LevelsPage.js";
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
 
 //router component for switching between pages (views)
