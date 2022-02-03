@@ -7,7 +7,7 @@ export default function Home() {
             <br></br>
             <div className="ChooseAlgo" >Choose a Sorting Algorithm</div>
             <br></br>
-            <a href="/mergeSortLevels"><button className="btnDiv">Merge Sort</button></a>
+            <a href="/mergeSort-levels"><button className="btnDiv">Merge Sort</button></a>
             <br></br>
             <button className="btnDiv">Another Sort</button>
             <br></br>
