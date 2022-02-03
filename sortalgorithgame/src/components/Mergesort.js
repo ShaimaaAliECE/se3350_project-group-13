@@ -13,6 +13,7 @@ export default function Mergesort() {
     const [steps, setSteps] = useState(0);
     // Spawn initial array 
     function Array(array) {
+        if(steps==0){
         return (
             <div className="array">
                 {
@@ -23,7 +24,7 @@ export default function Mergesort() {
                     })
                 }
             </div>
-        );
+        );}
     }
 
     // Split the array in half then store in seperate arrays
@@ -73,7 +74,7 @@ export default function Mergesort() {
         // Left and right child of array 
         let arrayThreeLeft = arrayThree.left;
         let arrayThreeRight = arrayThree.right;
-
+        if(steps==1){
         return (
             <div className="visual-container">
                 <div className="split-container">
@@ -140,7 +141,7 @@ export default function Mergesort() {
                     </div>
                 </div>
             </div>
-        );
+        );}
     }
 
     // Merge and sort two arrays
@@ -177,7 +178,7 @@ export default function Mergesort() {
         let mergeSortedArrayTwo = mergeSort(arrayTwoLeft, arrayTwoRight);
         // Fully sorted array
         let mergeSortedArrayOne = mergeSort(arrayOneLeft, arrayOneRight);
-
+        if(steps==2){
         return (
             <div className="sort-container">
                 { array.length < 5 ?
@@ -217,13 +218,18 @@ export default function Mergesort() {
                     })}
                 </div>
             </div>
-        )
+        )}
     }
 
     return (
         <div className="mergesort-container">
             <br></br>
-            <button className="nxtBtnDiv">next step</button>
+            <button className="btnDiv" onClick={()=>{
+                steps == 2 ? setSteps(1): setSteps(0);
+            }}>previous step</button>
+            <button className="btnDiv" onClick={()=>{
+                steps == 0 ? setSteps(1): setSteps(2);    
+            }}>next step</button>
             <br></br>
             {Array(array)}
             {DisplaySplit(array)}
