@@ -3,7 +3,7 @@ import '../styles/Mergesort.css';
 
 export default function Mergesort() {
     // Array
-    const [array, setArray] = useState([20, 3, 1, 50, 21]);
+    const [array, setArray] = useState([20, 3, 1, 4, 23]);
     // Step to walkthrough
     const [steps, setSteps] = useState(0);
     // Spawn initial array 
@@ -113,7 +113,7 @@ export default function Mergesort() {
                             })
                         }
                     </div>
-
+                    
                     <div className="array" id="array-split-three">
                         {
                             arrayThreeLeft.map((element, id) => {
@@ -175,6 +175,9 @@ export default function Mergesort() {
 
         return (
             <div className="sort-container">
+                { array.length < 5 ?
+                null
+                :
                 <div className="elements-container">
                     {array.map((element, key) => {
                         return (
@@ -182,7 +185,7 @@ export default function Mergesort() {
                         );
                     })}
                 </div>
-
+                }
                 <div className="sorted-array">
                     <div className="inner-array">
                         {mergeSortedArrayTwo.map((element, key) => {
