@@ -13,9 +13,11 @@ export default function Mergesort() {
     const [steps, setSteps] = useState(0);
     // Spawn initial array 
     function Array(array) {
-        if(steps==0){
-        return (
+        return(
+            
             <div>
+                {steps === 0 ? 
+                <>
                 <div>
                     <label>
                         Here we have a randomized array.
@@ -32,10 +34,9 @@ export default function Mergesort() {
                     })
                 }
                 </div>
+                </> : null }
             </div>
-            
-            
-        );}
+        )
     }
 
     // Split the array in half then store in seperate arrays
@@ -85,9 +86,11 @@ export default function Mergesort() {
         // Left and right child of array 
         let arrayThreeLeft = arrayThree.left;
         let arrayThreeRight = arrayThree.right;
-        if(steps==1){
+        
         return (
             <div className="visual-container">
+                { steps === 1 ?
+                <>
                 <div>
                     <label>
                         [2] Below we have the array split in half.
@@ -114,7 +117,11 @@ export default function Mergesort() {
                         }
                     </div>
                 </div>
-                
+                </>
+                : null }
+
+                {steps === 2 ?
+                <>
                 <div>
                     <br>
                     </br>
@@ -166,8 +173,10 @@ export default function Mergesort() {
                         }
                     </div>
                 </div>
+                </>
+            : null }
             </div>
-        );}
+        );
     }
 
     // Merge and sort two arrays
@@ -204,9 +213,11 @@ export default function Mergesort() {
         let mergeSortedArrayTwo = mergeSort(arrayTwoLeft, arrayTwoRight);
         // Fully sorted array
         let mergeSortedArrayOne = mergeSort(arrayOneLeft, arrayOneRight);
-        if(steps==2){
+       
         return (
             <div className="sort-container">
+                {steps === 3 ?
+                <>
                 <div>
                     <label>
                         [4] Now we have the array split into individual pieces, which means it is ready to merge.
@@ -228,7 +239,11 @@ export default function Mergesort() {
                     })}
                 </div>
                 }
+                </>
+                : null }
 
+                {steps === 4 ?
+                <>
                 <div>
                     <br>
                     </br>
@@ -254,7 +269,11 @@ export default function Mergesort() {
                         })}
                     </div>
                 </div>
+                </>
+                : null}
 
+                {steps === 5 ?
+                <>
                 <div>
                     <br>
                     </br>
@@ -273,20 +292,32 @@ export default function Mergesort() {
                         )
                     })}
                 </div>
+                </>
+                : null}
             </div>
-        )}
+        )
+    }
+
+    // Next button onClick
+    function onClickNext(){
+        if(steps < 5 && steps >= 0){
+            setSteps(steps+1);
+        } 
+    }
+
+    // Previous button onClick
+    function onClickPrev(){
+        if(steps >= 1 && steps < 6){
+            setSteps(steps - 1);
+        }
     }
 
     return (
     
         <div className="mergesort-container">
             <br></br>
-            <button className="prevBtn" onClick={()=>{
-                steps == 2 ? setSteps(1): setSteps(0);
-            }}>previous step</button>
-            <button className="nextBtn" onClick={()=>{
-                steps == 0 ? setSteps(1): setSteps(2);    
-            }}>next step</button>
+            <button className="prevBtn" onClick={onClickPrev}>previous step</button>
+            <button className="nextBtn" onClick={onClickNext}>next step</button>
             <br></br>
             {Array(array)}
             {DisplaySplit(array)}
