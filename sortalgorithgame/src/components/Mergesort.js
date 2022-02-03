@@ -98,6 +98,19 @@ export default function Mergesort() {
                         }
                     </div>
                 </div>
+<<<<<<< Updated upstream
+=======
+                </>
+                : null }
+
+                {steps === 2 ?
+                <>
+                <div>
+                    <label>
+                        [3] However, since the size of the new split is still too big we must split it in half again.
+                    </label>
+                </div>
+>>>>>>> Stashed changes
 
                 <div className="split-container">
                     <div className="array" id="array-split-one">
@@ -181,6 +194,17 @@ export default function Mergesort() {
         if(steps==2){
         return (
             <div className="sort-container">
+<<<<<<< Updated upstream
+=======
+                {steps === 3 ?
+                <>
+                <div>
+                    <label>
+                        [4] Now we have the array split into individual pieces, which means it is ready to merge.
+                    </label>
+                </div>
+
+>>>>>>> Stashed changes
                 { array.length < 5 ?
                 null
                 :
@@ -192,6 +216,20 @@ export default function Mergesort() {
                     })}
                 </div>
                 }
+<<<<<<< Updated upstream
+=======
+                </>
+                : null }
+
+                {steps === 4 ?
+                <>
+                <div>
+                    <label>
+                        [5] There are now two seperate sorted arrays, which need one last merge.
+                    </label>
+                </div>
+
+>>>>>>> Stashed changes
                 <div className="sorted-array">
                     <div className="inner-array">
                         {mergeSortedArrayTwo.map((element, key) => {
@@ -209,6 +247,22 @@ export default function Mergesort() {
                         })}
                     </div>
                 </div>
+<<<<<<< Updated upstream
+=======
+                </>
+                : null}
+
+                {steps === 5 ?
+                <>
+                <div>
+                    <label>
+                        [6] And just like that, we've succesfully sorted the
+                        <br>
+                        </br>
+                        randomized array using the merge-sort algorithm!
+                    </label>
+                </div>
+>>>>>>> Stashed changes
 
                 <div className="inner-array">
                     {mergeSortedArrayOne.map((element, key) => {
