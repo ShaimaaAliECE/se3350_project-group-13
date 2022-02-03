@@ -2,7 +2,7 @@ import React from "react";
 import App from "./App.js"
 import InvalidPath from "./components/InvalidPath.js";
 import Navbar from "./components/Navbar";
-import MergeSort from './components/Mergesort';
+import MergeSort from './components/MergeSort';
 import LevlesPage from "./components/LevelsPage.js";
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
 
