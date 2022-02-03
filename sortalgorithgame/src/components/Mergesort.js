@@ -315,10 +315,10 @@ export default function Mergesort() {
     return (
     
         <div className="mergesort-container">
-            <br></br>
-            <button className="prevBtn" onClick={onClickPrev}>previous step</button>
-            <button className="nextBtn" onClick={onClickNext}>next step</button>
-            <br></br>
+            <div className="button-container">
+                <button className="prevBtn" onClick={onClickPrev}>previous step</button>
+                <button className="nextBtn" onClick={onClickNext}>next step</button>
+            </div>
             {Array(array)}
             {DisplaySplit(array)}
             {DisplayMergeSort(array)}
