@@ -15,7 +15,15 @@ export default function Mergesort() {
     function Array(array) {
         if(steps==0){
         return (
-            <div className="array">
+            <div>
+                <div>
+                    <label>
+                        Here we have a randomized array.
+                        <br></br>
+                        [1] The first step would be to split this unsorted-array in half.
+                    </label>
+                </div>
+                 <div className="array">
                 {
                     array.map((element, id) => {
                         return (
@@ -23,7 +31,10 @@ export default function Mergesort() {
                         );
                     })
                 }
+                </div>
             </div>
+            
+            
         );}
     }
 
@@ -77,6 +88,11 @@ export default function Mergesort() {
         if(steps==1){
         return (
             <div className="visual-container">
+                <div>
+                    <label>
+                        [2] Below we have the array split in half.
+                    </label>
+                </div>
                 <div className="split-container">
                     <div className="array" id="array-split-one">
                         {
@@ -97,6 +113,16 @@ export default function Mergesort() {
                             })
                         }
                     </div>
+                </div>
+                
+                <div>
+                    <br>
+                    </br>
+                    <br>
+                    </br>
+                    <label>
+                        [3] However, since the size of the new split is still too big we must split it in half again.
+                    </label>
                 </div>
 
                 <div className="split-container">
@@ -181,6 +207,16 @@ export default function Mergesort() {
         if(steps==2){
         return (
             <div className="sort-container">
+                <div>
+                    <label>
+                        [4] Now we have the array split into individual pieces, which means it is ready to merge.
+                    </label>
+                    <br>
+                    </br>
+                    <br>
+                    </br>
+                </div>
+
                 { array.length < 5 ?
                 null
                 :
@@ -192,6 +228,15 @@ export default function Mergesort() {
                     })}
                 </div>
                 }
+
+                <div>
+                    <br>
+                    </br>
+                    <label>
+                        [5] There are now two seperate sorted arrays, which need one last merge.
+                    </label>
+                </div>
+
                 <div className="sorted-array">
                     <div className="inner-array">
                         {mergeSortedArrayTwo.map((element, key) => {
@@ -208,6 +253,17 @@ export default function Mergesort() {
                             )
                         })}
                     </div>
+                </div>
+
+                <div>
+                    <br>
+                    </br>
+                    <label>
+                        [6] And just like that, we've succesfully sorted the
+                        <br>
+                        </br>
+                        randomized array using the merge-sort algorithm!
+                    </label>
                 </div>
 
                 <div className="inner-array">
