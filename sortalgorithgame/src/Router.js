@@ -14,6 +14,7 @@ const Router = () => (
       <Route path="/" exact component={App} />
 
       <Route path="/mergeSort" component={MergeSort} />
+      <Route path="/mergeSort-levels" component={LevlesPage} />
       {/* redirect to NO MATCH page */}
       <Route component={InvalidPath} />
 
