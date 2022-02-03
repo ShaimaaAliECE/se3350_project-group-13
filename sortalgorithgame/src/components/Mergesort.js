@@ -222,6 +222,9 @@ export default function Mergesort() {
 
     return (
         <div className="mergesort-container">
+            <br></br>
+            <button className="nxtBtnDiv">next step</button>
+            <br></br>
             {Array(array)}
             {DisplaySplit(array)}
             {DisplayMergeSort(array)}
