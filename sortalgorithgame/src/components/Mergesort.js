@@ -13,6 +13,7 @@ export default function Mergesort() {
     const [steps, setSteps] = useState(0);
     // Spawn initial array 
     function Array(array) {
+        if(steps==0){
         return (
             <div className="array">
                 {
@@ -23,7 +24,7 @@ export default function Mergesort() {
                     })
                 }
             </div>
-        );
+        );}
     }
 
     // Split the array in half then store in seperate arrays
@@ -223,7 +224,10 @@ export default function Mergesort() {
     return (
         <div className="mergesort-container">
             <br></br>
-            <button className="nxtBtnDiv" onClick={()=>{
+            <button className="btnDiv" onClick={()=>{
+                steps == 2 ? setSteps(1): setSteps(0);
+            }}>previous step</button>
+            <button className="btnDiv" onClick={()=>{
                 steps == 0 ? setSteps(1): setSteps(2);    
             }}>next step</button>
             <br></br>
