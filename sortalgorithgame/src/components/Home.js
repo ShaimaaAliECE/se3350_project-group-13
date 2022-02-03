@@ -13,8 +13,6 @@ export default function Home() {
             <br></br>
             <button className="btnDiv">...</button>
             <br></br>
-            
-
         </div>
 
     )
