@@ -1,3 +1,8 @@
+button:hover{
+  cursor: pointer;
+  filter: brightness(1.1);
+}
+
 .App {
   text-align: center;
 }
