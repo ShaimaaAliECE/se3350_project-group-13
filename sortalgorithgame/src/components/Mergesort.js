@@ -1,9 +1,14 @@
 import { React, useState } from 'react';
 import '../styles/Mergesort.css';
-
+//array constraints
+const min = 1;
+const max = 20;
+const len=10;
+//randomly generates array
+const arrayRandomGenerate = Array.from({length: len}, () => Math.floor((Math.random() * (max+1))+min));
 export default function Mergesort() {
-    // Array
-    const [array, setArray] = useState([20, 3, 1, 4, 23]);
+    // Array 
+    const [array, setArray] = useState(arrayRandomGenerate);
     // Step to walkthrough
     const [steps, setSteps] = useState(0);
     // Spawn initial array 
