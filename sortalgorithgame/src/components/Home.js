@@ -3,7 +3,7 @@ import '../styles/Home.css';
 
 export default function Home() {
     return (
-        <div class ="center">
+        <div className ="center">
             <br></br>
             <div className="ChooseAlgo" >Choose a Sorting Algorithm</div>
             <br></br>
@@ -12,7 +12,8 @@ export default function Home() {
             <button className="btnDiv">Another Sort</button>
             <br></br>
             <button className="btnDiv">...</button>
-        
+            <br></br>
+            
 
         </div>
 
