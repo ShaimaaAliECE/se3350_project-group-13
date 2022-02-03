@@ -3,7 +3,7 @@ import '../styles/Mergesort.css';
 
 export default function Mergesort() {
     // Array
-    const [array, setArray] = useState([20, 3, 1, 4, 23]);
+    const [array, setArray] = useState([2, 8, 20, 3, 1, 4, 20, 19, 10, 1]);
     // Step to walkthrough
     const [steps, setSteps] = useState(0);
     // Spawn initial array 
