@@ -222,12 +222,13 @@ export default function Mergesort() {
     }
 
     return (
+    
         <div className="mergesort-container">
             <br></br>
-            <button className="btnDiv" onClick={()=>{
+            <button className="prevBtn" onClick={()=>{
                 steps == 2 ? setSteps(1): setSteps(0);
             }}>previous step</button>
-            <button className="btnDiv" onClick={()=>{
+            <button className="nextBtn" onClick={()=>{
                 steps == 0 ? setSteps(1): setSteps(2);    
             }}>next step</button>
             <br></br>
