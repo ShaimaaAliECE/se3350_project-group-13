@@ -77,7 +77,6 @@
 }
 
 .sort-container {
-    margin-top: 3rem;
     text-align: center;
     justify-content: center;
     align-items: center;
@@ -92,7 +91,7 @@
 
 .inner-array {
     display: flex;
-    margin: 2rem;
+    margin: 4rem;
 }
 
 .sorted-array {
@@ -100,7 +99,7 @@
 }
 
 #initial-sort-elements {
-    margin: 0rem 2rem 2rem 2rem;
+    margin: 3rem 2rem 2rem 2rem;
 }
 
 #array-split-one {

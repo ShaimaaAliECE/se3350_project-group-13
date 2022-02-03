@@ -123,10 +123,6 @@ export default function Mergesort() {
                 {steps === 2 ?
                 <>
                 <div>
-                    <br>
-                    </br>
-                    <br>
-                    </br>
                     <label>
                         [3] However, since the size of the new split is still too big we must split it in half again.
                     </label>
@@ -222,10 +218,6 @@ export default function Mergesort() {
                     <label>
                         [4] Now we have the array split into individual pieces, which means it is ready to merge.
                     </label>
-                    <br>
-                    </br>
-                    <br>
-                    </br>
                 </div>
 
                 { array.length < 5 ?
@@ -245,8 +237,6 @@ export default function Mergesort() {
                 {steps === 4 ?
                 <>
                 <div>
-                    <br>
-                    </br>
                     <label>
                         [5] There are now two seperate sorted arrays, which need one last merge.
                     </label>
@@ -275,8 +265,6 @@ export default function Mergesort() {
                 {steps === 5 ?
                 <>
                 <div>
-                    <br>
-                    </br>
                     <label>
                         [6] And just like that, we've succesfully sorted the
                         <br>
