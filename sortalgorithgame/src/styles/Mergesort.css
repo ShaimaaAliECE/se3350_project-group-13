@@ -5,6 +5,14 @@
     margin-top: 4rem;
 }
 
+.answers {
+    box-sizing: border-box;
+    filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
+    display: flex;
+    size: 2vw;
+    margin: 2px;
+}
+
 .btnDiv {
     justify-content: left;
     border-radius: 10px;
@@ -38,6 +46,18 @@
     /* padding: 0.5%; */
     width: 130px;
     height: 40px;
+    color: white;
+    border: none;
+    filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
+}
+
+.submitBtn{
+    justify-content: left;
+    border-radius: 4px;
+    background-color: grey;
+    /* padding: 0.5%; */
+    width: 100px;
+    height: 30px;
     color: white;
     border: none;
     filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
@@ -91,11 +111,17 @@
 
 .inner-array {
     display: flex;
-    margin: 4rem;
+    margin-top: 4rem;
 }
 
 .sorted-array {
     display: flex;
+}
+
+.numField {
+    box-sizing: border-box;
+    width: 50px;
+    height: 30px;
 }
 
 #initial-sort-elements {

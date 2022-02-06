@@ -1,0 +1,6 @@
+{
+  "dependencies": {
+    "react-dnd": "^15.1.0",
+    "react-dnd-html5-backend": "^15.1.0"
+  }
+}

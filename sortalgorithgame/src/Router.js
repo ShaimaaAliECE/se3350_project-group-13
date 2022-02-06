@@ -5,6 +5,7 @@ import Navbar from "./components/Navbar";
 import MergeSort from './components/Mergesort';
 import LevlesPage from "./components/LevelsPage.js";
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
+import MergeSort_Lvl2 from "./components/Mergesort_Lvl2";
 
 //router component for switching between pages (views)
 const Router = () => (
@@ -17,6 +18,7 @@ const Router = () => (
       <Route path="/mergeSort" component={MergeSort} />
       <Route path="/mergeSort-levels" component={LevlesPage} />
       <Route path="/level-one" component={MergeSort} />
+      <Route path="/level-two" component={MergeSort_Lvl2}/>
       {/* redirect to NO MATCH page */}
       <Route component={InvalidPath} />
 

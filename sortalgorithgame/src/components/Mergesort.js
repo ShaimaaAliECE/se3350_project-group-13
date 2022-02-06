@@ -1,5 +1,6 @@
 import { React, useState } from 'react';
 import '../styles/Mergesort.css';
+
 //array constraints
 const min = 1;
 const max = 20;
@@ -12,9 +13,10 @@ export default function Mergesort() {
     // Step to walkthrough
     const [steps, setSteps] = useState(0);
     // Spawn initial array 
+
     function Array(array) {
+
         return(
-            
             <div>
                 {steps === 0 ? 
                 <>
