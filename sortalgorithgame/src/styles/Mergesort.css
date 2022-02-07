@@ -1,6 +1,16 @@
 .array {
     display: flex;
+    text-align: center;
+    justify-content: center;
     margin-top: 4rem;
+}
+
+.answers {
+    box-sizing: border-box;
+    filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
+    display: flex;
+    size: 2vw;
+    margin: 2px;
 }
 
 .btnDiv {
@@ -26,8 +36,7 @@
     border: 1px solid #555555;
     outline: 1px;
     filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
-    margin: 10px;
-    margin-left: -85vw;
+    margin: 2rem;
 }
 
 .nextBtn {
@@ -40,8 +49,18 @@
     color: white;
     border: none;
     filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
-    margin-top: -3.45vw;
-    margin-left: -65vw;
+}
+
+.submitBtn{
+    justify-content: left;
+    border-radius: 4px;
+    background-color: grey;
+    /* padding: 0.5%; */
+    width: 100px;
+    height: 30px;
+    color: white;
+    border: none;
+    filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
 }
 
 .elements {
@@ -78,7 +97,6 @@
 }
 
 .sort-container {
-    margin-top: 3rem;
     text-align: center;
     justify-content: center;
     align-items: center;
@@ -93,15 +111,21 @@
 
 .inner-array {
     display: flex;
-    margin: 2rem;
+    margin-top: 4rem;
 }
 
 .sorted-array {
     display: flex;
 }
 
+.numField {
+    box-sizing: border-box;
+    width: 50px;
+    height: 30px;
+}
+
 #initial-sort-elements {
-    margin: 0rem 2rem 2rem 2rem;
+    margin: 3rem 2rem 2rem 2rem;
 }
 
 #array-split-one {

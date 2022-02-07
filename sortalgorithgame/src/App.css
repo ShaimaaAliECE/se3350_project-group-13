@@ -1,6 +1,12 @@
+button:hover{
+  cursor: pointer;
+  filter: brightness(1.1);
+}
+
 .App {
   text-align: center;
 }
+
 
 .App-logo {
   height: 40vmin;
