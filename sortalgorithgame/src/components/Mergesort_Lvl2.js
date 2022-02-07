@@ -20,6 +20,7 @@ export default function MergeSort_Lvl2 (){
     new Mergesort_Lvl2(min, max, len, arrayRandomGenerate);
     const [array, setArray] = useState(arrayRandomGenerate);
     const [steps, setSteps] = useState(0);
+    let stepComplete = false;
 
     function Array(array) {
         return(
@@ -44,25 +45,61 @@ export default function MergeSort_Lvl2 (){
                 </div>
                 <br></br><br></br>
                 <div className="answers">
-                    <input type = "text" className = "numField" maxLength={2}></input>
-                    <input type = "text" className = "numField" maxLength={2}></input>
-                    <input type = "text" className = "numField" maxLength={2}></input>
-                    <input type = "text" className = "numField" maxLength={2}></input>
-                    <input type = "text" className = "numField" maxLength={2}></input>
+                    <input type = "text" className = "numField" maxLength={2} id="1idx1"></input>
+                    <input type = "text" className = "numField" maxLength={2} id="1idx2"></input>
+                    <input type = "text" className = "numField" maxLength={2} id="1idx3"></input>
+                    <input type = "text" className = "numField" maxLength={2} id="1idx4"></input>
+                    <input type = "text" className = "numField" maxLength={2} id="1idx5"></input>
                     <text>&nbsp;&nbsp;&nbsp;&nbsp;</text>
-                    <input type = "text" className = "numField" maxLength={2}></input>
-                    <input type = "text" className = "numField" maxLength={2}></input>
-                    <input type = "text" className = "numField" maxLength={2}></input>
-                    <input type = "text" className = "numField" maxLength={2}></input>
-                    <input type = "text" className = "numField" maxLength={2}></input>
+                    <input type = "text" className = "numField" maxLength={2} id="1idx6"></input>
+                    <input type = "text" className = "numField" maxLength={2} id="1idx7"></input>
+                    <input type = "text" className = "numField" maxLength={2} id="1idx8"></input>
+                    <input type = "text" className = "numField" maxLength={2} id="1idx9"></input>
+                    <input type = "text" className = "numField" maxLength={2} id="1idx10"></input>
                 </div>
                 <br></br>
                 <div>
-                    <button className = "submitBtn" id = "btn">Check</button>
+                    <button className = "submitBtn" id = "btn" onClick = {check1}>Check</button>
+                </div>
+                <br></br>
+                <div id="incorrect1">
                 </div>
                 </> : null }
             </div>
+            
         )
+
+        // Check if correct
+        function check1() {
+            let incorrect = 0;
+            for (let i = 1 ; i < array.length+1 ; i++) {
+                // Gets input values through for loop
+                let inputValue = document.getElementById("1idx"+i).value
+                if (inputValue==array[i-1]) {
+                }
+                // If value is out of place, add one to the incorrect score
+                else {
+                    console.log("Incorrect.")
+                    incorrect++;
+                }
+            }
+            // If flawless, send correct message
+            if (incorrect == 0) {
+                console.log("Correct.")
+                document.getElementById('incorrect1').innerHTML = "Correct! Move on to the next step."
+                // Allows to move to next step
+                stepComplete = true;
+            }
+            // If incorrect, print how many incorrect
+            else {
+                if (incorrect == 1) {
+                    document.getElementById('incorrect1').innerHTML = "You have " + incorrect + " number out of place."
+                }
+                else {
+                    document.getElementById('incorrect1').innerHTML = "You have " + incorrect + " numbers out of place."
+                }
+            }
+        }
     }
 
     // Split the array in half then store in seperate arrays
@@ -148,23 +185,26 @@ export default function MergeSort_Lvl2 (){
                 <br></br><br></br>
                 <div className="answers">
                     <text>&nbsp;&nbsp;</text>
-                    <input type = "text" className = "numField" maxLength={2}></input>
-                    <input type = "text" className = "numField" maxLength={2}></input>
-                    <input type = "text" className = "numField" maxLength={2}></input>
+                    <input type = "text" className = "numField" maxLength={2} id ="2idx1"></input>
+                    <input type = "text" className = "numField" maxLength={2} id ="2idx2"></input>
+                    <input type = "text" className = "numField" maxLength={2} id ="2idx3"></input>
                     <text>&nbsp;&nbsp;&nbsp;&nbsp;</text>
-                    <input type = "text" className = "numField" maxLength={2}></input>
-                    <input type = "text" className = "numField" maxLength={2}></input>
+                    <input type = "text" className = "numField" maxLength={2} id ="2idx4"></input>
+                    <input type = "text" className = "numField" maxLength={2} id ="2idx5"></input>
                     <text>&nbsp;&nbsp;&nbsp;&nbsp;</text>
-                    <input type = "text" className = "numField" maxLength={2}></input>
-                    <input type = "text" className = "numField" maxLength={2}></input>
-                    <input type = "text" className = "numField" maxLength={2}></input>
+                    <input type = "text" className = "numField" maxLength={2} id ="2idx6"></input>
+                    <input type = "text" className = "numField" maxLength={2} id ="2idx7"></input>
+                    <input type = "text" className = "numField" maxLength={2} id ="2idx8"></input>
                     <text>&nbsp;&nbsp;&nbsp;&nbsp;</text>
-                    <input type = "text" className = "numField" maxLength={2}></input>
-                    <input type = "text" className = "numField" maxLength={2}></input>
+                    <input type = "text" className = "numField" maxLength={2} id ="2idx9"></input>
+                    <input type = "text" className = "numField" maxLength={2} id ="2idx10"></input>
                 </div>
                 <br></br>
                 <div>
-                    <button className = "submitBtn" id = "btn">Check</button>
+                    <button className = "submitBtn" id = "btn" onClick={check2}>Check</button>
+                </div>
+                <br></br>
+                <div id="incorrect2">
                 </div>
                 </>
                 : null }
@@ -221,34 +261,101 @@ export default function MergeSort_Lvl2 (){
                 <br></br><br></br>
                 <div className="answers">
                     <text>&nbsp;&nbsp;</text>
-                    <input type = "text" className = "numField" maxLength={2}></input>
+                    <input type = "text" className = "numField" maxLength={2} id ="3idx1"></input>
                     <text>&nbsp;&nbsp;&nbsp;&nbsp;</text>
-                    <input type = "text" className = "numField" maxLength={2}></input>
+                    <input type = "text" className = "numField" maxLength={2} id ="3idx2"></input>
                     <text>&nbsp;&nbsp;&nbsp;&nbsp;</text>
-                    <input type = "text" className = "numField" maxLength={2}></input>
+                    <input type = "text" className = "numField" maxLength={2} id ="3idx3"></input>
                     <text>&nbsp;&nbsp;&nbsp;&nbsp;</text>
-                    <input type = "text" className = "numField" maxLength={2}></input>
+                    <input type = "text" className = "numField" maxLength={2} id ="3idx4"></input>
                     <text>&nbsp;&nbsp;&nbsp;&nbsp;</text>
-                    <input type = "text" className = "numField" maxLength={2}></input>
+                    <input type = "text" className = "numField" maxLength={2} id ="3idx5"></input>
                     <text>&nbsp;&nbsp;&nbsp;&nbsp;</text>
-                    <input type = "text" className = "numField" maxLength={2}></input>
+                    <input type = "text" className = "numField" maxLength={2} id ="3idx6"></input>
                     <text>&nbsp;&nbsp;&nbsp;&nbsp;</text>
-                    <input type = "text" className = "numField" maxLength={2}></input>
+                    <input type = "text" className = "numField" maxLength={2} id ="3idx7"></input>
                     <text>&nbsp;&nbsp;&nbsp;&nbsp;</text>
-                    <input type = "text" className = "numField" maxLength={2}></input>
+                    <input type = "text" className = "numField" maxLength={2} id ="3idx8"></input>
                     <text>&nbsp;&nbsp;&nbsp;&nbsp;</text>
-                    <input type = "text" className = "numField" maxLength={2}></input>
+                    <input type = "text" className = "numField" maxLength={2} id ="3idx9"></input>
                     <text>&nbsp;&nbsp;&nbsp;&nbsp;</text>
-                    <input type = "text" className = "numField" maxLength={2}></input>
+                    <input type = "text" className = "numField" maxLength={2} id ="3idx10"></input>
                 </div>
                 <br></br>
                 <div>
-                    <button className = "submitBtn" id = "btn">Check</button>
+                    <button className = "submitBtn" id = "btn" onClick={check3}>Check</button>
+                    </div>
+                <br></br>
+                <div id="incorrect3">
                 </div>
                 </>
             : null }
             </div>
         );
+
+        // Check if second step is correct
+        function check2() {
+            let incorrect = 0;
+            for (let i = 1 ; i < array.length+1 ; i++) {
+                // Gets input values through for loop
+                let inputValue = document.getElementById("2idx"+i).value
+                if (inputValue==array[i-1]) {
+                }
+                // If value is out of place, add one to the incorrect score
+                else {
+                    console.log("Incorrect.")
+                    incorrect++;
+                }
+            }
+            // If flawless, send correct message
+            if (incorrect == 0) {
+                console.log("Correct.")
+                document.getElementById('incorrect2').innerHTML = "Correct! Move on to the next step."
+                // Allows to move to next step
+                stepComplete = true;
+            }
+            // If incorrect, print how many incorrect
+            else {
+                if (incorrect == 1) {
+                    document.getElementById('incorrect2').innerHTML = "You have " + incorrect + " number out of place."
+                }
+                else {
+                    document.getElementById('incorrect2').innerHTML = "You have " + incorrect + " numbers out of place."
+                }
+            }
+        }
+
+        // Check if third step is correct
+        function check3() {
+            let incorrect = 0;
+            for (let i = 1 ; i < array.length+1 ; i++) {
+                // Gets input values through for loop
+                let inputValue = document.getElementById("3idx"+i).value
+                if (inputValue==array[i-1]) {
+                }
+                // If value is out of place, add one to the incorrect score
+                else {
+                    console.log("Incorrect.")
+                    incorrect++;
+                }
+            }
+            // If flawless, send correct message
+            if (incorrect == 0) {
+                console.log("Correct.")
+                document.getElementById('incorrect3').innerHTML = "Correct! Move on to the next step."
+                // Allows to move to next step
+                stepComplete = true;
+            }
+            // If incorrect, print how many incorrect
+            else {
+                if (incorrect == 1) {
+                    document.getElementById('incorrect3').innerHTML = "You have " + incorrect + " number out of place."
+                }
+                else {
+                    document.getElementById('incorrect3').innerHTML = "You have " + incorrect + " numbers out of place."
+                }
+            }
+        }
     }
 
     // Merge and sort two arrays
@@ -293,6 +400,8 @@ export default function MergeSort_Lvl2 (){
                 <div>
                     <label>
                         [4] Now we have the array split into individual pieces, which means it is ready to merge.
+                        <br></br>
+                        Merge the array back, sorting them into two seperate halves.
                     </label>
                 </div>
 
@@ -309,21 +418,24 @@ export default function MergeSort_Lvl2 (){
                 }
                 <br></br>
                 <div className="answers">
-                    <input type = "text" className = "numField" maxLength={2}></input>
-                    <input type = "text" className = "numField" maxLength={2}></input>
-                    <input type = "text" className = "numField" maxLength={2}></input>
-                    <input type = "text" className = "numField" maxLength={2}></input>
-                    <input type = "text" className = "numField" maxLength={2}></input>
+                    <input type = "text" className = "numField" maxLength={2} id ="4idx1"></input>
+                    <input type = "text" className = "numField" maxLength={2} id ="4idx2"></input>
+                    <input type = "text" className = "numField" maxLength={2} id ="4idx3"></input>
+                    <input type = "text" className = "numField" maxLength={2} id ="4idx4"></input>
+                    <input type = "text" className = "numField" maxLength={2} id ="4idx5"></input>
                     <text>&nbsp;&nbsp;&nbsp;&nbsp;</text>
-                    <input type = "text" className = "numField" maxLength={2}></input>
-                    <input type = "text" className = "numField" maxLength={2}></input>
-                    <input type = "text" className = "numField" maxLength={2}></input>
-                    <input type = "text" className = "numField" maxLength={2}></input>
-                    <input type = "text" className = "numField" maxLength={2}></input>
+                    <input type = "text" className = "numField" maxLength={2} id ="4idx6"></input>
+                    <input type = "text" className = "numField" maxLength={2} id ="4idx7"></input>
+                    <input type = "text" className = "numField" maxLength={2} id ="4idx8"></input>
+                    <input type = "text" className = "numField" maxLength={2} id ="4idx9"></input>
+                    <input type = "text" className = "numField" maxLength={2} id ="4idx10"></input>
                 </div>
                 <br></br>
                 <div>
-                    <button className = "submitBtn" id = "btn">Check</button>
+                    <button className = "submitBtn" id = "btn" onClick={check4}>Check</button>
+                </div>
+                <br></br>
+                <div id="incorrect4">
                 </div>
                 </>
                 : null }
@@ -333,6 +445,8 @@ export default function MergeSort_Lvl2 (){
                 <div>
                     <label>
                         [5] There are now two seperate sorted arrays, which need one last merge.
+                        <br></br>
+                        Merge the array back, sorting them from smallest to largest.
                     </label>
                 </div>
 
@@ -355,20 +469,23 @@ export default function MergeSort_Lvl2 (){
                 </div>
                 <br></br><br></br>
                 <div className="answers">
-                    <input type = "text" className = "numField" maxLength={2}></input>
-                    <input type = "text" className = "numField" maxLength={2}></input>
-                    <input type = "text" className = "numField" maxLength={2}></input>
-                    <input type = "text" className = "numField" maxLength={2}></input>
-                    <input type = "text" className = "numField" maxLength={2}></input>
-                    <input type = "text" className = "numField" maxLength={2}></input>
-                    <input type = "text" className = "numField" maxLength={2}></input>
-                    <input type = "text" className = "numField" maxLength={2}></input>
-                    <input type = "text" className = "numField" maxLength={2}></input>
-                    <input type = "text" className = "numField" maxLength={2}></input>
+                    <input type = "text" className = "numField" maxLength={2} id ="5idx1"></input>
+                    <input type = "text" className = "numField" maxLength={2} id ="5idx2"></input>
+                    <input type = "text" className = "numField" maxLength={2} id ="5idx3"></input>
+                    <input type = "text" className = "numField" maxLength={2} id ="5idx4"></input>
+                    <input type = "text" className = "numField" maxLength={2} id ="5idx5"></input>
+                    <input type = "text" className = "numField" maxLength={2} id ="5idx6"></input>
+                    <input type = "text" className = "numField" maxLength={2} id ="5idx7"></input>
+                    <input type = "text" className = "numField" maxLength={2} id ="5idx8"></input>
+                    <input type = "text" className = "numField" maxLength={2} id ="5idx9"></input>
+                    <input type = "text" className = "numField" maxLength={2} id ="5idx10"></input>
                 </div>
                 <br></br>
                 <div>
-                    <button className = "submitBtn" id = "btn">Check</button>
+                    <button className = "submitBtn" id = "btn" onClick={check5}>Check</button>
+                </div>
+                <br></br>
+                <div id="incorrect5">
                 </div>
                 </>
                 : null}
@@ -395,12 +512,103 @@ export default function MergeSort_Lvl2 (){
                 : null}
             </div>
         )
+        
+        // Check if fourth step is correct
+        function check4() {
+            console.log("test")
+            let incorrect = 0;
+            for (let i = 1 ; i < mergeSortedArrayTwo.length+1 ; i++) {
+                // Gets input values through for loop
+                let inputValue = document.getElementById("4idx"+i).value
+                if (inputValue==mergeSortedArrayTwo[i-1]) {
+                }
+                // If value is out of place, add one to the incorrect score
+                else {
+                    console.log("Incorrect.")
+                    incorrect++;
+                }
+            }
+            for (let i = 6 ; i < mergeSortedArrayThree.length+6 ; i++) {
+                // Gets input values through for loop
+                let inputValue = document.getElementById("4idx"+i).value
+                if (inputValue==mergeSortedArrayThree[i-6]) {
+                }
+                // If value is out of place, add one to the incorrect score
+                else {
+                    console.log("Incorrect.")
+                    incorrect++;
+                }
+            }
+            // If flawless, send correct message
+            if (incorrect == 0) {
+                console.log("Correct.")
+                document.getElementById('incorrect4').innerHTML = "Correct! Move on to the next step."
+                // Allows to move to next step
+                stepComplete = true;
+            }
+            // If incorrect, print how many incorrect
+            else {
+                if (incorrect == 1) {
+                    document.getElementById('incorrect4').innerHTML = "You have " + incorrect + " number out of place."
+                }
+                else {
+                    document.getElementById('incorrect4').innerHTML = "You have " + incorrect + " numbers out of place."
+                }
+            }
+        }
+
+        // Check if fifth step is correct
+        function check5() {
+            let incorrect = 0;
+            for (let i = 1 ; i < mergeSortedArrayOne.length+1 ; i++) {
+                // Gets input values through for loop
+                let inputValue = document.getElementById("5idx"+i).value
+                if (inputValue==mergeSortedArrayOne[i-1]) {
+                }
+                // If value is out of place, add one to the incorrect score
+                else {
+                    console.log("Incorrect.")
+                    incorrect++;
+                }
+            }
+            // If flawless, send correct message
+            if (incorrect == 0) {
+                console.log("Correct.")
+                document.getElementById('incorrect5').innerHTML = "Correct! Move on to the next step."
+                // Allows to move to next step
+                stepComplete = true;
+            }
+            // If incorrect, print how many incorrect
+            else {
+                if (incorrect == 1) {
+                    document.getElementById('incorrect5').innerHTML = "You have " + incorrect + " number out of place."
+                }
+                else {
+                    document.getElementById('incorrect5').innerHTML = "You have " + incorrect + " numbers out of place."
+                }
+            }
+        }
     }
 
-    // Next button onClick
+    /* Next button onClick NO RESTRICTION
     function onClickNext(){
         if(steps < 5 && steps >= 0){
             setSteps(steps+1);
+        } 
+    }
+    */
+
+    // Next step ONLY IF current step is completed
+    function onClickNext(){
+        if(steps < 5 && steps >= 0){
+            if (stepComplete==true) {
+                setSteps(steps+1);
+                stepComplete = false;
+            }
+            else {
+                console.log("Incomplete step")
+                document.getElementById("incorrect"+(steps+1)).innerHTML = "Not so fast, you must complete this step before moving forward."
+            }
         } 
     }
 
