@@ -1,6 +1,10 @@
 import Mergesort from "./Mergesort"
 import { React, useState } from 'react';
 import '../styles/Mergesort.css';
+import correctSFX from '../sounds/correct.mp3'
+import incorrectSFX from '../sounds/incorrect.mp3'
+import stuckSFX from '../sounds/boom.mp3'
+import applauseSFX from '../sounds/applause.mp3'
 
 const min = 1;
 const max = 20;
@@ -15,6 +19,35 @@ class Mergesort_Lvl2 extends Mergesort {
         this.arrayRandomGenerate = arrayRandomGenerate;
     }
 }
+
+// Correct Sound Effect
+function correctSound() {
+    var cS = new Audio(correctSFX)
+    cS.volume = 0.05;
+    cS.play();
+}
+
+// Incorrect Sound Effect
+function incorrectSound() {
+    var iS = new Audio(incorrectSFX)
+    iS.volume = 0.05;
+    iS.play();
+}
+
+// Stuck Sound Effect
+function stuckSound() {
+    var sS = new Audio(stuckSFX)
+    sS.volume = 0.05;
+    sS.play();
+}
+
+// Applause Sound Effect
+function applauseSound() {
+    var aS = new Audio(applauseSFX)
+    aS.volume = 0.05;
+    aS.play();
+}
+
 
 export default function MergeSort_Lvl2 (){
     new Mergesort_Lvl2(min, max, len, arrayRandomGenerate);
@@ -86,12 +119,14 @@ export default function MergeSort_Lvl2 (){
             // If flawless, send correct message
             if (incorrect == 0) {
                 console.log("Correct.")
+                correctSound();
                 document.getElementById('incorrect1').innerHTML = "Correct! Move on to the next step."
                 // Allows to move to next step
                 stepComplete = true;
             }
             // If incorrect, print how many incorrect
             else {
+                incorrectSound();
                 if (incorrect == 1) {
                     document.getElementById('incorrect1').innerHTML = "You have " + incorrect + " number out of place."
                 }
@@ -310,12 +345,14 @@ export default function MergeSort_Lvl2 (){
             // If flawless, send correct message
             if (incorrect == 0) {
                 console.log("Correct.")
+                correctSound();
                 document.getElementById('incorrect2').innerHTML = "Correct! Move on to the next step."
                 // Allows to move to next step
                 stepComplete = true;
             }
             // If incorrect, print how many incorrect
             else {
+                incorrectSound();
                 if (incorrect == 1) {
                     document.getElementById('incorrect2').innerHTML = "You have " + incorrect + " number out of place."
                 }
@@ -342,12 +379,14 @@ export default function MergeSort_Lvl2 (){
             // If flawless, send correct message
             if (incorrect == 0) {
                 console.log("Correct.")
+                correctSound();
                 document.getElementById('incorrect3').innerHTML = "Correct! Move on to the next step."
                 // Allows to move to next step
                 stepComplete = true;
             }
             // If incorrect, print how many incorrect
             else {
+                incorrectSound();
                 if (incorrect == 1) {
                     document.getElementById('incorrect3').innerHTML = "You have " + incorrect + " number out of place."
                 }
@@ -503,6 +542,7 @@ export default function MergeSort_Lvl2 (){
 
                 <div className="inner-array">
                     {mergeSortedArrayOne.map((element, key) => {
+                        applauseSound();
                         return (
                             <div className="elements" key={key}>{element}</div>
                         )
@@ -541,6 +581,7 @@ export default function MergeSort_Lvl2 (){
             }
             // If flawless, send correct message
             if (incorrect == 0) {
+                correctSound();
                 console.log("Correct.")
                 document.getElementById('incorrect4').innerHTML = "Correct! Move on to the next step."
                 // Allows to move to next step
@@ -548,6 +589,7 @@ export default function MergeSort_Lvl2 (){
             }
             // If incorrect, print how many incorrect
             else {
+                incorrectSound();
                 if (incorrect == 1) {
                     document.getElementById('incorrect4').innerHTML = "You have " + incorrect + " number out of place."
                 }
@@ -574,12 +616,14 @@ export default function MergeSort_Lvl2 (){
             // If flawless, send correct message
             if (incorrect == 0) {
                 console.log("Correct.")
+                correctSound();
                 document.getElementById('incorrect5').innerHTML = "Correct! Move on to the next step."
                 // Allows to move to next step
                 stepComplete = true;
             }
             // If incorrect, print how many incorrect
             else {
+                incorrectSound();
                 if (incorrect == 1) {
                     document.getElementById('incorrect5').innerHTML = "You have " + incorrect + " number out of place."
                 }
@@ -607,6 +651,7 @@ export default function MergeSort_Lvl2 (){
             }
             else {
                 console.log("Incomplete step")
+                stuckSound();
                 document.getElementById("incorrect"+(steps+1)).innerHTML = "Not so fast, you must complete this step before moving forward."
             }
         } 
