@@ -23,36 +23,8 @@ function merge(left, right) {
 }
 
 
-let stepsarr = [[[1,2,5,6,6,7,2,1,2,5,6,7,3,2,2,5,6,7,2,3,4,5,6]]];
-
-function merges(array, depth = 0) {
-    const half = array.length / 2
-
-    // Base case or terminating case
-    
-    if (array.length < 2) {
-        return array
-    }
-
-    const left = array.splice(0, half)
-    if (stepsarr[depth] === undefined) {
-        stepsarr[depth] = [];
-    }
-    
-    stepsarr[depth].push([...left])
-    stepsarr[depth].push([...array])
-
-    let merged = merge(mergeSort(left, depth + 1), mergeSort(array, depth + 1));
-
-
-    if (stepsarr[8 -depth] === undefined) {
-        stepsarr[ 8 -depth] = [];
-    }
-    stepsarr[8 -depth].push([...merged]);
-    return merged;
-}
-
-
+let stepsarr = [[[1,2,5,6,6,7,2,2,5,6,7,2]]];
+mergeSort();
 function mergeSort(array){ 
 
 
@@ -84,30 +56,27 @@ function mergeSort(array){
             stepsarr.push(newSubStep);
         }
     }
-
-    //merge
     
     let stepsarrReverse = [...stepsarr].reverse(); //copy
 
+
     let prevstep = [...stepsarr[stepsarr.length-1]];
-    console.log(stepsarr[stepsarr.length-1]);
+   // console.log(stepsarr[stepsarr.length-1]);
 
 
     for (let step of stepsarrReverse) {
 
-
         let num = 0;
         let newSubStep = [];
         for (let substep of step) {
-            if (substep.length == 1) {
+            if (substep.length == prevstep[num].length) {
                 newSubStep.push(prevstep[num]);
                 num++;
-            } else {
+            } else if (substep.length == prevstep[num].length + prevstep[num+1].length) {
                 newSubStep.push(merge([...prevstep[num]], [...prevstep[num + 1]]));
                 num += 2;
             }
         }
-//        console.log(newSubStep)
 
         prevstep = newSubStep;
 
@@ -115,6 +84,12 @@ function mergeSort(array){
 
     }
 
+    //remove middle elements
+
+    let mid = stepsarr.length/2
+
+    stepsarr.splice(mid-1, 1)
+    stepsarr.splice (mid-1, 1);
 
 
 
@@ -128,8 +103,6 @@ class Mergesort extends React.Component {
     }
 
     render() {
-        mergeSort([1,5,2,3,5, 2,5,6 , 7])
-
        // console.log(stepsarr)
 
         return (
