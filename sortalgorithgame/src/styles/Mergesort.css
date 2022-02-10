@@ -1,0 +1,145 @@
+.array {
+    display: flex;
+    text-align: center;
+    justify-content: center;
+    margin-top: 4rem;
+}
+
+.answers {
+    box-sizing: border-box;
+    filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
+    display: flex;
+    size: 2vw;
+    margin: 2px;
+}
+
+.btnDiv {
+    justify-content: left;
+    border-radius: 10px;
+    background-color: #555555;
+    width: 15%;
+    height: 15%;
+    color: white;
+    font-size: 17px;
+    padding: 2%;
+    margin: 10px;
+    border: none;
+    filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
+}
+
+.prevBtn {
+    align-content: left;
+    border-radius: 4px;
+    background-color: white;
+    width: 130px;
+    height: 40px;
+    border: 1px solid #555555;
+    outline: 1px;
+    filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
+    margin: 2rem;
+}
+
+.nextBtn {
+    justify-content: left;
+    border-radius: 4px;
+    background-color: #555555;
+    /* padding: 0.5%; */
+    width: 130px;
+    height: 40px;
+    color: white;
+    border: none;
+    filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
+}
+
+.submitBtn{
+    justify-content: left;
+    border-radius: 4px;
+    background-color: grey;
+    /* padding: 0.5%; */
+    width: 100px;
+    height: 30px;
+    color: white;
+    border: none;
+    filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
+}
+
+.elements {
+    font-size: 1rem;
+    width: 2vw;
+    height: 2vw;
+    border: 1px solid black;
+    border-radius: 0.25rem;
+    display: flex;
+    margin: 0.15rem;
+    align-items: center;
+    justify-content: center;
+    padding: 0.1rem;
+    box-shadow: 2px 2px 1px 0.5px rgba(0, 0, 0, 0.5);
+}
+
+.mergesort-container {
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+}
+
+.split-container {
+    display: flex;
+    justify-content: space-around;
+}
+
+
+.visual-container {
+    display: flex;
+    flex-direction: column;
+}
+
+.sort-container {
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+}
+
+.elements-container {
+    display: flex;
+    margin-top: 1rem;
+}
+
+.inner-array {
+    display: flex;
+    margin-top: 4rem;
+}
+
+.sorted-array {
+    display: flex;
+}
+
+.numField {
+    box-sizing: border-box;
+    width: 50px;
+    height: 30px;
+}
+
+#initial-sort-elements {
+    margin: 3rem 2rem 2rem 2rem;
+}
+
+#array-split-one {
+    margin: 4rem 2rem 0rem 2rem;
+}
+
+#array-split-two {
+    margin: 4rem 2rem 0rem 2rem;
+}
+
+#array-split-three {
+    margin: 4rem 2rem 0rem 2rem;
+}
+
+#array-split-four {
+    margin: 4rem 2rem 0rem 2rem;
+}

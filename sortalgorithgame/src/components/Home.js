@@ -2,25 +2,18 @@ import React from "react";
 import '../styles/Home.css';
 
 export default function Home() {
-    return(
-        <body class="background">
-            <h1>Home Screen</h1>
+    return (
+        <div className ="center">
             <br></br>
-            <div class="ChooseAlgo">Choose a Sorting Algorithm</div>
+            <div className="ChooseAlgo" >Choose a Sorting Algorithm</div>
             <br></br>
-            <button class="btnDiv">Merge Sort</button>
+            <a href="/mergeSort-levels"><button className="btnDiv">Merge Sort</button></a>
             <br></br>
-            <button class="btnDiv">Level 2</button>
+            <button className="btnDiv">Another Sort</button>
             <br></br>
-            <button class="btnDiv">Level 3</button>
+            <button className="btnDiv">...</button>
             <br></br>
-            <button class="btnDiv">Level 4</button>
-            <br></br>
-            <button class="btnDiv">Level 5</button>
-            <br></br>
-            <button class="btnDiv">Level 6</button>
-            <br></br>
-        </body>
-        
+        </div>
+
     )
 }
