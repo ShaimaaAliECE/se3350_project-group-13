@@ -9,7 +9,7 @@ import applauseSFX from '../sounds/applause.mp3'
 const min = 1;
 const max = 20;
 const len = 10;
-const arrayRandomGenerate = Array.from({length: len}, () => Math.floor((Math.random() * (max+1))+min));
+const arrayRandomGenerate = Array.from({length: len}, () => Math.floor((Math.random() * (max))+min));
 
 class Mergesort_Lvl2 extends Mergesort {
     Mergesort_lvl2 (min, max, len, arrayRandomGenerate) {
