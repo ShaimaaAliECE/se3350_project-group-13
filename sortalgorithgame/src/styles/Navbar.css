@@ -26,3 +26,9 @@
 .bar li a:hover {
     background-color: #111;
   }
+
+.login-profile-nav{
+  text-align: right;
+  margin-right:1rem;
+  color: #fff;
+}

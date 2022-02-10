@@ -129,7 +129,6 @@ export default function Mergesort() {
                         [3] However, since the size of the new split is still too big we must split it in half again.
                     </label>
                 </div>
-
                 <div className="split-container">
                     <div className="array" id="array-split-one">
                         {
