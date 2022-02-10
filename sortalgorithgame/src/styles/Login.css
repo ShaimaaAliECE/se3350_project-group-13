@@ -22,7 +22,7 @@
 }
 
 
-input[type=submit] {
+.login-input[type=submit] {
     padding: 5px 15px;
     background: #ccc;
     border: 0 none;
@@ -32,7 +32,7 @@ input[type=submit] {
     margin-top: 15px;
 }
 
-input[type=text] {
+.login-input[type=text] {
     padding: 5px 15px;
     border: 0 none;
     -webkit-border-radius: 5px;
@@ -40,7 +40,7 @@ input[type=text] {
     margin-top: 20px;
 }
 
-input[type=password] {
+.login-input[type=password] {
     padding: 5px 15px;
     border: 0 none;
     -webkit-border-radius: 5px;

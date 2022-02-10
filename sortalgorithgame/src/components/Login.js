@@ -50,9 +50,9 @@ export default function Login() {
                 <h1>Login</h1>
                 <div className="login-window-align">
                     <form action="">
-                        <input onChange={onChangeUsername} type="text" id="username" name="username" placeholder="Username"></input><br></br>
-                        <input onChange={onChangePassword} type="password" id="password" name="password" placeholder="Password"></input><br></br>
-                        <input onClick={login} type="submit" value="Login"></input>
+                        <input onChange={onChangeUsername} className = "login-input" type="text" id="username" name="username" placeholder="Username"></input><br></br>
+                        <input onChange={onChangePassword} className = "login-input" type="password" id="password" name="password" placeholder="Password"></input><br></br>
+                        <input onClick={login} className = "login-input" type="submit" value="Login"></input>
                     </form>
                 </div>
             </div>
