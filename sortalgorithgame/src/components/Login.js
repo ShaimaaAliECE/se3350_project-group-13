@@ -1,6 +1,5 @@
 import {React, useState} from "react";
-import '../styles/Home.css';
-//import bcrypt from 'bcrypt';
+import '../styles/Login.css';
 
 export default function Login() {
     // States for username and password
@@ -41,15 +40,17 @@ export default function Login() {
     }
 
     return (
-        <div className="center">
-            <form action="">
-            <label>Username</label><br></br>
-                <input onChange={onChangeUsername} type="text" id="username" name="username"></input><br></br>
-                <label>Password</label><br></br>
-                <input onChange={onChangePassword} type="password" id="password" name="password"></input><br></br>
-                <button onClick={login} type="submit">Login</button>
-            </form>
+        <div className="login-container">
+            <div className="login-window">
+                <h1>Login</h1>
+                <div className="login-window-align">
+                    <form action="">
+                        <input type="text" id="username" name="username" placeholder="Username"></input><br></br>
+                        <input type="password" id="password" name="password" placeholder="Password"></input><br></br>
+                        <input type="submit" value="Login"></input>
+                    </form>
+                </div>
+            </div>
         </div>
-
     )
 }
