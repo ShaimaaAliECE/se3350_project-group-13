@@ -1,10 +1,14 @@
 import {React, useState} from "react";
 import '../styles/Login.css';
+import {useHistory} from 'react-router-dom';
 
 export default function Login() {
     // States for username and password
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
+    
+    // Routing history
+    const history = useHistory();
 
     // Authenticate function
     function authenticate(username, password){
@@ -17,13 +21,14 @@ export default function Login() {
     }
 
     // Login function 
-    async function login(e){
-        //e.preventDefault();
+    async function login(){
         const auth = await authenticate(username, password);
         if(auth === true){
             localStorage.setItem('Username', username);
             setUsername("");
             setPassword("");
+            history.push('/');
+            window.location.reload();
         } else{
             alert("Incorrect username/password");
         }
@@ -45,9 +50,9 @@ export default function Login() {
                 <h1>Login</h1>
                 <div className="login-window-align">
                     <form action="">
-                        <input type="text" id="username" name="username" placeholder="Username"></input><br></br>
-                        <input type="password" id="password" name="password" placeholder="Password"></input><br></br>
-                        <input type="submit" value="Login"></input>
+                        <input onChange={onChangeUsername} type="text" id="username" name="username" placeholder="Username"></input><br></br>
+                        <input onChange={onChangePassword} type="password" id="password" name="password" placeholder="Password"></input><br></br>
+                        <input onClick={login} type="submit" value="Login"></input>
                     </form>
                 </div>
             </div>
