@@ -81,31 +81,40 @@ function mergeSort(array){
         }
     
         if (valid) {
-            console.log(newSubStep)
             stepsarr.push(newSubStep);
         }
     }
-    
 
     //merge
     
     let stepsarrReverse = [...stepsarr].reverse(); //copy
 
-    let prevstep = stepsarr[stepsarr.length-1];
+    let prevstep = [...stepsarr[stepsarr.length-1]];
+    console.log(stepsarr[stepsarr.length-1]);
+
+
     for (let step of stepsarrReverse) {
+
+
         let num = 0;
         let newSubStep = [];
-        for (let substep of stepsarrReverse[stepsarrReverse.length-1]) {
+        for (let substep of step) {
             if (substep.length == 1) {
-                newSubStep.push(...prevstep[num]);
+                newSubStep.push(prevstep[num]);
                 num++;
             } else {
-                newSubStep.push(merge(prevstep[num], prevstep[num + 1]));
+                newSubStep.push(merge([...prevstep[num]], [...prevstep[num + 1]]));
                 num += 2;
             }
         }
+//        console.log(newSubStep)
+
+        prevstep = newSubStep;
+
         stepsarr.push(newSubStep);
+
     }
+
 
 
 
@@ -121,7 +130,7 @@ class Mergesort extends React.Component {
     render() {
         mergeSort([1,5,2,3,5, 2,5,6 , 7])
 
-        console.log(stepsarr)
+       // console.log(stepsarr)
 
         return (
             <div className="mergesort-container">
