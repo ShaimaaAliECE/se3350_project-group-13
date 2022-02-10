@@ -107,11 +107,14 @@ export default function MergeSort_Lvl2 (){
             let incorrect = 0;
             for (let i = 1 ; i < array.length+1 ; i++) {
                 // Gets input values through for loop
-                let inputValue = document.getElementById("1idx"+i).value
+                var id = "1idx"+i
+                let inputValue = document.getElementById(id).value
                 if (inputValue==array[i-1]) {
+                    document.getElementById(id).className = "numField"
                 }
                 // If value is out of place, add one to the incorrect score
                 else {
+                    document.getElementById(id).className = "numFieldError"
                     console.log("Incorrect.")
                     incorrect++;
                 }
@@ -331,11 +334,14 @@ export default function MergeSort_Lvl2 (){
             let incorrect = 0;
             for (let i = 1 ; i < array.length+1 ; i++) {
                 // Gets input values through for loop
-                let inputValue = document.getElementById("2idx"+i).value
+                var id = "2idx"+i
+                let inputValue = document.getElementById(id).value
                 if (inputValue==array[i-1]) {
+                    document.getElementById(id).className = "numField"
                 }
                 // If value is out of place, add one to the incorrect score
                 else {
+                    document.getElementById(id).className = "numFieldError"
                     console.log("Incorrect.")
                     incorrect++;
                 }
@@ -365,11 +371,14 @@ export default function MergeSort_Lvl2 (){
             let incorrect = 0;
             for (let i = 1 ; i < array.length+1 ; i++) {
                 // Gets input values through for loop
+                var id = "3idx"+i
                 let inputValue = document.getElementById("3idx"+i).value
                 if (inputValue==array[i-1]) {
+                    document.getElementById(id).className = "numField"
                 }
                 // If value is out of place, add one to the incorrect score
                 else {
+                    document.getElementById(id).className = "numFieldError"
                     console.log("Incorrect.")
                     incorrect++;
                 }
@@ -553,22 +562,28 @@ export default function MergeSort_Lvl2 (){
             let incorrect = 0;
             for (let i = 1 ; i < mergeSortedArrayTwo.length+1 ; i++) {
                 // Gets input values through for loop
-                let inputValue = document.getElementById("4idx"+i).value
+                var id = "4idx"+i
+                let inputValue = document.getElementById(id).value
                 if (inputValue==mergeSortedArrayTwo[i-1]) {
+                    document.getElementById(id).className = "numField"
                 }
                 // If value is out of place, add one to the incorrect score
                 else {
+                    document.getElementById(id).className = "numFieldError"
                     console.log("Incorrect.")
                     incorrect++;
                 }
             }
             for (let i = 6 ; i < mergeSortedArrayThree.length+6 ; i++) {
                 // Gets input values through for loop
-                let inputValue = document.getElementById("4idx"+i).value
+                var id = "4idx"+i
+                let inputValue = document.getElementById(id).value
                 if (inputValue==mergeSortedArrayThree[i-6]) {
+                    document.getElementById(id).className = "numField"
                 }
                 // If value is out of place, add one to the incorrect score
                 else {
+                    document.getElementById(id).className = "numFieldError"
                     console.log("Incorrect.")
                     incorrect++;
                 }
@@ -598,11 +613,14 @@ export default function MergeSort_Lvl2 (){
             let incorrect = 0;
             for (let i = 1 ; i < mergeSortedArrayOne.length+1 ; i++) {
                 // Gets input values through for loop
-                let inputValue = document.getElementById("5idx"+i).value
+                var id = "5idx"+i
+                let inputValue = document.getElementById(id).value
                 if (inputValue==mergeSortedArrayOne[i-1]) {
+                    document.getElementById(id).className = "numField"
                 }
                 // If value is out of place, add one to the incorrect score
                 else {
+                    document.getElementById(id).className = "numFieldError"
                     console.log("Incorrect.")
                     incorrect++;
                 }
