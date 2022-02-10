@@ -23,9 +23,9 @@ function merge(left, right) {
 }
 
 
-let stepsarr = [];
+let stepsarr = [[[1,2,5,6,6,7,2,1,2,5,6,7,3,2,2,5,6,7,2,3,4,5,6]]];
 
-function mergeSort(array, depth = 0) {
+function merges(array, depth = 0) {
     const half = array.length / 2
 
     // Base case or terminating case
@@ -52,6 +52,65 @@ function mergeSort(array, depth = 0) {
     return merged;
 }
 
+
+function mergeSort(array){ 
+
+
+    //split
+    for (let step of stepsarr) {
+        let newSubStep = []
+        let valid = false;
+
+        for (let substep of stepsarr[stepsarr.length-1]) {
+            if (substep.length >= 1) {
+                if (substep.length == 1) {
+                    newSubStep.push([...substep]);
+                } else {
+                    valid = true;
+                    let half = substep.length/2;
+                    let left = substep.slice(0, half);
+                    let right = substep.slice(half, substep.length);
+            
+                    newSubStep.push([...left]);
+                    newSubStep.push([...right]);
+                }
+
+               
+            }
+           
+        }
+    
+        if (valid) {
+            console.log(newSubStep)
+            stepsarr.push(newSubStep);
+        }
+    }
+    
+
+    //merge
+    
+    let stepsarrReverse = [...stepsarr].reverse(); //copy
+
+    let prevstep = stepsarr[stepsarr.length-1];
+    for (let step of stepsarrReverse) {
+        let num = 0;
+        let newSubStep = [];
+        for (let substep of stepsarrReverse[stepsarrReverse.length-1]) {
+            if (substep.length == 1) {
+                newSubStep.push(...prevstep[num]);
+                num++;
+            } else {
+                newSubStep.push(merge(prevstep[num], prevstep[num + 1]));
+                num += 2;
+            }
+        }
+        stepsarr.push(newSubStep);
+    }
+
+
+
+
+}
 
 const arrayRandomGenerate = Array.from({ length: len }, () => Math.floor((Math.random() * (max + 1)) + min));
 class Mergesort extends React.Component {
