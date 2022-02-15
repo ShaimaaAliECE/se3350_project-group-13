@@ -86,7 +86,8 @@ function mergeSort(array){
         prevstep = newSubStep; //update previous step
 
         stepsarr.push(newSubStep); //push new step
-
+    }
+}
 
 const arrayRandomGenerate = Array.from({ length: len }, () => Math.floor((Math.random() * (max + 1)) + min));
 
