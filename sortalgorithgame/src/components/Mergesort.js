@@ -87,13 +87,6 @@ function mergeSort(array){
 
         stepsarr.push(newSubStep); //push new step
 
-    }
-
-    //remove middle elements (for looks)
-    let mid = stepsarr.length/2
-    stepsarr.splice(mid-1, 1)
-    stepsarr.splice (mid-1, 1);
-}
 
 const arrayRandomGenerate = Array.from({ length: len }, () => Math.floor((Math.random() * (max + 1)) + min));
 

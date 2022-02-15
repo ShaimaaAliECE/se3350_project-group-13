@@ -7,10 +7,10 @@ export default function Register() {
             <div className="login-window">
             <h1>Register</h1>
                 <form action="">
-                    <input type="text" id="email" name="email" placeholder="Email"></input><br></br>
-                    <input type="text" id="username" name="username" placeholder="Username"></input><br></br>
-                    <input type="password" id="password" name="password" placeholder="Password"></input><br></br>
-                    <input type="submit" value="Register"></input>
+                    <input className = "login-input" type="text" id="email" name="email" placeholder="Email"></input><br></br>
+                    <input className = "login-input" type="text" id="username" name="username" placeholder="Username"></input><br></br>
+                    <input className = "login-input" type="password" id="password" name="password" placeholder="Password"></input><br></br>
+                    <input className = "login-input" type="submit" value="Register"></input>
                 </form>
             </div>
         </div>
