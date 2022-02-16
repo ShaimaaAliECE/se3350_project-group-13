@@ -117,6 +117,10 @@
     justify-content: center;
 }
 
+.step-container {
+    height:50px;
+}
+
 .inner-array {
     display: flex;
 }
