@@ -10,7 +10,9 @@ const len = 10;
 //shows all the mergesort steps
 class Mergesort extends React.Component {
     state = {
-        step: 1 //what step you are currently on
+        step: 1, //what step you are currently on
+        substep: 0,
+        elementstep: 0
     };
 
     constructor(props) {
@@ -21,11 +23,33 @@ class Mergesort extends React.Component {
     //holds the array of all the steps
     stepsarr = [[Array.from({ length: len }, () => Math.floor((Math.random() * (max - min + 1)) + min))]]; // generate list of random array
 
+
     // Next button onClick
     onClickNext() {
-        if (this.state.step < this.stepsarr.length) {
-            this.setState({ step: this.state.step + 1 });
+        console.log("step " + this.state.step);
+
+        console.log("substep " + this.state.substep);
+        console.log("elementstep " + this.state.elementstep);
+
+
+        if (this.state.elementstep >= this.stepsarr[this.state.step][this.state.substep].length) {
+            
+            if (this.state.substep >= this.stepsarr[this.state.step].length-1) {
+                if (this.state.step < this.stepsarr.length) {
+                    this.setState({ step: this.state.step + 1 });
+                    this.setState({ substep: 0 });
+                    this.setState({ elementstep: 0 });
+                }
+            } else {
+                this.setState({substep: this.state.substep+1});
+                this.setState({ elementstep: 1 });
+            }
+            
+        } else {
+            this.setState({elementstep: this.state.elementstep+1});
         }
+
+       
     }
 
     // Previous button onClick
@@ -39,11 +63,8 @@ class Mergesort extends React.Component {
     render() {
         let steps = [];
         steps.push(<Steps numbers={this.stepsarr.slice(0, this.state.step)} empty = {false} />);
-        console.log(this.stepsarr[this.state.step])
-        console.log(this.stepsarr);
-        console.log(this.state.step)
         if (this.stepsarr[this.state.step]) {
-            steps.push(<SubStep numbers={this.stepsarr[this.state.step]} empty = {true} />)
+            steps.push(<SubStep numbers={this.stepsarr[this.state.step]} empty = {true}  substep = {this.state.substep} elementstep = {this.state.elementstep}/>)
         }
 
         return (
@@ -149,7 +170,7 @@ class Mergesort extends React.Component {
 function Steps(props) {
     const numbers = props.numbers;
     const listItems = numbers.map((number) =>
-        <SubStep numbers={number} empty = {props.empty} />
+        <SubStep numbers={number} empty = {props.empty} substep = {props.substep} />
     );
     return (
         <div>{listItems}</div>
@@ -159,8 +180,8 @@ function Steps(props) {
 //shows the substeps
 function SubStep(props) {
     const numbers = props.numbers;
-    const listItems = numbers.map((number) =>
-        <Elements numbers={number} empty = {props.empty}/>
+    const listItems = numbers.map((number, index) =>
+        <Elements numbers={number} empty = {index >= props.substep && props.empty} elementstep = {(index == props.substep)? props.elementstep: 0}/>
     );
     return (
         <div className='elements-container' >{listItems}</div>
@@ -170,8 +191,8 @@ function SubStep(props) {
 //shows the elements (i.e. numbers)
 function Elements(props) {
     const numbers = props.numbers;
-    const listItems = numbers.map((number) =>
-        <div className='elements'>{(!props.empty)? number: ""}</div>
+    const listItems = numbers.map((number, index) =>
+        <div className='elements'>{(!props.empty || index < props.elementstep)? number: ""}</div>
     );
     return (
         <div className='substep'>{listItems}</div>
