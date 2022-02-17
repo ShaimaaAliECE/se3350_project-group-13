@@ -5,33 +5,600 @@ import correctSFX from '../sounds/correct.mp3'
 import incorrectSFX from '../sounds/incorrect.mp3'
 import stuckSFX from '../sounds/boom.mp3'
 import applauseSFX from '../sounds/applause.mp3'
+import stepText from '../json/level1.json'
 
 const min = 1;
 const max = 20;
 const len = 10;
-const arrayRandomGenerate = Array.from({length: len}, () => Math.floor((Math.random() * (max))+min));
 
-class Mergesort_Lvl2 extends Mergesort {
-    Mergesort_lvl2 (min, max, len, arrayRandomGenerate) {
+class Mergesort_Lvl2 extends React.Component {
+    Mergesort_lvl2(min, max, len, arrayRandomGenerate) {
         this.min = min;
         this.max = max;
         this.len = len;
         this.arrayRandomGenerate = arrayRandomGenerate;
     }
+
+    stepsarr = [[Array.from({ length: len }, () => Math.floor((Math.random() * (max - min + 1)) + min))]]; // generate list of random array
+
+    componentDidMount() {
+        this.mergeSort(this.stepsarr); //generate the mergesort array
+    }
+
+    // Previous button onClick
+    onClickPrev() {
+        if (this.state.step > 1) {
+            this.setState({ step: this.state.step - 1 });
+        }
+    }
+
+    onClickNext() {
+        if (this.state.step < this.stepsarr.length) {
+            this.setState({ step: this.state.step + 1 });
+        }
+        else {
+            console.log("Incomplete step")
+            stuckSound();
+            document.getElementById("incorrect" + (this.state.steps + 1)).innerHTML = "Not so fast, you must complete this step before moving forward."
+        }
+    }
+
+    render() {
+        return (
+            <div className="mergesort-container">
+                <div className="button-container">
+                    <button className="prevBtn" onClick={this.onClickPrev.bind(this)}>previous step</button>
+                    <button className="nextBtn" onClick={this.onClickNext.bind(this)}>next step</button>
+                </div>
+                <br></br>
+                <label className="step-container">
+                    {stepText[this.state.step - 1]?.map((step) => {
+                        return (<div>{step}<br></br></div>);
+                    })}
+                </label>
+                <Steps numbers={this.stepsarr.slice(0, this.state.step)} />
+            </div>
+        );
+    }
+
+    //merges two lists
+    merge(left, right) {
+        let arr = [] //holds merged
+        while (left.length && right.length) { //there is elements left
+            if (left[0] < right[0]) { //if left is smaller
+                arr.push(left.shift()) //push left
+            } else { //right is smaller
+                arr.push(right.shift()) //push right
+            }
+        }
+        return [...arr, ...left, ...right] //return sorted arrray as well as any left overs if one ran out first.
+    }
+
+    // Correct Sound Effect
+    correctSound() {
+        var cS = new Audio(correctSFX)
+        cS.volume = 0.05;
+        cS.play();
+    }
+
+    // Incorrect Sound Effect
+    incorrectSound() {
+        var iS = new Audio(incorrectSFX)
+        iS.volume = 0.05;
+        iS.play();
+    }
+
+    // Applause Sound Effect
+    applauseSound() {
+        var aS = new Audio(applauseSFX)
+        aS.volume = 0.05;
+        aS.play();
+    }
+
+    //the mergesort algorithm
+    mergeSort(array) {
+
+        //split
+
+        //iterate through each step
+        for (let step of array) {
+            let newSubStep = [] //used to build up the substep
+            let valid = false; //checks if the substep is valid (i.e. it's not empty, and something was split)
+
+            //iterate through each substep
+            for (let substep of array[array.length - 1]) {
+                if (substep.length >= 1) { //if the substep has more than one element (i.e. should be split)
+                    if (substep.length === 1) { //boundary case where the length is one we don't want to split but we still want to show it
+                        newSubStep.push([...substep]); //add it
+                    } else { //it should be split
+                        valid = true; //means new elements were split in this step
+                        let half = substep.length / 2; //get half
+                        let left = substep.slice(0, half); //get left side
+                        let right = substep.slice(half, substep.length); //get right side
+
+                        newSubStep.push([...left]); //add the left side
+                        newSubStep.push([...right]); //add the right side
+                    }
+                }
+            }
+
+            //if the step did something new
+            if (valid) {
+                array.push(newSubStep); //push it to the array
+            }
+        }
+
+        //copy the substeps and reverse it (easier to traverse if for each loop)
+        let arrayReverse = [...array].reverse();
+
+        //holds the previous step (in order to merge it in the next step)
+        let prevstep = [...array[array.length - 1]];
+
+        //iterate through each step in reverse order
+        for (let step of arrayReverse) {
+
+            let num = 0; //this holds how much substeps had been added (used to index next substep to merge)
+            let newSubStep = []; //holds the new substep that is merged of the previous substep
+
+            //iterate through ecah substep
+            for (let substep of step) {
+                if (substep.length === prevstep[num].length) { //check if the length is the same as the required elements
+                    newSubStep.push(prevstep[num]); //push that elements only (since it maches)
+                    num++; //increment index
+                } else if (substep.length === prevstep[num].length + prevstep[num + 1].length) { //check if the next two elements add up to the merged element
+                    newSubStep.push(this.merge([...prevstep[num]], [...prevstep[num + 1]])); //merge those two elements
+                    num += 2; //increment index
+                }
+            }
+
+            prevstep = newSubStep; //update previous step
+
+            array.push(newSubStep); //push new step
+        }
+        let mid = array.length / 2
+
+        array.splice(mid - 1, 1);
+    }
+
+    //display user input fields/check btn for step 1
+    step0Ans() {
+        if (this.state.step == 0) {
+            <><div className="answers">
+                <input type="text" className="numField" maxLength={2} id="1idx1"></input>
+                <input type="text" className="numField" maxLength={2} id="1idx2"></input>
+                <input type="text" className="numField" maxLength={2} id="1idx3"></input>
+                <input type="text" className="numField" maxLength={2} id="1idx4"></input>
+                <input type="text" className="numField" maxLength={2} id="1idx5"></input>
+                <text>&nbsp;&nbsp;&nbsp;&nbsp;</text>
+                <input type="text" className="numField" maxLength={2} id="1idx6"></input>
+                <input type="text" className="numField" maxLength={2} id="1idx7"></input>
+                <input type="text" className="numField" maxLength={2} id="1idx8"></input>
+                <input type="text" className="numField" maxLength={2} id="1idx9"></input>
+                <input type="text" className="numField" maxLength={2} id="1idx10"></input>
+            </div>
+                <br></br>
+                <div>
+                    <button className="submitBtn" id="btn" /*onClick={check1}*/>Check</button>
+                </div><br></br><div id="incorrect1"></div></>
+        }
+    }
+
+    //display user input fields/check btn for step 2
+    step1Ans() {
+        if (this.state.step == 1) {
+            <><div className="answers">
+                <input type="text" className="numField" maxLength={2} id="2idx1"></input>
+                <input type="text" className="numField" maxLength={2} id="2idx2"></input>
+                <input type="text" className="numField" maxLength={2} id="2idx3"></input>
+                <text>&nbsp;&nbsp;&nbsp;&nbsp;</text>
+                <input type="text" className="numField" maxLength={2} id="2idx4"></input>
+                <input type="text" className="numField" maxLength={2} id="2idx5"></input>
+                <text>&nbsp;&nbsp;&nbsp;&nbsp;</text>
+                <input type="text" className="numField" maxLength={2} id="2idx6"></input>
+                <input type="text" className="numField" maxLength={2} id="2idx7"></input>
+                <input type="text" className="numField" maxLength={2} id="2idx8"></input>
+                <text>&nbsp;&nbsp;&nbsp;&nbsp;</text>
+                <input type="text" className="numField" maxLength={2} id="2idx9"></input>
+                <input type="text" className="numField" maxLength={2} id="2idx10"></input>
+            </div>
+                <br></br>
+                <div>
+                    <button className="submitBtn" id="btn" /*onClick={check2}*/>Check</button>
+                </div><br></br><div id="incorrect2"></div></>
+        }
+    }
+
+    //display user input fields/check btn for step 3
+    step2Ans() {
+        if (this.state.step == 2) {
+            <><div className="answers">
+                <input type="text" className="numField" maxLength={2} id="3idx1"></input>
+                <input type="text" className="numField" maxLength={2} id="3idx2"></input>
+                <text>&nbsp;&nbsp;&nbsp;&nbsp;</text>
+                <input type="text" className="numField" maxLength={2} id="3idx3"></input>
+                <text>&nbsp;&nbsp;&nbsp;&nbsp;</text>
+                <input type="text" className="numField" maxLength={2} id="3idx4"></input>
+                <text>&nbsp;&nbsp;&nbsp;&nbsp;</text>
+                <input type="text" className="numField" maxLength={2} id="3idx5"></input>
+                <text>&nbsp;&nbsp;&nbsp;&nbsp;</text>
+                <input type="text" className="numField" maxLength={2} id="3idx6"></input>
+                <input type="text" className="numField" maxLength={2} id="3idx7"></input>
+                <text>&nbsp;&nbsp;&nbsp;&nbsp;</text>
+                <input type="text" className="numField" maxLength={2} id="3idx8"></input>
+                <text>&nbsp;&nbsp;&nbsp;&nbsp;</text>
+                <input type="text" className="numField" maxLength={2} id="3idx9"></input>
+                <text>&nbsp;&nbsp;&nbsp;&nbsp;</text>
+                <input type="text" className="numField" maxLength={2} id="3idx10"></input>
+            </div>
+                <br></br>
+                <div>
+                    <button className="submitBtn" id="btn" /*onClick={check3}*/>Check</button>
+                </div><br></br><div id="incorrect3"></div></>
+        }
+    }
+
+    //display user input fields/check btn for step 4
+    step3Ans() {
+        if (this.state.step == 3) {
+            <><div className="answers">
+                <input type="text" className="numField" maxLength={2} id="4idx1"></input>
+                <text>&nbsp;&nbsp;&nbsp;&nbsp;</text>
+                <input type="text" className="numField" maxLength={2} id="4idx2"></input>
+                <text>&nbsp;&nbsp;&nbsp;&nbsp;</text>
+                <input type="text" className="numField" maxLength={2} id="4idx3"></input>
+                <text>&nbsp;&nbsp;&nbsp;&nbsp;</text>
+                <input type="text" className="numField" maxLength={2} id="4idx4"></input>
+                <text>&nbsp;&nbsp;&nbsp;&nbsp;</text>
+                <input type="text" className="numField" maxLength={2} id="4idx5"></input>
+                <text>&nbsp;&nbsp;&nbsp;&nbsp;</text>
+                <input type="text" className="numField" maxLength={2} id="4idx6"></input>
+                <text>&nbsp;&nbsp;&nbsp;&nbsp;</text>
+                <input type="text" className="numField" maxLength={2} id="4idx7"></input>
+                <text>&nbsp;&nbsp;&nbsp;&nbsp;</text>
+                <input type="text" className="numField" maxLength={2} id="4idx8"></input>
+                <text>&nbsp;&nbsp;&nbsp;&nbsp;</text>
+                <input type="text" className="numField" maxLength={2} id="4idx9"></input>
+                <text>&nbsp;&nbsp;&nbsp;&nbsp;</text>
+                <input type="text" className="numField" maxLength={2} id="4idx10"></input>
+            </div>
+                <br></br>
+                <div>
+                    <button className="submitBtn" id="btn" /*onClick={check4}*/>Check</button>
+                </div><br></br><div id="incorrect4"></div></>
+        }
+    }
+
+    //display user input fields/check btn for step 5
+    step4Ans() {
+        if (this.state.step == 4) {
+            <><div className="answers">
+                <input type="text" className="numField" maxLength={2} id="5idx1"></input>
+                <input type="text" className="numField" maxLength={2} id="5idx2"></input>
+                <text>&nbsp;&nbsp;&nbsp;&nbsp;</text>
+                <input type="text" className="numField" maxLength={2} id="5idx3"></input>
+                <text>&nbsp;&nbsp;&nbsp;&nbsp;</text>
+                <input type="text" className="numField" maxLength={2} id="5idx4"></input>
+                <text>&nbsp;&nbsp;&nbsp;&nbsp;</text>
+                <input type="text" className="numField" maxLength={2} id="5idx5"></input>
+                <text>&nbsp;&nbsp;&nbsp;&nbsp;</text>
+                <input type="text" className="numField" maxLength={2} id="5idx6"></input>
+                <input type="text" className="numField" maxLength={2} id="5idx7"></input>
+                <text>&nbsp;&nbsp;&nbsp;&nbsp;</text>
+                <input type="text" className="numField" maxLength={2} id="5idx8"></input>
+                <text>&nbsp;&nbsp;&nbsp;&nbsp;</text>
+                <input type="text" className="numField" maxLength={2} id="5idx9"></input>
+                <text>&nbsp;&nbsp;&nbsp;&nbsp;</text>
+                <input type="text" className="numField" maxLength={2} id="5idx10"></input>
+            </div>
+                <br></br>
+                <div>
+                    <button className="submitBtn" id="btn" /*onClick={check5}*/>Check</button>
+                </div><br></br><div id="incorrect5"></div></>
+        }
+    }
+
+    //display user input fields/check btn for step 6
+    step5Ans() {
+        if (this.state.step == 5) {
+            <><div className="answers">
+                <input type="text" className="numField" maxLength={2} id="6idx1"></input>
+                <input type="text" className="numField" maxLength={2} id="6idx2"></input>
+                <input type="text" className="numField" maxLength={2} id="6idx3"></input>
+                <text>&nbsp;&nbsp;&nbsp;&nbsp;</text>
+                <input type="text" className="numField" maxLength={2} id="6idx4"></input>
+                <input type="text" className="numField" maxLength={2} id="6idx5"></input>
+                <text>&nbsp;&nbsp;&nbsp;&nbsp;</text>
+                <input type="text" className="numField" maxLength={2} id="6idx6"></input>
+                <input type="text" className="numField" maxLength={2} id="6idx7"></input>
+                <input type="text" className="numField" maxLength={2} id="6idx8"></input>
+                <text>&nbsp;&nbsp;&nbsp;&nbsp;</text>
+                <input type="text" className="numField" maxLength={2} id="6idx9"></input>
+                <input type="text" className="numField" maxLength={2} id="6idx10"></input>
+            </div>
+                <br></br>
+                <div>
+                    <button className="submitBtn" id="btn" /*onClick={check6}*/>Check</button>
+                </div><br></br><div id="incorrect6"></div></>
+        }
+    }
+
+    //display user input fields/check btn for step 7
+    step6Ans() {
+        if (this.state.step == 6) {
+            <><div className="answers">
+                <input type="text" className="numField" maxLength={2} id="7idx1"></input>
+                <input type="text" className="numField" maxLength={2} id="7idx2"></input>
+                <input type="text" className="numField" maxLength={2} id="7idx3"></input>
+                <input type="text" className="numField" maxLength={2} id="7idx4"></input>
+                <input type="text" className="numField" maxLength={2} id="7idx5"></input>
+                <text>&nbsp;&nbsp;&nbsp;&nbsp;</text>
+                <input type="text" className="numField" maxLength={2} id="7idx6"></input>
+                <input type="text" className="numField" maxLength={2} id="7idx7"></input>
+                <input type="text" className="numField" maxLength={2} id="7idx8"></input>
+                <input type="text" className="numField" maxLength={2} id="7idx9"></input>
+                <input type="text" className="numField" maxLength={2} id="7idx10"></input>
+            </div>
+                <br></br>
+                <div>
+                    <button className="submitBtn" id="btn" /*onClick={check7}*/>Check</button>
+                </div><br></br><div id="incorrect7"></div></>
+        }
+    }
+
+    //display user input fields/check btn for step 8
+    step6Ans() {
+        if (this.state.step == 7) {
+            <><div className="answers">
+                <input type="text" className="numField" maxLength={2} id="8idx1"></input>
+                <input type="text" className="numField" maxLength={2} id="8idx2"></input>
+                <input type="text" className="numField" maxLength={2} id="8idx3"></input>
+                <input type="text" className="numField" maxLength={2} id="8idx4"></input>
+                <input type="text" className="numField" maxLength={2} id="8idx5"></input>
+                <input type="text" className="numField" maxLength={2} id="8idx6"></input>
+                <input type="text" className="numField" maxLength={2} id="8idx7"></input>
+                <input type="text" className="numField" maxLength={2} id="8idx8"></input>
+                <input type="text" className="numField" maxLength={2} id="8idx9"></input>
+                <input type="text" className="numField" maxLength={2} id="8idx10"></input>
+            </div>
+                <br></br>
+                <div>
+                    <button className="submitBtn" id="btn" /*onClick={check8}*/>Check</button>
+                </div><br></br><div id="incorrect8"></div></>
+        }
+    }
+
+    /*
+    check1() {
+        let incorrect = 0;
+        for (let i = 1; i < array.length + 1; i++) {
+            // Gets input values through for loop
+            var id = "1idx" + i
+            let inputValue = document.getElementById(id).value
+            if (inputValue == array[i - 1]) {
+                document.getElementById(id).className = "numField"
+            }
+            // If value is out of place, add one to the incorrect score
+            else {
+                document.getElementById(id).className = "numFieldError"
+                console.log("Incorrect.")
+                incorrect++;
+            }
+        }
+
+        // If flawless, send correct message
+        if (incorrect == 0) {
+            console.log("Correct.")
+            correctSound();
+            document.getElementById('incorrect1').innerHTML = "Correct! Move on to the next step."
+            // Allows to move to next step
+            stepComplete = true;
+        }
+        // If incorrect, print how many incorrect
+        else {
+            incorrectSound();
+            if (incorrect == 1) {
+                document.getElementById('incorrect1').innerHTML = "You have " + incorrect + " number out of place."
+            }
+            else {
+                document.getElementById('incorrect1').innerHTML = "You have " + incorrect + " numbers out of place."
+            }
+        }
+    }
+
+    // Check if second step is correct
+    check2() {
+        let incorrect = 0;
+        for (let i = 1; i < array.length + 1; i++) {
+            // Gets input values through for loop
+            var id = "2idx" + i
+            let inputValue = document.getElementById(id).value
+            if (inputValue == array[i - 1]) {
+                document.getElementById(id).className = "numField"
+            }
+            // If value is out of place, add one to the incorrect score
+            else {
+                document.getElementById(id).className = "numFieldError"
+                console.log("Incorrect.")
+                incorrect++;
+            }
+        }
+        // If flawless, send correct message
+        if (incorrect == 0) {
+            console.log("Correct.")
+            correctSound();
+            document.getElementById('incorrect2').innerHTML = "Correct! Move on to the next step."
+            // Allows to move to next step
+            stepComplete = true;
+        }
+        // If incorrect, print how many incorrect
+        else {
+            incorrectSound();
+            if (incorrect == 1) {
+                document.getElementById('incorrect2').innerHTML = "You have " + incorrect + " number out of place."
+            }
+            else {
+                document.getElementById('incorrect2').innerHTML = "You have " + incorrect + " numbers out of place."
+            }
+        }
+    }
+
+    // Check if third step is correct
+    check3() {
+        let incorrect = 0;
+        for (let i = 1; i < array.length + 1; i++) {
+            // Gets input values through for loop
+            var id = "3idx" + i
+            let inputValue = document.getElementById(id).value
+            if (inputValue == array[i - 1]) {
+                document.getElementById(id).className = "numField"
+            }
+            // If value is out of place, add one to the incorrect score
+            else {
+                document.getElementById(id).className = "numFieldError"
+                console.log("Incorrect.")
+                incorrect++;
+            }
+        }
+        // If flawless, send correct message
+        if (incorrect == 0) {
+            console.log("Correct.")
+            correctSound();
+            document.getElementById('incorrect3').innerHTML = "Correct! Move on to the next step."
+            // Allows to move to next step
+            stepComplete = true;
+        }
+        // If incorrect, print how many incorrect
+        else {
+            incorrectSound();
+            if (incorrect == 1) {
+                document.getElementById('incorrect3').innerHTML = "You have " + incorrect + " number out of place."
+            }
+            else {
+                document.getElementById('incorrect3').innerHTML = "You have " + incorrect + " numbers out of place."
+            }
+        }
+    }
+
+    check4() {
+        console.log("test")
+        let incorrect = 0;
+        for (let i = 1; i < mergeSortedArrayTwo.length + 1; i++) {
+            // Gets input values through for loop
+            var id = "4idx" + i
+            let inputValue = document.getElementById(id).value
+            if (inputValue == mergeSortedArrayTwo[i - 1]) {
+                document.getElementById(id).className = "numField"
+            }
+            // If value is out of place, add one to the incorrect score
+            else {
+                document.getElementById(id).className = "numFieldError"
+                console.log("Incorrect.")
+                incorrect++;
+            }
+        }
+        for (let i = 6; i < mergeSortedArrayThree.length + 6; i++) {
+            // Gets input values through for loop
+            var id = "4idx" + i
+            let inputValue = document.getElementById(id).value
+            if (inputValue == mergeSortedArrayThree[i - 6]) {
+                document.getElementById(id).className = "numField"
+            }
+            // If value is out of place, add one to the incorrect score
+            else {
+                document.getElementById(id).className = "numFieldError"
+                console.log("Incorrect.")
+                incorrect++;
+            }
+        }
+        // If flawless, send correct message
+        if (incorrect == 0) {
+            correctSound();
+            console.log("Correct.")
+            document.getElementById('incorrect4').innerHTML = "Correct! Move on to the next step."
+            // Allows to move to next step
+            stepComplete = true;
+        }
+        // If incorrect, print how many incorrect
+        else {
+            incorrectSound();
+            if (incorrect == 1) {
+                document.getElementById('incorrect4').innerHTML = "You have " + incorrect + " number out of place."
+            }
+            else {
+                document.getElementById('incorrect4').innerHTML = "You have " + incorrect + " numbers out of place."
+            }
+        }
+    }
+
+    check5() {
+        let incorrect = 0;
+        for (let i = 1; i < mergeSortedArrayOne.length + 1; i++) {
+            // Gets input values through for loop
+            var id = "5idx" + i
+            let inputValue = document.getElementById("5idx" + i).value
+            if (inputValue == mergeSortedArrayOne[i - 1]) {
+                document.getElementById(id).className = "numField"
+            }
+            // If value is out of place, add one to the incorrect score
+            else {
+                document.getElementById(id).className = "numFieldError"
+                console.log("Incorrect.")
+                incorrect++;
+            }
+        }
+        // If flawless, send correct message
+        if (incorrect == 0) {
+            console.log("Correct.")
+            correctSound();
+            document.getElementById('incorrect5').innerHTML = "Correct! Move on to the next step."
+            // Allows to move to next step
+            stepComplete = true;
+        }
+        // If incorrect, print how many incorrect
+        else {
+            incorrectSound();
+            if (incorrect == 1) {
+                document.getElementById('incorrect5').innerHTML = "You have " + incorrect + " number out of place."
+            }
+            else {
+                document.getElementById('incorrect5').innerHTML = "You have " + incorrect + " numbers out of place."
+            }
+        }
+    }
+    */
 }
 
-// Correct Sound Effect
-function correctSound() {
-    var cS = new Audio(correctSFX)
-    cS.volume = 0.05;
-    cS.play();
+//shows the steps
+function Steps(props) {
+    const numbers = props.numbers;
+    const listItems = numbers.map((number) =>
+        <SubStep numbers={number} />
+    );
+    return (
+        <div>{listItems}</div>
+    )
 }
 
-// Incorrect Sound Effect
-function incorrectSound() {
-    var iS = new Audio(incorrectSFX)
-    iS.volume = 0.05;
-    iS.play();
+//shows the substeps
+function SubStep(props) {
+    const numbers = props.numbers;
+    const listItems = numbers.map((number) =>
+        <Elements numbers={number} />
+    );
+    return (
+        <div className='elements-container' >{listItems}</div>
+    )
+}
+
+//shows the elements (i.e. numbers)
+function Elements(props) {
+    const numbers = props.numbers;
+    const listItems = numbers.map((number) =>
+        <div className='elements'>{number}</div>
+    );
+    return (
+        <div className='substep'>{listItems}</div>
+    );
 }
 
 // Stuck Sound Effect
@@ -41,657 +608,5 @@ function stuckSound() {
     sS.play();
 }
 
-// Applause Sound Effect
-function applauseSound() {
-    var aS = new Audio(applauseSFX)
-    aS.volume = 0.05;
-    aS.play();
-}
+export default Mergesort_Lvl2;
 
-
-export default function MergeSort_Lvl2 (){
-    new Mergesort_Lvl2(min, max, len, arrayRandomGenerate);
-    const [array, setArray] = useState(arrayRandomGenerate);
-    const [steps, setSteps] = useState(0);
-    let stepComplete = false;
-
-    function Array(array) {
-        return(
-            <div>
-                {steps === 0 ? 
-                <>
-                <div>
-                    <label className='levelLabels'>
-                        Here we have a randomized array.
-                        <br></br>
-                        [1] The first step would be to split this unsorted-array in half.
-                    </label>
-                </div>
-                <div className="array">
-                {
-                    array.map((element, id) => {
-                        return (
-                            <div className="elements" key={id}>{element}</div>
-                        );
-                    })
-                }
-                </div>
-                <br></br><br></br>
-                <div className="answers">
-                    <input type = "text" className = "numField" maxLength={2} id="1idx1"></input>
-                    <input type = "text" className = "numField" maxLength={2} id="1idx2"></input>
-                    <input type = "text" className = "numField" maxLength={2} id="1idx3"></input>
-                    <input type = "text" className = "numField" maxLength={2} id="1idx4"></input>
-                    <input type = "text" className = "numField" maxLength={2} id="1idx5"></input>
-                    <text>&nbsp;&nbsp;&nbsp;&nbsp;</text>
-                    <input type = "text" className = "numField" maxLength={2} id="1idx6"></input>
-                    <input type = "text" className = "numField" maxLength={2} id="1idx7"></input>
-                    <input type = "text" className = "numField" maxLength={2} id="1idx8"></input>
-                    <input type = "text" className = "numField" maxLength={2} id="1idx9"></input>
-                    <input type = "text" className = "numField" maxLength={2} id="1idx10"></input>
-                </div>
-                <br></br>
-                <div>
-                    <button className = "submitBtn" id = "btn" onClick = {check1}>Check</button>
-                </div>
-                <br></br>
-                <div id="incorrect1">
-                </div>
-                </> : null }
-            </div>
-            
-        )
-
-        // Check if correct
-        function check1() {
-            let incorrect = 0;
-            for (let i = 1 ; i < array.length+1 ; i++) {
-                // Gets input values through for loop
-                var id = "1idx"+i
-                let inputValue = document.getElementById(id).value
-                if (inputValue==array[i-1]) {
-                    document.getElementById(id).className = "numField"
-                }
-                // If value is out of place, add one to the incorrect score
-                else {
-                    document.getElementById(id).className = "numFieldError"
-                    console.log("Incorrect.")
-                    incorrect++;
-                }
-            }
-            // If flawless, send correct message
-            if (incorrect == 0) {
-                console.log("Correct.")
-                correctSound();
-                document.getElementById('incorrect1').innerHTML = "Correct! Move on to the next step."
-                // Allows to move to next step
-                stepComplete = true;
-            }
-            // If incorrect, print how many incorrect
-            else {
-                incorrectSound();
-                if (incorrect == 1) {
-                    document.getElementById('incorrect1').innerHTML = "You have " + incorrect + " number out of place."
-                }
-                else {
-                    document.getElementById('incorrect1').innerHTML = "You have " + incorrect + " numbers out of place."
-                }
-            }
-        }
-    }
-
-    // Split the array in half then store in seperate arrays
-    function split(array) {
-        // Reference to index 
-        let counter = 0;
-        // Left array 
-        let left = [];
-        // Right array 
-        let right = [];
-        // Half way point of array, if odd length then it rounds up to nearest integer 
-        let halfIndex = Math.ceil(array.length / 2);
-        // Loop up to the half way point of the array
-        while (counter < array.length) {
-            // If the array is one element long then just return it
-            if (array.length == 1) {
-                return array;
-            }
-            // If reference index is less than half then append element to left array 
-            else if (counter < halfIndex) {
-                left.push(array[counter]);
-            } else {
-                // Append element to right if on or passed half way point of array 
-                right.push(array[counter]);
-            }
-            // Increment the counter each time to move it along the array 
-            counter++;
-        }
-        // Return left and right in an object 
-        return { left, right };
-    }
-
-    // Split array in half 
-    function DisplaySplit(array) {
-        // Initial array
-        let arrayOne = split(array);
-        // Split initial array into left and right children
-        let arrayOneLeft = arrayOne.left;
-        let arrayOneRight = arrayOne.right;
-        // Split left child of initial array
-        let arrayTwo = split(arrayOneLeft);
-        // Left and right child of array
-        let arrayTwoLeft = arrayTwo.left;
-        let arrayTwoRight = arrayTwo.right;
-        // Split right child of initial array
-        let arrayThree = split(arrayOneRight);
-        // Left and right child of array 
-        let arrayThreeLeft = arrayThree.left;
-        let arrayThreeRight = arrayThree.right;
-        
-        return (
-            <div className="visual-container">
-                { steps === 1 ?
-                <>
-                <div>
-                    <label className='levelLabels'>
-                        [2] Below we have the array split in half.
-                        <br></br>
-                        However, since the size of the new split is still too big we must split it in half again.
-                    </label>
-                </div>
-                <div className="split-container">
-                    <div className="array" id="array-split-one">
-                        {
-                            arrayOneLeft.map((element, id) => {
-                                return (
-                                    <div className="elements" key={id}>{element}</div>
-                                );
-                            })
-                        }
-                    </div>
-
-                    <div className="array" id="array-split-two">
-                        {
-                            arrayOneRight.map((element, id) => {
-                                return (
-                                    <div className="elements" key={id}>{element}</div>
-                                );
-                            })
-                        }
-                    </div>
-                </div>
-                <br></br><br></br>
-                <div className="answers">
-                    <text>&nbsp;&nbsp;</text>
-                    <input type = "text" className = "numField" maxLength={2} id ="2idx1"></input>
-                    <input type = "text" className = "numField" maxLength={2} id ="2idx2"></input>
-                    <input type = "text" className = "numField" maxLength={2} id ="2idx3"></input>
-                    <text>&nbsp;&nbsp;&nbsp;&nbsp;</text>
-                    <input type = "text" className = "numField" maxLength={2} id ="2idx4"></input>
-                    <input type = "text" className = "numField" maxLength={2} id ="2idx5"></input>
-                    <text>&nbsp;&nbsp;&nbsp;&nbsp;</text>
-                    <input type = "text" className = "numField" maxLength={2} id ="2idx6"></input>
-                    <input type = "text" className = "numField" maxLength={2} id ="2idx7"></input>
-                    <input type = "text" className = "numField" maxLength={2} id ="2idx8"></input>
-                    <text>&nbsp;&nbsp;&nbsp;&nbsp;</text>
-                    <input type = "text" className = "numField" maxLength={2} id ="2idx9"></input>
-                    <input type = "text" className = "numField" maxLength={2} id ="2idx10"></input>
-                </div>
-                <br></br>
-                <div>
-                    <button className = "submitBtn" id = "btn" onClick={check2}>Check</button>
-                </div>
-                <br></br>
-                <div id="incorrect2">
-                </div>
-                </>
-                : null }
-
-                {steps === 2 ?
-                <>
-                <div>
-                    <label className='levelLabels'>
-                        [3] We must now split the array into individual pieces.
-                    </label>
-                </div>
-
-                <div className="split-container">
-                    <div className="array" id="array-split-one">
-                        {
-                            arrayTwoLeft.map((element, id) => {
-                                return (
-                                    <div className="elements" key={id}>{element}</div>
-                                );
-                            })
-                        }
-                    </div>
-
-                    <div className="array" id="array-split-two">
-                        {
-                            arrayTwoRight.map((element, id) => {
-                                return (
-                                    <div className="elements" key={id}>{element}</div>
-                                );
-                            })
-                        }
-                    </div>
-                    
-                    <div className="array" id="array-split-three">
-                        {
-                            arrayThreeLeft.map((element, id) => {
-                                return (
-                                    <div className="elements" key={id}>{element}</div>
-                                );
-                            })
-                        }
-                    </div>
-
-                    <div className="array" id="array-split-four">
-                        {
-                            arrayThreeRight.map((element, id) => {
-                                return (
-                                    <div className="elements" key={id}>{element}</div>
-                                );
-                            })
-                        }
-                    </div>
-                </div>
-                <br></br><br></br>
-                <div className="answers">
-                    <text>&nbsp;&nbsp;</text>
-                    <input type = "text" className = "numField" maxLength={2} id ="3idx1"></input>
-                    <text>&nbsp;&nbsp;&nbsp;&nbsp;</text>
-                    <input type = "text" className = "numField" maxLength={2} id ="3idx2"></input>
-                    <text>&nbsp;&nbsp;&nbsp;&nbsp;</text>
-                    <input type = "text" className = "numField" maxLength={2} id ="3idx3"></input>
-                    <text>&nbsp;&nbsp;&nbsp;&nbsp;</text>
-                    <input type = "text" className = "numField" maxLength={2} id ="3idx4"></input>
-                    <text>&nbsp;&nbsp;&nbsp;&nbsp;</text>
-                    <input type = "text" className = "numField" maxLength={2} id ="3idx5"></input>
-                    <text>&nbsp;&nbsp;&nbsp;&nbsp;</text>
-                    <input type = "text" className = "numField" maxLength={2} id ="3idx6"></input>
-                    <text>&nbsp;&nbsp;&nbsp;&nbsp;</text>
-                    <input type = "text" className = "numField" maxLength={2} id ="3idx7"></input>
-                    <text>&nbsp;&nbsp;&nbsp;&nbsp;</text>
-                    <input type = "text" className = "numField" maxLength={2} id ="3idx8"></input>
-                    <text>&nbsp;&nbsp;&nbsp;&nbsp;</text>
-                    <input type = "text" className = "numField" maxLength={2} id ="3idx9"></input>
-                    <text>&nbsp;&nbsp;&nbsp;&nbsp;</text>
-                    <input type = "text" className = "numField" maxLength={2} id ="3idx10"></input>
-                </div>
-                <br></br>
-                <div>
-                    <button className = "submitBtn" id = "btn" onClick={check3}>Check</button>
-                    </div>
-                <br></br>
-                <div id="incorrect3">
-                </div>
-                </>
-            : null }
-            </div>
-        );
-
-        // Check if second step is correct
-        function check2() {
-            let incorrect = 0;
-            for (let i = 1 ; i < array.length+1 ; i++) {
-                // Gets input values through for loop
-                var id = "2idx"+i
-                let inputValue = document.getElementById(id).value
-                if (inputValue==array[i-1]) {
-                    document.getElementById(id).className = "numField"
-                }
-                // If value is out of place, add one to the incorrect score
-                else {
-                    document.getElementById(id).className = "numFieldError"
-                    console.log("Incorrect.")
-                    incorrect++;
-                }
-            }
-            // If flawless, send correct message
-            if (incorrect == 0) {
-                console.log("Correct.")
-                correctSound();
-                document.getElementById('incorrect2').innerHTML = "Correct! Move on to the next step."
-                // Allows to move to next step
-                stepComplete = true;
-            }
-            // If incorrect, print how many incorrect
-            else {
-                incorrectSound();
-                if (incorrect == 1) {
-                    document.getElementById('incorrect2').innerHTML = "You have " + incorrect + " number out of place."
-                }
-                else {
-                    document.getElementById('incorrect2').innerHTML = "You have " + incorrect + " numbers out of place."
-                }
-            }
-        }
-
-        // Check if third step is correct
-        function check3() {
-            let incorrect = 0;
-            for (let i = 1 ; i < array.length+1 ; i++) {
-                // Gets input values through for loop
-                var id = "3idx"+i
-                let inputValue = document.getElementById(id).value
-                if (inputValue==array[i-1]) {
-                    document.getElementById(id).className = "numField"
-                }
-                // If value is out of place, add one to the incorrect score
-                else {
-                    document.getElementById(id).className = "numFieldError"
-                    console.log("Incorrect.")
-                    incorrect++;
-                }
-            }
-            // If flawless, send correct message
-            if (incorrect == 0) {
-                console.log("Correct.")
-                correctSound();
-                document.getElementById('incorrect3').innerHTML = "Correct! Move on to the next step."
-                // Allows to move to next step
-                stepComplete = true;
-            }
-            // If incorrect, print how many incorrect
-            else {
-                incorrectSound();
-                if (incorrect == 1) {
-                    document.getElementById('incorrect3').innerHTML = "You have " + incorrect + " number out of place."
-                }
-                else {
-                    document.getElementById('incorrect3').innerHTML = "You have " + incorrect + " numbers out of place."
-                }
-            }
-        }
-    }
-
-    // Merge and sort two arrays
-    function mergeSort(elementsOne, elementsTwo) {
-        // Merged array 
-        let mergedArray = [];
-        // Temp array
-        let tempArray = [];
-        // Concat both arrays 
-        tempArray = elementsOne.concat(elementsTwo);
-        // Sort merged array
-        mergedArray = tempArray.sort(function (a, b) { return a - b });
-        // Return sorted and merged array 
-        return mergedArray;
-    }
-
-    function DisplayMergeSort(array) {
-        // Initial split
-        let arrayOne = split(array);
-        let arrayOneLeft = arrayOne.left;
-        let arrayOneRight = arrayOne.right;
-        // Second split 
-        let arrayTwo = split(arrayOneLeft);
-        let arrayTwoLeft = arrayTwo.left;
-        let arrayTwoRight = arrayTwo.right;
-        // Third split 
-        let arrayThree = split(arrayOneRight);
-        let arrayThreeLeft = arrayThree.left;
-        let arrayThreeRight = arrayThree.right;
-
-        // Right array is sorted 
-        let mergeSortedArrayThree = mergeSort(arrayThreeLeft, arrayThreeRight);
-        // Left array is sorted 
-        let mergeSortedArrayTwo = mergeSort(arrayTwoLeft, arrayTwoRight);
-        // Fully sorted array
-        let mergeSortedArrayOne = mergeSort(arrayOneLeft, arrayOneRight);
-       
-        return (
-            <div className="sort-container">
-                {steps === 3 ?
-                <>
-                <div>
-                    <label className='levelLabels'>
-                        [4] Now we have the array split into individual pieces, which means it is ready to merge.
-                        <br></br>
-                        Merge the array back, sorting them into two seperate halves.
-                    </label>
-                </div>
-
-                { array.length < 5 ?
-                null
-                :
-                <div className="elements-container">
-                    {array.map((element, key) => {
-                        return (
-                            <div className="elements" id="initial-sort-elements" key={key}>{element}</div>
-                        );
-                    })}
-                </div>
-                }
-                <br></br>
-                <div className="answers">
-                    <input type = "text" className = "numField" maxLength={2} id ="4idx1"></input>
-                    <input type = "text" className = "numField" maxLength={2} id ="4idx2"></input>
-                    <input type = "text" className = "numField" maxLength={2} id ="4idx3"></input>
-                    <input type = "text" className = "numField" maxLength={2} id ="4idx4"></input>
-                    <input type = "text" className = "numField" maxLength={2} id ="4idx5"></input>
-                    <text>&nbsp;&nbsp;&nbsp;&nbsp;</text>
-                    <input type = "text" className = "numField" maxLength={2} id ="4idx6"></input>
-                    <input type = "text" className = "numField" maxLength={2} id ="4idx7"></input>
-                    <input type = "text" className = "numField" maxLength={2} id ="4idx8"></input>
-                    <input type = "text" className = "numField" maxLength={2} id ="4idx9"></input>
-                    <input type = "text" className = "numField" maxLength={2} id ="4idx10"></input>
-                </div>
-                <br></br>
-                <div>
-                    <button className = "submitBtn" id = "btn" onClick={check4}>Check</button>
-                </div>
-                <br></br>
-                <div id="incorrect4">
-                </div>
-                </>
-                : null }
-
-                {steps === 4 ?
-                <>
-                <div>
-                    <label className='levelLabels'>
-                        [5] There are now two seperate sorted arrays, which need one last merge.
-                        <br></br>
-                        Merge the array back, sorting them from smallest to largest.
-                    </label>
-                </div>
-
-                <div className="sorted-array">
-                    <div className="inner-array">
-                        {mergeSortedArrayTwo.map((element, key) => {
-                            return (
-                                <div className="elements" key={key}>{element}</div>
-                            )
-                        })}
-                    </div>
-
-                    <div className="inner-array">
-                        {mergeSortedArrayThree.map((element, key) => {
-                            return (
-                                <div className="elements" key={key}>{element}</div>
-                            )
-                        })}
-                    </div>
-                </div>
-                <br></br><br></br>
-                <div className="answers">
-                    <input type = "text" className = "numField" maxLength={2} id ="5idx1"></input>
-                    <input type = "text" className = "numField" maxLength={2} id ="5idx2"></input>
-                    <input type = "text" className = "numField" maxLength={2} id ="5idx3"></input>
-                    <input type = "text" className = "numField" maxLength={2} id ="5idx4"></input>
-                    <input type = "text" className = "numField" maxLength={2} id ="5idx5"></input>
-                    <input type = "text" className = "numField" maxLength={2} id ="5idx6"></input>
-                    <input type = "text" className = "numField" maxLength={2} id ="5idx7"></input>
-                    <input type = "text" className = "numField" maxLength={2} id ="5idx8"></input>
-                    <input type = "text" className = "numField" maxLength={2} id ="5idx9"></input>
-                    <input type = "text" className = "numField" maxLength={2} id ="5idx10"></input>
-                </div>
-                <br></br>
-                <div>
-                    <button className = "submitBtn" id = "btn" onClick={check5}>Check</button>
-                </div>
-                <br></br>
-                <div id="incorrect5">
-                </div>
-                </>
-                : null}
-
-                {steps === 5 ?
-                <>
-                <div>
-                    <label className='levelLabels'>
-                        [6] And just like that, we've succesfully sorted the
-                        <br>
-                        </br>
-                        randomized array using the merge-sort algorithm!
-                    </label>
-                </div>
-
-                <div className="inner-array">
-                    {mergeSortedArrayOne.map((element, key) => {
-                        applauseSound();
-                        return (
-                            <div className="elements" key={key}>{element}</div>
-                        )
-                    })}
-                </div>
-                </>
-                : null}
-            </div>
-        )
-        
-        // Check if fourth step is correct
-        function check4() {
-            console.log("test")
-            let incorrect = 0;
-            for (let i = 1 ; i < mergeSortedArrayTwo.length+1 ; i++) {
-                // Gets input values through for loop
-                var id = "4idx"+i
-                let inputValue = document.getElementById(id).value
-                if (inputValue==mergeSortedArrayTwo[i-1]) {
-                    document.getElementById(id).className = "numField"
-                }
-                // If value is out of place, add one to the incorrect score
-                else {
-                    document.getElementById(id).className = "numFieldError"
-                    console.log("Incorrect.")
-                    incorrect++;
-                }
-            }
-            for (let i = 6 ; i < mergeSortedArrayThree.length+6 ; i++) {
-                // Gets input values through for loop
-                var id = "4idx"+i
-                let inputValue = document.getElementById(id).value
-                if (inputValue==mergeSortedArrayThree[i-6]) {
-                    document.getElementById(id).className = "numField"
-                }
-                // If value is out of place, add one to the incorrect score
-                else {
-                    document.getElementById(id).className = "numFieldError"
-                    console.log("Incorrect.")
-                    incorrect++;
-                }
-            }
-            // If flawless, send correct message
-            if (incorrect == 0) {
-                correctSound();
-                console.log("Correct.")
-                document.getElementById('incorrect4').innerHTML = "Correct! Move on to the next step."
-                // Allows to move to next step
-                stepComplete = true;
-            }
-            // If incorrect, print how many incorrect
-            else {
-                incorrectSound();
-                if (incorrect == 1) {
-                    document.getElementById('incorrect4').innerHTML = "You have " + incorrect + " number out of place."
-                }
-                else {
-                    document.getElementById('incorrect4').innerHTML = "You have " + incorrect + " numbers out of place."
-                }
-            }
-        }
-
-        // Check if fifth step is correct
-        function check5() {
-            let incorrect = 0;
-            for (let i = 1 ; i < mergeSortedArrayOne.length+1 ; i++) {
-                // Gets input values through for loop
-                var id = "5idx"+i
-                let inputValue = document.getElementById("5idx"+i).value
-                if (inputValue==mergeSortedArrayOne[i-1]) {
-                    document.getElementById(id).className = "numField"
-                }
-                // If value is out of place, add one to the incorrect score
-                else {
-                    document.getElementById(id).className = "numFieldError"
-                    console.log("Incorrect.")
-                    incorrect++;
-                }
-            }
-            // If flawless, send correct message
-            if (incorrect == 0) {
-                console.log("Correct.")
-                correctSound();
-                document.getElementById('incorrect5').innerHTML = "Correct! Move on to the next step."
-                // Allows to move to next step
-                stepComplete = true;
-            }
-            // If incorrect, print how many incorrect
-            else {
-                incorrectSound();
-                if (incorrect == 1) {
-                    document.getElementById('incorrect5').innerHTML = "You have " + incorrect + " number out of place."
-                }
-                else {
-                    document.getElementById('incorrect5').innerHTML = "You have " + incorrect + " numbers out of place."
-                }
-            }
-        }
-    }
-
-    /* Next button onClick NO RESTRICTION
-    function onClickNext(){
-        if(steps < 5 && steps >= 0){
-            setSteps(steps+1);
-        } 
-    }
-    */
-
-    // Next step ONLY IF current step is completed
-    function onClickNext(){
-        if(steps < 5 && steps >= 0){
-            if (stepComplete==true) {
-                setSteps(steps+1);
-                stepComplete = false;
-            }
-            else {
-                console.log("Incomplete step")
-                stuckSound();
-                document.getElementById("incorrect"+(steps+1)).innerHTML = "Not so fast, you must complete this step before moving forward."
-            }
-        } 
-    }
-
-    // Previous button onClick
-    function onClickPrev(){
-        if(steps >= 1 && steps < 6){
-            setSteps(steps - 1);
-        }
-    }
-
-    return (
-    
-        <div className="mergesort-container">
-            <div className="button-container">
-                <button className="prevBtn" onClick={onClickPrev}>previous step</button>
-                <button className="nextBtn" onClick={onClickNext}>next step</button>
-            </div>
-            {Array(array)}
-            {DisplaySplit(array)}
-            {DisplayMergeSort(array)}
-        </div>
-    );
-}
