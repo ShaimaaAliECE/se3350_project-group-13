@@ -128,7 +128,6 @@ class Mergesort extends React.Component {
         }
         let mid = array.length / 2
 
-        array.splice(mid - 1, 1)
         array.splice(mid - 1, 1);
     }
 
