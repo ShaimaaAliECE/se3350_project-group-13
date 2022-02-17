@@ -61,7 +61,7 @@ export default function MergeSort_Lvl2 (){
                 {steps === 0 ? 
                 <>
                 <div>
-                    <label>
+                    <label className='levelLabels'>
                         Here we have a randomized array.
                         <br></br>
                         Perform the first step for the merge-sort algorithm.
@@ -193,7 +193,7 @@ export default function MergeSort_Lvl2 (){
                 { steps === 1 ?
                 <>
                 <div>
-                    <label>
+                    <label className='levelLabels'>
                         Perform the next step for the merge-sort algorithm.
                     </label>
                 </div>
@@ -248,7 +248,7 @@ export default function MergeSort_Lvl2 (){
                 {steps === 2 ?
                 <>
                 <div>
-                    <label>
+                    <label className='levelLabels'>
                         Perform the next step for the merge-sort algorithm.
                     </label>
                 </div>
@@ -444,7 +444,7 @@ export default function MergeSort_Lvl2 (){
                 {steps === 3 ?
                 <>
                 <div>
-                    <label>
+                    <label className='levelLabels'>
                         Perform the next step for the merge-sort algorithm.
                     </label>
                 </div>
@@ -487,7 +487,7 @@ export default function MergeSort_Lvl2 (){
                 {steps === 4 ?
                 <>
                 <div>
-                    <label>
+                    <label className='levelLabels'>
                         Perform the next step for the merge-sort algorithm.
                     </label>
                 </div>
@@ -535,7 +535,7 @@ export default function MergeSort_Lvl2 (){
                 {steps === 5 ?
                 <>
                 <div>
-                    <label>
+                    <label className='levelLabels'>
                         And just like that, you've succesfully sorted the
                         <br>
                         </br>

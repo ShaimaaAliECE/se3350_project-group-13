@@ -3,11 +3,12 @@
     text-align: center;
     justify-content: center;
     margin-top: 4rem;
+    color: white;
 }
 
 .answers {
     box-sizing: border-box;
-    filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
+    filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.5));
     display: flex;
     size: 2vw;
     margin: 2px;
@@ -16,7 +17,7 @@
 .btnDiv {
     justify-content: left;
     border-radius: 10px;
-    background-color: #555555;
+    background-color: #851e3e;
     width: 15%;
     height: 15%;
     color: white;
@@ -35,26 +36,26 @@
     height: 40px;
     border: 1px solid #555555;
     outline: 1px;
-    filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
+    filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.5));
     margin: 2rem;
 }
 
 .nextBtn {
     justify-content: left;
     border-radius: 4px;
-    background-color: #555555;
+    background-color: #851e3e;
     /* padding: 0.5%; */
     width: 130px;
     height: 40px;
     color: white;
     border: none;
-    filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
+    filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.5));
 }
 
 .submitBtn{
     justify-content: left;
     border-radius: 4px;
-    background-color: grey;
+    background-color: #851e3e;
     /* padding: 0.5%; */
     width: 100px;
     height: 30px;
@@ -67,7 +68,7 @@
     font-size: 1rem;
     width: 2vw;
     height: 2vw;
-    border: 1px solid black;
+    border: 1px solid white;
     border-radius: 0.25rem;
     display: flex;
     margin: 0.15rem;
@@ -107,14 +108,17 @@
 .elements-container {
     display: flex;
     margin-top: 1rem;
+    color: white;
 }
 
 .inner-array {
     display: flex;
+    color: white;
 }
 
 .sorted-array {
     display: flex;
+    color: white;
 }
 
 .numField {
@@ -131,6 +135,9 @@
     border-bottom: 1px solid #eb516d;
 }
 
+.levelLabels {
+    color: white;
+}
 
 #initial-sort-elements {
     margin: 3rem 2rem 2rem 2rem;

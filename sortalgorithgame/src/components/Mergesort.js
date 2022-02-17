@@ -21,7 +21,7 @@ export default function Mergesort() {
                 {steps === 0 ? 
                 <>
                 <div>
-                    <label>
+                    <label className='levelLabels'>
                         Here we have a randomized array.
                         <br></br>
                         [1] The first step would be to split this unsorted-array in half.
@@ -94,7 +94,7 @@ export default function Mergesort() {
                 { steps === 1 ?
                 <>
                 <div>
-                    <label>
+                    <label className='levelLabels'>
                         [2] Below we have the array split in half.
                     </label>
                 </div>
@@ -125,7 +125,7 @@ export default function Mergesort() {
                 {steps === 2 ?
                 <>
                 <div>
-                    <label>
+                    <label className='levelLabels'>
                         [3] However, since the size of the new split is still too big we must split it in half again.
                     </label>
                 </div>
@@ -216,7 +216,7 @@ export default function Mergesort() {
                 {steps === 3 ?
                 <>
                 <div>
-                    <label>
+                    <label className='levelLabels'>
                         [4] Now we have the array split into individual pieces, which means it is ready to merge.
                     </label>
                 </div>
@@ -238,7 +238,7 @@ export default function Mergesort() {
                 {steps === 4 ?
                 <>
                 <div>
-                    <label>
+                    <label className='levelLabels'>
                         [5] There are now two seperate sorted arrays, which need one last merge.
                     </label>
                 </div>
@@ -266,7 +266,7 @@ export default function Mergesort() {
                 {steps === 5 ?
                 <>
                 <div>
-                    <label>
+                    <label className='levelLabels'>
                         [6] And just like that, we've succesfully sorted the
                         <br>
                         </br>
