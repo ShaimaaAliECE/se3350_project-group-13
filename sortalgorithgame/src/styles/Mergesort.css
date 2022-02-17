@@ -6,6 +6,13 @@
     color: white;
 }
 
+.substep {
+    margin-left: 10px;
+    margin-right: 10px;
+    display: flex;
+}
+
+
 .answers {
     box-sizing: border-box;
     filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.5));
@@ -109,6 +116,11 @@
     display: flex;
     margin-top: 1rem;
     color: white;
+    justify-content: center;
+}
+
+.step-container {
+    height:50px;
 }
 
 .inner-array {
