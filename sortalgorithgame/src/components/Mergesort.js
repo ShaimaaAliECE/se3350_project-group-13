@@ -152,7 +152,25 @@ class Mergesort extends React.Component {
     // Previous button onClick
     onClickPrev() {
         if (this.state.step > 1) {
-            this.setState({ step: this.state.step - 1 });
+            this.setState({ step: this.state.step - 1});
+            this.setState({ substep: 0});
+            this.setState({ elementstep: 0});
+            this.mergeWindow = 0;
+            this.left = 0;
+            this.right = 0;
+
+            let stepsarr = this.state.stepsarr;
+
+            for (let step = 0; step < stepsarr.length; step++) {
+                for (let substep = 0; substep < stepsarr[step].length; substep++) {
+                    for (let element = 0; element < stepsarr[step][substep].length; element++) {
+                        stepsarr[step][substep][element].color = "transparent";
+                    }
+                }
+            }
+
+            this.setState({ stepsarr: stepsarr })
+
         }
     }
 
