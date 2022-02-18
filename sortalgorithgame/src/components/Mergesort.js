@@ -40,6 +40,9 @@ class Mergesort extends React.Component {
 
     mergeWindow = 0;
 
+    left = 0;
+    right = 0;
+
     constructor(props) {
         super(props);
         let stepsarr = [[Array.from({ length: len }, () => Math.floor((Math.random() * (max - min + 1)) + min))]]; // generate list of random array
@@ -68,17 +71,18 @@ class Mergesort extends React.Component {
     // Next button onClick
     onClickNext() {
 
-        if (this.state.step < this.state.stepsarr.length / 2) {
+        if (this.state.step < this.state.stepsarr.length / 2 ) {
             if (this.state.step < this.state.stepsarr.length) {
                 this.setState({ step: this.state.step + 1 });
             }
         } else {
-            if (this.state.elementstep === this.state.stepsarr[this.state.step][this.state.substep].length-1) {
+            if (this.state.elementstep === this.state.stepsarr[this.state.step][this.state.substep].length - 1) {
                 if (this.state.substep === this.state.stepsarr[this.state.step].length - 1) {
                     if (this.state.step < this.state.stepsarr.length) {
                         this.setState({ step: this.state.step + 1 });
                         this.setState({ substep: 0 });
                         this.setState({ elementstep: 0 });
+                        this.mergeWindow = 0;
                     }
                 } else {
                     this.setState({ substep: this.state.substep + 1 });
@@ -88,18 +92,57 @@ class Mergesort extends React.Component {
                 this.setState({ elementstep: this.state.elementstep + 1 });
             }
 
-            let steparr = this.state.stepsarr;
-            steparr[this.state.step - 1][this.state.substep][this.state.elementstep ].color = "red";
-        
+            let stepsarr = this.state.stepsarr;
+
+            for (let step = 0; step < stepsarr.length; step++) {
+                for (let substep = 0; substep < stepsarr[step].length; substep++) {
+                    for (let element = 0; element < stepsarr[step][substep].length; element++) {
+                        stepsarr[step][substep][element].color = "blue";
+                    }
+                }
+            }
+
+            let left = stepsarr[this.state.step - 1][this.mergeWindow][this.left]
+            let right = stepsarr[this.state.step - 1][this.mergeWindow + 1][this.right]
+            let current = stepsarr[this.state.step][this.state.substep][this.state.elementstep]
+
+            if (stepsarr[this.state.step][this.state.substep].length === 1) {
+                left.color = "green";
+                this.mergeWindow++;
+            } else {
+                if (left.value === current.value) {
+                    left.color = "green";
+                    right.color = "red";
+                    if (this.left < stepsarr[this.state.step - 1][this.mergeWindow].length-1) {
+                        this.left++;
+                    }
+                } else {
+                    left.color = "red";
+                    right.color = "green";
+                    if (this.right < stepsarr[this.state.step - 1][this.mergeWindow + 1].length-1) {
+                        this.right++;
+                    }
+                  
+                }
+
+                if (this.state.elementstep == stepsarr[this.state.step][this.state.substep].length - 1) {
+                    console.log("wooo?");
+                    this.mergeWindow += 2;
+                    this.left = 0;
+                    this.right = 0;
+                }
+
+            }
+
             console.log("step " + this.state.step);
             console.log("substep " + this.state.substep);
             console.log("elementstep " + this.state.elementstep);
             console.log("---------------------");
 
-            this.setState({ stepsarr: steparr })
+            this.setState({ stepsarr: stepsarr })
 
         }
-   
+
 
     }
 
