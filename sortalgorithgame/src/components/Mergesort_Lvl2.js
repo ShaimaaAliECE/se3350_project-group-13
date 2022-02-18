@@ -1,5 +1,5 @@
 import Mergesort from "./Mergesort"
-import { React, useState } from 'react';
+import React from 'react';
 import '../styles/Mergesort.css';
 import correctSFX from '../sounds/correct.mp3'
 import incorrectSFX from '../sounds/incorrect.mp3'
@@ -12,12 +12,9 @@ const max = 20;
 const len = 10;
 
 class Mergesort_Lvl2 extends React.Component {
-    Mergesort_lvl2(min, max, len, arrayRandomGenerate) {
-        this.min = min;
-        this.max = max;
-        this.len = len;
-        this.arrayRandomGenerate = arrayRandomGenerate;
-    }
+    state = {
+        step: 1 //what step you are currently on
+    };
 
     stepsarr = [[Array.from({ length: len }, () => Math.floor((Math.random() * (max - min + 1)) + min))]]; // generate list of random array
 
@@ -44,21 +41,326 @@ class Mergesort_Lvl2 extends React.Component {
     }
 
     render() {
-        return (
-            <div className="mergesort-container">
-                <div className="button-container">
-                    <button className="prevBtn" onClick={this.onClickPrev.bind(this)}>previous step</button>
-                    <button className="nextBtn" onClick={this.onClickNext.bind(this)}>next step</button>
+        if (this.state.step == 1) {
+            return (
+                <div className="mergesort-container">
+                    <div className="button-container">
+                        <button className="prevBtn" onClick={this.onClickPrev.bind(this)}>previous step</button>
+                        <button className="nextBtn" onClick={this.onClickNext.bind(this)}>next step</button>
+                    </div>
+                    <br></br>
+                    <label className="step-container">
+                        {stepText[this.state.step - 1]?.map((step) => {
+                            return (<div>{step}<br></br></div>);
+                        })}
+                    </label>
+                    <Steps numbers={this.stepsarr.slice(0, this.state.step)} />
+                    <div>
+                    <br></br><br></br>
+                    <input type="text" className="numField" maxLength={2} id="1idx1"></input>
+                    <input type="text" className="numField" maxLength={2} id="1idx2"></input>
+                    <input type="text" className="numField" maxLength={2} id="1idx3"></input>
+                    <input type="text" className="numField" maxLength={2} id="1idx4"></input>
+                    <input type="text" className="numField" maxLength={2} id="1idx5"></input>
+                    <text>&nbsp;&nbsp;&nbsp;&nbsp;</text>
+                    <input type="text" className="numField" maxLength={2} id="1idx6"></input>
+                    <input type="text" className="numField" maxLength={2} id="1idx7"></input>
+                    <input type="text" className="numField" maxLength={2} id="1idx8"></input>
+                    <input type="text" className="numField" maxLength={2} id="1idx9"></input>
+                    <input type="text" className="numField" maxLength={2} id="1idx10"></input>
+                    <br></br><br></br>
+                    <div>
+                        <button className="submitBtn" id="btn" /*onClick={check1}*/>Check</button>
+                    </div><div id="incorrect1"></div>
+                    </div>
                 </div>
-                <br></br>
-                <label className="step-container">
-                    {stepText[this.state.step - 1]?.map((step) => {
-                        return (<div>{step}<br></br></div>);
-                    })}
-                </label>
-                <Steps numbers={this.stepsarr.slice(0, this.state.step)} />
-            </div>
-        );
+            );
+        }
+        else if (this.state.step == 2) {
+            return (
+                <div className="mergesort-container">
+                    <div className="button-container">
+                        <button className="prevBtn" onClick={this.onClickPrev.bind(this)}>previous step</button>
+                        <button className="nextBtn" onClick={this.onClickNext.bind(this)}>next step</button>
+                    </div>
+                    <br></br>
+                    <label className="step-container">
+                        {stepText[this.state.step - 1]?.map((step) => {
+                            return (<div>{step}<br></br></div>);
+                        })}
+                    </label>
+                    <Steps numbers={this.stepsarr.slice(0, this.state.step)} />
+                    <div>
+                    <br></br><br></br>
+                    <input type="text" className="numField" maxLength={2} id="2idx1"></input>
+                    <input type="text" className="numField" maxLength={2} id="2idx2"></input>
+                    <text>&nbsp;&nbsp;&nbsp;&nbsp;</text>
+                    <input type="text" className="numField" maxLength={2} id="2idx3"></input>
+                    <input type="text" className="numField" maxLength={2} id="2idx4"></input>
+                    <input type="text" className="numField" maxLength={2} id="2idx5"></input>
+                    <text>&nbsp;&nbsp;&nbsp;&nbsp;</text>
+                    <input type="text" className="numField" maxLength={2} id="2idx6"></input>
+                    <input type="text" className="numField" maxLength={2} id="2idx7"></input>
+                    <text>&nbsp;&nbsp;&nbsp;&nbsp;</text>
+                    <input type="text" className="numField" maxLength={2} id="2idx8"></input>
+                    <input type="text" className="numField" maxLength={2} id="2idx9"></input>
+                    <input type="text" className="numField" maxLength={2} id="2idx10"></input>
+                    <br></br><br></br>
+                    <div>
+                        <button className="submitBtn" id="btn" /*onClick={check1}*/>Check</button>
+                    </div><div id="incorrect2"></div>
+                    </div>
+                </div>
+            );
+        }
+        else if (this.state.step == 3) {
+            return (
+                <div className="mergesort-container">
+                    <div className="button-container">
+                        <button className="prevBtn" onClick={this.onClickPrev.bind(this)}>previous step</button>
+                        <button className="nextBtn" onClick={this.onClickNext.bind(this)}>next step</button>
+                    </div>
+                    <br></br>
+                    <label className="step-container">
+                        {stepText[this.state.step - 1]?.map((step) => {
+                            return (<div>{step}<br></br></div>);
+                        })}
+                    </label>
+                    <Steps numbers={this.stepsarr.slice(0, this.state.step)} />
+                    <div>
+                    <br></br><br></br>
+                    <input type="text" className="numField" maxLength={2} id="3idx1"></input>
+                    <text>&nbsp;&nbsp;&nbsp;&nbsp;</text>
+                    <input type="text" className="numField" maxLength={2} id="3idx2"></input>
+                    <text>&nbsp;&nbsp;&nbsp;&nbsp;</text>
+                    <input type="text" className="numField" maxLength={2} id="3idx3"></input>
+                    <text>&nbsp;&nbsp;&nbsp;&nbsp;</text>
+                    <input type="text" className="numField" maxLength={2} id="3idx4"></input>
+                    <input type="text" className="numField" maxLength={2} id="3idx5"></input>
+                    <text>&nbsp;&nbsp;&nbsp;&nbsp;</text>
+                    <input type="text" className="numField" maxLength={2} id="3idx6"></input>
+                    <text>&nbsp;&nbsp;&nbsp;&nbsp;</text>
+                    <input type="text" className="numField" maxLength={2} id="3idx7"></input>
+                    <text>&nbsp;&nbsp;&nbsp;&nbsp;</text>
+                    <input type="text" className="numField" maxLength={2} id="3idx8"></input>
+                    <text>&nbsp;&nbsp;&nbsp;&nbsp;</text>
+                    <input type="text" className="numField" maxLength={2} id="3idx9"></input>
+                    <input type="text" className="numField" maxLength={2} id="3idx10"></input>
+                    <br></br><br></br>
+                    <div>
+                        <button className="submitBtn" id="btn" /*onClick={check1}*/>Check</button>
+                    </div><div id="incorrect3"></div>
+                    </div>
+                </div>
+            );
+        }
+        else if (this.state.step == 4) {
+            return (
+                <div className="mergesort-container">
+                    <div className="button-container">
+                        <button className="prevBtn" onClick={this.onClickPrev.bind(this)}>previous step</button>
+                        <button className="nextBtn" onClick={this.onClickNext.bind(this)}>next step</button>
+                    </div>
+                    <br></br>
+                    <label className="step-container">
+                        {stepText[this.state.step - 1]?.map((step) => {
+                            return (<div>{step}<br></br></div>);
+                        })}
+                    </label>
+                    <Steps numbers={this.stepsarr.slice(0, this.state.step)} />
+                    <div>
+                    <br></br><br></br>
+                    <input type="text" className="numField" maxLength={2} id="4idx1"></input>
+                    <text>&nbsp;&nbsp;&nbsp;&nbsp;</text>
+                    <input type="text" className="numField" maxLength={2} id="4idx2"></input>
+                    <text>&nbsp;&nbsp;&nbsp;&nbsp;</text>
+                    <input type="text" className="numField" maxLength={2} id="4idx3"></input>
+                    <text>&nbsp;&nbsp;&nbsp;&nbsp;</text>
+                    <input type="text" className="numField" maxLength={2} id="4idx4"></input>
+                    <text>&nbsp;&nbsp;&nbsp;&nbsp;</text>
+                    <input type="text" className="numField" maxLength={2} id="4idx5"></input>
+                    <text>&nbsp;&nbsp;&nbsp;&nbsp;</text>
+                    <input type="text" className="numField" maxLength={2} id="4idx6"></input>
+                    <text>&nbsp;&nbsp;&nbsp;&nbsp;</text>
+                    <input type="text" className="numField" maxLength={2} id="4idx7"></input>
+                    <text>&nbsp;&nbsp;&nbsp;&nbsp;</text>
+                    <input type="text" className="numField" maxLength={2} id="4idx8"></input>
+                    <text>&nbsp;&nbsp;&nbsp;&nbsp;</text>
+                    <input type="text" className="numField" maxLength={2} id="4idx9"></input>
+                    <text>&nbsp;&nbsp;&nbsp;&nbsp;</text>
+                    <input type="text" className="numField" maxLength={2} id="4idx10"></input>
+                    <br></br><br></br>
+                    <div>
+                        <button className="submitBtn" id="btn" /*onClick={check1}*/>Check</button>
+                    </div><div id="incorrect4"></div>
+                    </div>
+                </div>
+            );
+        }
+        else if (this.state.step == 5) {
+            return (
+                <div className="mergesort-container">
+                    <div className="button-container">
+                        <button className="prevBtn" onClick={this.onClickPrev.bind(this)}>previous step</button>
+                        <button className="nextBtn" onClick={this.onClickNext.bind(this)}>next step</button>
+                    </div>
+                    <br></br>
+                    <label className="step-container">
+                        {stepText[this.state.step - 1]?.map((step) => {
+                            return (<div>{step}<br></br></div>);
+                        })}
+                    </label>
+                    <Steps numbers={this.stepsarr.slice(0, this.state.step)} />
+                    <div>
+                    <br></br><br></br>
+                    <input type="text" className="numField" maxLength={2} id="5idx1"></input>
+                    <text>&nbsp;&nbsp;&nbsp;&nbsp;</text>
+                    <input type="text" className="numField" maxLength={2} id="5idx2"></input>
+                    <text>&nbsp;&nbsp;&nbsp;&nbsp;</text>
+                    <input type="text" className="numField" maxLength={2} id="5idx3"></input>
+                    <text>&nbsp;&nbsp;&nbsp;&nbsp;</text>
+                    <input type="text" className="numField" maxLength={2} id="5idx4"></input>
+                    <input type="text" className="numField" maxLength={2} id="5idx5"></input>
+                    <text>&nbsp;&nbsp;&nbsp;&nbsp;</text>
+                    <input type="text" className="numField" maxLength={2} id="5idx6"></input>
+                    <text>&nbsp;&nbsp;&nbsp;&nbsp;</text>
+                    <input type="text" className="numField" maxLength={2} id="5idx7"></input>
+                    <text>&nbsp;&nbsp;&nbsp;&nbsp;</text>
+                    <input type="text" className="numField" maxLength={2} id="5idx8"></input>
+                    <text>&nbsp;&nbsp;&nbsp;&nbsp;</text>
+                    <input type="text" className="numField" maxLength={2} id="5idx9"></input>
+                    <input type="text" className="numField" maxLength={2} id="5idx10"></input>
+                    <br></br><br></br>
+                    <div>
+                        <button className="submitBtn" id="btn" /*onClick={check1}*/>Check</button>
+                    </div><div id="incorrect5"></div>
+                    </div>
+                </div>
+            );
+        }
+        else if (this.state.step == 6) {
+            return (
+                <div className="mergesort-container">
+                    <div className="button-container">
+                        <button className="prevBtn" onClick={this.onClickPrev.bind(this)}>previous step</button>
+                        <button className="nextBtn" onClick={this.onClickNext.bind(this)}>next step</button>
+                    </div>
+                    <br></br>
+                    <label className="step-container">
+                        {stepText[this.state.step - 1]?.map((step) => {
+                            return (<div>{step}<br></br></div>);
+                        })}
+                    </label>
+                    <Steps numbers={this.stepsarr.slice(0, this.state.step)} />
+                    <div>
+                    <br></br><br></br>
+                    <input type="text" className="numField" maxLength={2} id="6idx1"></input>
+                    <input type="text" className="numField" maxLength={2} id="6idx2"></input>
+                    <text>&nbsp;&nbsp;&nbsp;&nbsp;</text>
+                    <input type="text" className="numField" maxLength={2} id="6idx3"></input>
+                    <input type="text" className="numField" maxLength={2} id="6idx4"></input>
+                    <input type="text" className="numField" maxLength={2} id="6idx5"></input>
+                    <text>&nbsp;&nbsp;&nbsp;&nbsp;</text>
+                    <input type="text" className="numField" maxLength={2} id="6idx6"></input>
+                    <input type="text" className="numField" maxLength={2} id="6idx7"></input>
+                    <text>&nbsp;&nbsp;&nbsp;&nbsp;</text>
+                    <input type="text" className="numField" maxLength={2} id="6idx8"></input>
+                    <input type="text" className="numField" maxLength={2} id="6idx9"></input>
+                    <input type="text" className="numField" maxLength={2} id="6idx10"></input>
+                    <br></br><br></br>
+                    <div>
+                        <button className="submitBtn" id="btn" /*onClick={check1}*/>Check</button>
+                    </div><div id="incorrect6"></div>
+                    </div>
+                </div>
+            );
+        }
+        else if (this.state.step == 7) {
+            return (
+                <div className="mergesort-container">
+                    <div className="button-container">
+                        <button className="prevBtn" onClick={this.onClickPrev.bind(this)}>previous step</button>
+                        <button className="nextBtn" onClick={this.onClickNext.bind(this)}>next step</button>
+                    </div>
+                    <br></br>
+                    <label className="step-container">
+                        {stepText[this.state.step - 1]?.map((step) => {
+                            return (<div>{step}<br></br></div>);
+                        })}
+                    </label>
+                    <Steps numbers={this.stepsarr.slice(0, this.state.step)} />
+                    <div>
+                    <br></br><br></br>
+                    <input type="text" className="numField" maxLength={2} id="7idx1"></input>
+                    <input type="text" className="numField" maxLength={2} id="7idx2"></input>
+                    <input type="text" className="numField" maxLength={2} id="7idx3"></input>
+                    <input type="text" className="numField" maxLength={2} id="7idx4"></input>
+                    <input type="text" className="numField" maxLength={2} id="7idx5"></input>
+                    <text>&nbsp;&nbsp;&nbsp;&nbsp;</text>
+                    <input type="text" className="numField" maxLength={2} id="7idx6"></input>
+                    <input type="text" className="numField" maxLength={2} id="7idx7"></input>
+                    <input type="text" className="numField" maxLength={2} id="7idx8"></input>
+                    <input type="text" className="numField" maxLength={2} id="7idx9"></input>
+                    <input type="text" className="numField" maxLength={2} id="7idx10"></input>
+                    <br></br><br></br>
+                    <div>
+                        <button className="submitBtn" id="btn" /*onClick={check1}*/>Check</button>
+                    </div><div id="incorrect7"></div>
+                    </div>
+                </div>
+            );
+        }
+        else if (this.state.step == 8) {
+            return (
+                <div className="mergesort-container">
+                    <div className="button-container">
+                        <button className="prevBtn" onClick={this.onClickPrev.bind(this)}>previous step</button>
+                        <button className="nextBtn" onClick={this.onClickNext.bind(this)}>next step</button>
+                    </div>
+                    <br></br>
+                    <label className="step-container">
+                        {stepText[this.state.step - 1]?.map((step) => {
+                            return (<div>{step}<br></br></div>);
+                        })}
+                    </label>
+                    <Steps numbers={this.stepsarr.slice(0, this.state.step)} />
+                    <div>
+                    <br></br><br></br>
+                    <input type="text" className="numField" maxLength={2} id="8idx1"></input>
+                    <input type="text" className="numField" maxLength={2} id="8idx2"></input>
+                    <input type="text" className="numField" maxLength={2} id="8idx3"></input>
+                    <input type="text" className="numField" maxLength={2} id="8idx4"></input>
+                    <input type="text" className="numField" maxLength={2} id="8idx5"></input>
+                    <input type="text" className="numField" maxLength={2} id="8idx6"></input>
+                    <input type="text" className="numField" maxLength={2} id="8idx7"></input>
+                    <input type="text" className="numField" maxLength={2} id="8idx8"></input>
+                    <input type="text" className="numField" maxLength={2} id="8idx9"></input>
+                    <input type="text" className="numField" maxLength={2} id="8idx10"></input>
+                    <br></br><br></br>
+                    <div>
+                        <button className="submitBtn" id="btn" /*onClick={check1}*/>Check</button>
+                    </div><div id="incorrect8"></div>
+                    </div>
+                </div>
+            );
+        }
+        else {
+            return (
+                <div className="mergesort-container">
+                    <div className="button-container">
+                        <button className="prevBtn" onClick={this.onClickPrev.bind(this)}>previous step</button>
+                        <button className="nextBtn" onClick={this.onClickNext.bind(this)}>next step</button>
+                    </div>
+                    <br></br>
+                    <label className="step-container">
+                        {stepText[this.state.step - 1]?.map((step) => {
+                            return (<div>{step}<br></br></div>);
+                        })}
+                    </label>
+                    <Steps numbers={this.stepsarr.slice(0, this.state.step)} />
+                </div>
+            );
+        }
     }
 
     //merges two lists
@@ -158,213 +460,6 @@ class Mergesort_Lvl2 extends React.Component {
         let mid = array.length / 2
 
         array.splice(mid - 1, 1);
-    }
-
-    //display user input fields/check btn for step 1
-    step0Ans() {
-        if (this.state.step == 0) {
-            <><div className="answers">
-                <input type="text" className="numField" maxLength={2} id="1idx1"></input>
-                <input type="text" className="numField" maxLength={2} id="1idx2"></input>
-                <input type="text" className="numField" maxLength={2} id="1idx3"></input>
-                <input type="text" className="numField" maxLength={2} id="1idx4"></input>
-                <input type="text" className="numField" maxLength={2} id="1idx5"></input>
-                <text>&nbsp;&nbsp;&nbsp;&nbsp;</text>
-                <input type="text" className="numField" maxLength={2} id="1idx6"></input>
-                <input type="text" className="numField" maxLength={2} id="1idx7"></input>
-                <input type="text" className="numField" maxLength={2} id="1idx8"></input>
-                <input type="text" className="numField" maxLength={2} id="1idx9"></input>
-                <input type="text" className="numField" maxLength={2} id="1idx10"></input>
-            </div>
-                <br></br>
-                <div>
-                    <button className="submitBtn" id="btn" /*onClick={check1}*/>Check</button>
-                </div><br></br><div id="incorrect1"></div></>
-        }
-    }
-
-    //display user input fields/check btn for step 2
-    step1Ans() {
-        if (this.state.step == 1) {
-            <><div className="answers">
-                <input type="text" className="numField" maxLength={2} id="2idx1"></input>
-                <input type="text" className="numField" maxLength={2} id="2idx2"></input>
-                <input type="text" className="numField" maxLength={2} id="2idx3"></input>
-                <text>&nbsp;&nbsp;&nbsp;&nbsp;</text>
-                <input type="text" className="numField" maxLength={2} id="2idx4"></input>
-                <input type="text" className="numField" maxLength={2} id="2idx5"></input>
-                <text>&nbsp;&nbsp;&nbsp;&nbsp;</text>
-                <input type="text" className="numField" maxLength={2} id="2idx6"></input>
-                <input type="text" className="numField" maxLength={2} id="2idx7"></input>
-                <input type="text" className="numField" maxLength={2} id="2idx8"></input>
-                <text>&nbsp;&nbsp;&nbsp;&nbsp;</text>
-                <input type="text" className="numField" maxLength={2} id="2idx9"></input>
-                <input type="text" className="numField" maxLength={2} id="2idx10"></input>
-            </div>
-                <br></br>
-                <div>
-                    <button className="submitBtn" id="btn" /*onClick={check2}*/>Check</button>
-                </div><br></br><div id="incorrect2"></div></>
-        }
-    }
-
-    //display user input fields/check btn for step 3
-    step2Ans() {
-        if (this.state.step == 2) {
-            <><div className="answers">
-                <input type="text" className="numField" maxLength={2} id="3idx1"></input>
-                <input type="text" className="numField" maxLength={2} id="3idx2"></input>
-                <text>&nbsp;&nbsp;&nbsp;&nbsp;</text>
-                <input type="text" className="numField" maxLength={2} id="3idx3"></input>
-                <text>&nbsp;&nbsp;&nbsp;&nbsp;</text>
-                <input type="text" className="numField" maxLength={2} id="3idx4"></input>
-                <text>&nbsp;&nbsp;&nbsp;&nbsp;</text>
-                <input type="text" className="numField" maxLength={2} id="3idx5"></input>
-                <text>&nbsp;&nbsp;&nbsp;&nbsp;</text>
-                <input type="text" className="numField" maxLength={2} id="3idx6"></input>
-                <input type="text" className="numField" maxLength={2} id="3idx7"></input>
-                <text>&nbsp;&nbsp;&nbsp;&nbsp;</text>
-                <input type="text" className="numField" maxLength={2} id="3idx8"></input>
-                <text>&nbsp;&nbsp;&nbsp;&nbsp;</text>
-                <input type="text" className="numField" maxLength={2} id="3idx9"></input>
-                <text>&nbsp;&nbsp;&nbsp;&nbsp;</text>
-                <input type="text" className="numField" maxLength={2} id="3idx10"></input>
-            </div>
-                <br></br>
-                <div>
-                    <button className="submitBtn" id="btn" /*onClick={check3}*/>Check</button>
-                </div><br></br><div id="incorrect3"></div></>
-        }
-    }
-
-    //display user input fields/check btn for step 4
-    step3Ans() {
-        if (this.state.step == 3) {
-            <><div className="answers">
-                <input type="text" className="numField" maxLength={2} id="4idx1"></input>
-                <text>&nbsp;&nbsp;&nbsp;&nbsp;</text>
-                <input type="text" className="numField" maxLength={2} id="4idx2"></input>
-                <text>&nbsp;&nbsp;&nbsp;&nbsp;</text>
-                <input type="text" className="numField" maxLength={2} id="4idx3"></input>
-                <text>&nbsp;&nbsp;&nbsp;&nbsp;</text>
-                <input type="text" className="numField" maxLength={2} id="4idx4"></input>
-                <text>&nbsp;&nbsp;&nbsp;&nbsp;</text>
-                <input type="text" className="numField" maxLength={2} id="4idx5"></input>
-                <text>&nbsp;&nbsp;&nbsp;&nbsp;</text>
-                <input type="text" className="numField" maxLength={2} id="4idx6"></input>
-                <text>&nbsp;&nbsp;&nbsp;&nbsp;</text>
-                <input type="text" className="numField" maxLength={2} id="4idx7"></input>
-                <text>&nbsp;&nbsp;&nbsp;&nbsp;</text>
-                <input type="text" className="numField" maxLength={2} id="4idx8"></input>
-                <text>&nbsp;&nbsp;&nbsp;&nbsp;</text>
-                <input type="text" className="numField" maxLength={2} id="4idx9"></input>
-                <text>&nbsp;&nbsp;&nbsp;&nbsp;</text>
-                <input type="text" className="numField" maxLength={2} id="4idx10"></input>
-            </div>
-                <br></br>
-                <div>
-                    <button className="submitBtn" id="btn" /*onClick={check4}*/>Check</button>
-                </div><br></br><div id="incorrect4"></div></>
-        }
-    }
-
-    //display user input fields/check btn for step 5
-    step4Ans() {
-        if (this.state.step == 4) {
-            <><div className="answers">
-                <input type="text" className="numField" maxLength={2} id="5idx1"></input>
-                <input type="text" className="numField" maxLength={2} id="5idx2"></input>
-                <text>&nbsp;&nbsp;&nbsp;&nbsp;</text>
-                <input type="text" className="numField" maxLength={2} id="5idx3"></input>
-                <text>&nbsp;&nbsp;&nbsp;&nbsp;</text>
-                <input type="text" className="numField" maxLength={2} id="5idx4"></input>
-                <text>&nbsp;&nbsp;&nbsp;&nbsp;</text>
-                <input type="text" className="numField" maxLength={2} id="5idx5"></input>
-                <text>&nbsp;&nbsp;&nbsp;&nbsp;</text>
-                <input type="text" className="numField" maxLength={2} id="5idx6"></input>
-                <input type="text" className="numField" maxLength={2} id="5idx7"></input>
-                <text>&nbsp;&nbsp;&nbsp;&nbsp;</text>
-                <input type="text" className="numField" maxLength={2} id="5idx8"></input>
-                <text>&nbsp;&nbsp;&nbsp;&nbsp;</text>
-                <input type="text" className="numField" maxLength={2} id="5idx9"></input>
-                <text>&nbsp;&nbsp;&nbsp;&nbsp;</text>
-                <input type="text" className="numField" maxLength={2} id="5idx10"></input>
-            </div>
-                <br></br>
-                <div>
-                    <button className="submitBtn" id="btn" /*onClick={check5}*/>Check</button>
-                </div><br></br><div id="incorrect5"></div></>
-        }
-    }
-
-    //display user input fields/check btn for step 6
-    step5Ans() {
-        if (this.state.step == 5) {
-            <><div className="answers">
-                <input type="text" className="numField" maxLength={2} id="6idx1"></input>
-                <input type="text" className="numField" maxLength={2} id="6idx2"></input>
-                <input type="text" className="numField" maxLength={2} id="6idx3"></input>
-                <text>&nbsp;&nbsp;&nbsp;&nbsp;</text>
-                <input type="text" className="numField" maxLength={2} id="6idx4"></input>
-                <input type="text" className="numField" maxLength={2} id="6idx5"></input>
-                <text>&nbsp;&nbsp;&nbsp;&nbsp;</text>
-                <input type="text" className="numField" maxLength={2} id="6idx6"></input>
-                <input type="text" className="numField" maxLength={2} id="6idx7"></input>
-                <input type="text" className="numField" maxLength={2} id="6idx8"></input>
-                <text>&nbsp;&nbsp;&nbsp;&nbsp;</text>
-                <input type="text" className="numField" maxLength={2} id="6idx9"></input>
-                <input type="text" className="numField" maxLength={2} id="6idx10"></input>
-            </div>
-                <br></br>
-                <div>
-                    <button className="submitBtn" id="btn" /*onClick={check6}*/>Check</button>
-                </div><br></br><div id="incorrect6"></div></>
-        }
-    }
-
-    //display user input fields/check btn for step 7
-    step6Ans() {
-        if (this.state.step == 6) {
-            <><div className="answers">
-                <input type="text" className="numField" maxLength={2} id="7idx1"></input>
-                <input type="text" className="numField" maxLength={2} id="7idx2"></input>
-                <input type="text" className="numField" maxLength={2} id="7idx3"></input>
-                <input type="text" className="numField" maxLength={2} id="7idx4"></input>
-                <input type="text" className="numField" maxLength={2} id="7idx5"></input>
-                <text>&nbsp;&nbsp;&nbsp;&nbsp;</text>
-                <input type="text" className="numField" maxLength={2} id="7idx6"></input>
-                <input type="text" className="numField" maxLength={2} id="7idx7"></input>
-                <input type="text" className="numField" maxLength={2} id="7idx8"></input>
-                <input type="text" className="numField" maxLength={2} id="7idx9"></input>
-                <input type="text" className="numField" maxLength={2} id="7idx10"></input>
-            </div>
-                <br></br>
-                <div>
-                    <button className="submitBtn" id="btn" /*onClick={check7}*/>Check</button>
-                </div><br></br><div id="incorrect7"></div></>
-        }
-    }
-
-    //display user input fields/check btn for step 8
-    step6Ans() {
-        if (this.state.step == 7) {
-            <><div className="answers">
-                <input type="text" className="numField" maxLength={2} id="8idx1"></input>
-                <input type="text" className="numField" maxLength={2} id="8idx2"></input>
-                <input type="text" className="numField" maxLength={2} id="8idx3"></input>
-                <input type="text" className="numField" maxLength={2} id="8idx4"></input>
-                <input type="text" className="numField" maxLength={2} id="8idx5"></input>
-                <input type="text" className="numField" maxLength={2} id="8idx6"></input>
-                <input type="text" className="numField" maxLength={2} id="8idx7"></input>
-                <input type="text" className="numField" maxLength={2} id="8idx8"></input>
-                <input type="text" className="numField" maxLength={2} id="8idx9"></input>
-                <input type="text" className="numField" maxLength={2} id="8idx10"></input>
-            </div>
-                <br></br>
-                <div>
-                    <button className="submitBtn" id="btn" /*onClick={check8}*/>Check</button>
-                </div><br></br><div id="incorrect8"></div></>
-        }
     }
 
     /*
