@@ -5,7 +5,7 @@ import stepText from '../json/level1.json'
 //array constraints
 const min = 1;
 const max = 20;
-const len = 10;
+const len = 10
 
 //shows all the mergesort steps
 
@@ -31,6 +31,7 @@ function Elements(props) {
     );
 }
 
+// the actual individal elements
 function Element(props) {
     return (
         <div style={{ backgroundColor: props.color }} className='elements'>{props.value}</div>
@@ -38,10 +39,9 @@ function Element(props) {
 }
 class Mergesort extends React.Component {
 
-    mergeWindow = 0;
-
-    left = 0;
-    right = 0;
+    mergeWindow = 0; // how many substeps we passed in the merge
+    left = 0; // the left element index of the merge
+    right = 0; // the right element index of the merge
 
     constructor(props) {
         super(props);
@@ -49,7 +49,7 @@ class Mergesort extends React.Component {
 
         this.mergeSort(stepsarr); //generate the mergesort array
 
-
+        //make each element a object with a value and a color
         for (let step = 0; step < stepsarr.length; step++) {
             for (let substep = 0; substep < stepsarr[step].length; substep++) {
                 stepsarr[step][substep] = stepsarr[step][substep].map((element) => {
@@ -59,9 +59,9 @@ class Mergesort extends React.Component {
         }
         this.state = {
             step: 1, //what step you are currently on
-            substep: 0,
-            elementstep: 0,
-            stepsarr: stepsarr
+            substep: 0, //what substep you are currently on
+            elementstep: 0, //what element step  you are currently on
+            stepsarr: stepsarr // the actual array of elements (the tree)
         }
     }
 
@@ -71,28 +71,29 @@ class Mergesort extends React.Component {
     // Next button onClick
     onClickNext() {
 
-        if (this.state.step < this.state.stepsarr.length / 2) {
-            if (this.state.step < this.state.stepsarr.length) {
-                this.setState({ step: this.state.step + 1 });
+        if (this.state.step < this.state.stepsarr.length / 2) { //check if the steps are splitting
+            if (this.state.step < this.state.stepsarr.length) { //check if it's not last step
+                this.setState({ step: this.state.step + 1 }); //increment steps
             }
-        } else {
-            if (this.state.elementstep === this.state.stepsarr[this.state.step][this.state.substep].length - 1) {
-                if (this.state.substep === this.state.stepsarr[this.state.step].length - 1) {
-                    if (this.state.step < this.state.stepsarr.length) {
-                        this.setState({ step: this.state.step + 1 });
-                        this.setState({ substep: 0 });
-                        this.setState({ elementstep: 0 });
+        } else { // merge steps
+            if (this.state.elementstep === this.state.stepsarr[this.state.step][this.state.substep].length - 1) { //check if elements reached end of substep
+                if (this.state.substep === this.state.stepsarr[this.state.step].length - 1) { //check if substep reached end of step
+                    if (this.state.step < this.state.stepsarr.length) { //check if there is a next step
+                        this.setState({ step: this.state.step + 1 }); //increment steps
+                        this.setState({ substep: 0 }); //make substeps back to 0
+                        this.setState({ elementstep: 0 }); // make element steps back to 0
                     }
-                } else {
-                    this.setState({ substep: this.state.substep + 1 });
-                    this.setState({ elementstep: 0 });
+                } else { //if there is still substeps left
+                    this.setState({ substep: this.state.substep + 1 }); //increment substeps
+                    this.setState({ elementstep: 0 }); // make elementsteps back to 0
                 }
-            } else {
-                this.setState({ elementstep: this.state.elementstep + 1 });
+            } else { //if there is still element steps to go through
+                this.setState({ elementstep: this.state.elementstep + 1 }); //increment element steps
             }
 
-            let stepsarr = this.state.stepsarr;
+            let stepsarr = this.state.stepsarr; // temp value to hold the state
 
+            //turn all the element backround transparents (i.e reset background because we are gonna change it later so the previous change might still be there)
             for (let step = 0; step < stepsarr.length; step++) {
                 for (let substep = 0; substep < stepsarr[step].length; substep++) {
                     for (let element = 0; element < stepsarr[step][substep].length; element++) {
@@ -100,67 +101,66 @@ class Mergesort extends React.Component {
                     }
                 }
             }
-            if (this.state.elementstep == 0 && this.state.substep == 0) {
-                this.mergeWindow = 0;
+
+            if (this.state.elementstep == 0 && this.state.substep == 0) { //if this is the first step
+                this.mergeWindow = 0; //reset merge window
             }
 
+            //variable to hold left value, right, and current
             let left = stepsarr[this.state.step - 1][this.mergeWindow][this.left]
             let right = stepsarr[this.state.step - 1][this.mergeWindow + 1][this.right]
             let current = stepsarr[this.state.step][this.state.substep][this.state.elementstep]
 
-
-
+            // if there is only one element
             if (stepsarr[this.state.step][this.state.substep].length === 1) {
-                left.color = "green";
-                this.mergeWindow++;
-            } else {
-                if (left?.value === current.value) {
+                left.color = "green"; //make the left green
+                this.mergeWindow++; //increment merge window
+            } else { //there is more than one element
+                if (left?.value === current.value) { //check if the left value is the right one
+                    if (left !== undefined) { 
+                        left.color = "green"; // make the left green
+                    }
+                    if (right !== undefined) { 
+                        right.color = "red"; //make the right red
+                    }
+                    this.left++; //increment left
+                } else { // means right is the right value
                     if (left !== undefined) {
-                        left.color = "green";
+                        left.color = "red"; //make left red
                     }
                     if (right !== undefined) {
-                        right.color = "red";
+                        right.color = "green"; //make right green
                     }
-                    this.left++;
-                } else {
-                    if (left !== undefined) {
-                        left.color = "red";
-
-                    }
-                    if (right !== undefined) {
-                        right.color = "green";
-
-                    }
-                    this.right++;
+                    this.right++; //increment right
 
                 }
 
+                //check if that was last step in the substep
                 if (this.state.elementstep == stepsarr[this.state.step][this.state.substep].length - 1) {
-                    this.mergeWindow += 2;
+                    this.mergeWindow += 2; //increment merge window
+                    //reset left and right
                     this.left = 0;
                     this.right = 0;
                 }
             }
-
-            this.setState({ stepsarr: stepsarr })
-
+            this.setState({ stepsarr: stepsarr }) //set the steparr to include new colors
         }
-
-
     }
 
     // Previous button onClick
     onClickPrev() {
-        if (this.state.step > 1) {
-            this.setState({ step: this.state.step - 1});
-            this.setState({ substep: 0});
-            this.setState({ elementstep: 0});
+        if (this.state.step > 1) { //check if there is a previous step
+            this.setState({ step: this.state.step - 1 }); // decrement step
+            //reset all the substeps and elment steps and merge window and left and right
+            this.setState({ substep: 0 });
+            this.setState({ elementstep: 0 });
             this.mergeWindow = 0;
             this.left = 0;
             this.right = 0;
 
-            let stepsarr = this.state.stepsarr;
+            let stepsarr = this.state.stepsarr; // temp to hold changes
 
+            //reset the background to be transparent
             for (let step = 0; step < stepsarr.length; step++) {
                 for (let substep = 0; substep < stepsarr[step].length; substep++) {
                     for (let element = 0; element < stepsarr[step][substep].length; element++) {
@@ -169,16 +169,15 @@ class Mergesort extends React.Component {
                 }
             }
 
-            this.setState({ stepsarr: stepsarr })
-
+            this.setState({ stepsarr: stepsarr }) //update the stepsarr
         }
     }
 
     // render method
     render() {
-        let steps = [];
+        let steps = []; //holds the steps and also the next step if it exists
         steps.push(<Steps numbers={this.state.stepsarr.slice(0, this.state.step)} empty={false} />);
-        if (this.state.stepsarr[this.state.step]) {
+        if (this.state.stepsarr[this.state.step]) { //if there is a next step
             steps.push(<SubStep numbers={this.state.stepsarr[this.state.step]} empty={true} substep={this.state.substep} elementstep={this.state.elementstep} />)
         }
 
