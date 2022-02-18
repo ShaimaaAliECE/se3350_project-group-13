@@ -108,39 +108,39 @@ class Mergesort extends React.Component {
             let right = stepsarr[this.state.step - 1][this.mergeWindow + 1][this.right]
             let current = stepsarr[this.state.step][this.state.substep][this.state.elementstep]
 
-           
+
 
             if (stepsarr[this.state.step][this.state.substep].length === 1) {
                 left.color = "green";
                 this.mergeWindow++;
             } else {
-                if (left.value === current.value) {
-                    left.color = "green";
-                    right.color = "red";
-                    if (this.left < stepsarr[this.state.step - 1][this.mergeWindow].length-1) {
-                        this.left++;
+                if (left?.value === current.value) {
+                    if (left !== undefined) {
+                        left.color = "green";
                     }
+                    if (right !== undefined) {
+                        right.color = "red";
+                    }
+                    this.left++;
                 } else {
-                    left.color = "red";
-                    right.color = "green";
-                    if (this.right < stepsarr[this.state.step - 1][this.mergeWindow + 1].length-1) {
-                        this.right++;
+                    if (left !== undefined) {
+                        left.color = "red";
+
                     }
-                  
+                    if (right !== undefined) {
+                        right.color = "green";
+
+                    }
+                    this.right++;
+
                 }
 
                 if (this.state.elementstep == stepsarr[this.state.step][this.state.substep].length - 1) {
-                    console.log("wooo?");
-                        this.mergeWindow += 2;
-                        this.left = 0;
-                        this.right = 0;
+                    this.mergeWindow += 2;
+                    this.left = 0;
+                    this.right = 0;
                 }
             }
-
-            console.log("step " + this.state.step);
-            console.log("substep " + this.state.substep);
-            console.log("elementstep " + this.state.elementstep);
-            console.log("---------------------");
 
             this.setState({ stepsarr: stepsarr })
 
