@@ -53,7 +53,7 @@ class Mergesort extends React.Component {
         for (let step = 0; step < stepsarr.length; step++) {
             for (let substep = 0; substep < stepsarr[step].length; substep++) {
                 stepsarr[step][substep] = stepsarr[step][substep].map((element) => {
-                    return ({ value: element, color: "blue" });
+                    return ({ value: element, color: "transparent" });
                 })
             }
         }
@@ -71,7 +71,7 @@ class Mergesort extends React.Component {
     // Next button onClick
     onClickNext() {
 
-        if (this.state.step < this.state.stepsarr.length / 2 ) {
+        if (this.state.step < this.state.stepsarr.length / 2) {
             if (this.state.step < this.state.stepsarr.length) {
                 this.setState({ step: this.state.step + 1 });
             }
@@ -82,7 +82,6 @@ class Mergesort extends React.Component {
                         this.setState({ step: this.state.step + 1 });
                         this.setState({ substep: 0 });
                         this.setState({ elementstep: 0 });
-                        this.mergeWindow = 0;
                     }
                 } else {
                     this.setState({ substep: this.state.substep + 1 });
@@ -97,14 +96,19 @@ class Mergesort extends React.Component {
             for (let step = 0; step < stepsarr.length; step++) {
                 for (let substep = 0; substep < stepsarr[step].length; substep++) {
                     for (let element = 0; element < stepsarr[step][substep].length; element++) {
-                        stepsarr[step][substep][element].color = "blue";
+                        stepsarr[step][substep][element].color = "transparent";
                     }
                 }
+            }
+            if (this.state.elementstep == 0 && this.state.substep == 0) {
+                this.mergeWindow = 0;
             }
 
             let left = stepsarr[this.state.step - 1][this.mergeWindow][this.left]
             let right = stepsarr[this.state.step - 1][this.mergeWindow + 1][this.right]
             let current = stepsarr[this.state.step][this.state.substep][this.state.elementstep]
+
+           
 
             if (stepsarr[this.state.step][this.state.substep].length === 1) {
                 left.color = "green";
@@ -127,11 +131,10 @@ class Mergesort extends React.Component {
 
                 if (this.state.elementstep == stepsarr[this.state.step][this.state.substep].length - 1) {
                     console.log("wooo?");
-                    this.mergeWindow += 2;
-                    this.left = 0;
-                    this.right = 0;
+                        this.mergeWindow += 2;
+                        this.left = 0;
+                        this.right = 0;
                 }
-
             }
 
             console.log("step " + this.state.step);
