@@ -1,19 +1,20 @@
 import React from "react";
 import '../styles/Navbar.css';
 
-
+// the top navbar
 class Navbar extends React.Component {
     constructor(){
         super();
         this.state = {
-            username: '',
-            auth: false
+            username: '', //current logged in
+            auth: false // if you are logged in
         }
     }
 
     componentDidMount(){
-        const username = localStorage.getItem('Username');
-        if(username){
+        const username = localStorage.getItem('Username'); //check if you are logged in
+        if(username){ //if you are
+            //set the state
             this.setState({
                 username:username,
                 auth:true
