@@ -85,6 +85,17 @@
     box-shadow: 2px 2px 1px 0.5px rgba(0, 0, 0, 0.5);
 }
 
+.elements input {
+    width: 100%;
+    height: 100%;
+    background-color: transparent;
+    color: white;
+    text-align: center;
+    border-radius: 0;
+    outline: none;
+    border-width: 0;
+}
+
 .mergesort-container {
     text-align: center;
     justify-content: center;
@@ -122,6 +133,10 @@
 .step-container {
     height:50px;
     color:white;
+}
+.incorrect-container {
+    height:25px;
+    color:red;
 }
 
 .inner-array {
