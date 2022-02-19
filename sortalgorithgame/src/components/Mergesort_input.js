@@ -62,9 +62,9 @@ class Mergesort_input extends React.Component {
             // if it is the last step
             if (this.state.step === this.state.stepsarr.length - 1) {
                 // display congradulations
-                this.applauseSound()
+                this.applauseSound();
                 let resonseLabel = document.getElementById("incorrect")
-                resonseLabel.innerHTML = "Congratulations!! You have complete this level";
+                resonseLabel.innerHTML = "Congratulations!! You have completed this level";
                 resonseLabel.style = "color: green";
             }
         }
@@ -179,7 +179,7 @@ class Mergesort_input extends React.Component {
     // Applause Sound Effect
     applauseSound() {
         var aS = new Audio(applauseSFX)
-        aS.volume = 0.05;
+        aS.volume = 0.20;
         aS.play();
     }
 
