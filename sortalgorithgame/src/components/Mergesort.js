@@ -258,7 +258,7 @@ class Mergesort extends React.Component {
             let num = 0; //this holds how much substeps had been added (used to index next substep to merge)
             let newSubStep = []; //holds the new substep that is merged of the previous substep
 
-            //iterate through ecah substep
+            //iterate through each substep
             for (let substep of step) {
                 if (substep.length === prevstep[num].length) { //check if the length is the same as the required elements
                     newSubStep.push(prevstep[num]); //push that elements only (since it maches)
