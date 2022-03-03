@@ -21,6 +21,7 @@ const Router = () => (
       <Route path="/level-one" component={MergeSort} />
       <Route path="/level-two" render={(props) => <Mergesort_input len = {10} min = {1} max = {20} showSteps  = {true}/>}/>
       <Route path="/level-three" render={(props) => <Mergesort_input len = {10} min = {1} max = {20} showSteps  = {false}/>}/>
+      <Route path="/level-four" render={(props) => <Mergesort_input len = {20} min = {1} max = {50} showSteps  = {false}/>}/>
       <Route path="/login" component ={Login}/>
       <Route path="/register" component ={Register}/>
       {/* redirect to NO MATCH page */}
