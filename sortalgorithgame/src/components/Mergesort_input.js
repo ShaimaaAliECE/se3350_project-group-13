@@ -10,7 +10,7 @@ import applauseSFX from '../sounds/applause.mp3'
 //shows all the mergesort steps
 class Mergesort_input extends React.Component {
 
-    nextStep = false;
+    nextStep = false; // true if you can move to next step
 
     constructor(props) {
         super(props);
@@ -37,7 +37,8 @@ class Mergesort_input extends React.Component {
 
     // Next button onClick
     onClickNext() {
-        if (!this.nextStep && this.state.step < this.state.stepsarr.length) {
+        if (!this.nextStep && this.state.step < this.state.stepsarr.length) { // if you are not permitted
+            //say your not
             let resonseLabel = document.getElementById("incorrect")
             resonseLabel.innerHTML = "Not so fast, you must complete this step before moving forward.";
             resonseLabel.style = "color: yellow";
@@ -47,19 +48,23 @@ class Mergesort_input extends React.Component {
         if (this.nextStep && this.state.step < this.state.stepsarr.length) { //check if it's not last step
             this.setState({ step: this.state.step + 1 }); //increment steps
 
+            // reset all input values
             let inputs = document.querySelectorAll("input");
             for (let input of inputs) {
                 input.value = "";
                 input.parentElement.style = "background-color: transparent"
             }
+            //reset response label text
             let resonseLabel = document.getElementById("incorrect")
             resonseLabel.innerHTML = "";
             this.nextStep = false;
 
+            // if it is the last step
             if (this.state.step === this.state.stepsarr.length - 1) {
-                this.applauseSound()
+                // display congradulations
+                this.applauseSound();
                 let resonseLabel = document.getElementById("incorrect")
-                resonseLabel.innerHTML = "Congratulations!! You have complete this level";
+                resonseLabel.innerHTML = "Congratulations!! You have completed this level";
                 resonseLabel.style = "color: green";
             }
         }
@@ -70,11 +75,14 @@ class Mergesort_input extends React.Component {
         if (this.state.step > 1) { //check if there is a previous step
             this.setState({ step: this.state.step - 1 }); // decrement step
 
+            //reset all the input values
             let inputs = document.querySelectorAll("input");
             for (let input of inputs) {
                 input.value = "";
                 input.parentElement.style = "background-color: transparent"
             }
+
+            //reset response label text
             let resonseLabel = document.getElementById("incorrect")
             resonseLabel.innerHTML = "";
             this.nextStep = false;
@@ -85,6 +93,7 @@ class Mergesort_input extends React.Component {
     // render method
     render() {
 
+        //get the step text if it's enabled in the prop
         let steptextArr = <div>Please perform the next step of the algorithm<br></br></div>;
         if (this.props.showSteps) {
             steptextArr = stepText[this.state.step - 1]?.map((step) => {
@@ -119,25 +128,30 @@ class Mergesort_input extends React.Component {
         );
     }
 
+    //check that the answer is right or wrong
     checkAnswer() {
-        let incorrect = 0;
+        let incorrect = 0; //number of incorrect values
 
-        let inputs = document.querySelectorAll("input");
+        let inputs = document.querySelectorAll("input"); //get all inputs
+
+        //go through each input
         for (let input of inputs) {
-            if (input.value != input.name) {
+            if (input.value != input.name) { //if it's wrong
                 incorrect++;
                 input.parentElement.style = "background-color: red"
-            } else {
+            } else { //if it's right
                 input.parentElement.style = "background-color: green"
             }
         }
 
-        if (incorrect > 0) {
+        if (incorrect > 0) { //if there was at least one incorrect value
+            //display incorrect stuff
             let resonseLabel = document.getElementById("incorrect")
             resonseLabel.innerHTML = "You have " + incorrect + " number(s) out of place.";
             resonseLabel.style = "color: red";
             this.incorrectSound();
-        } else {
+        } else { // no incorrect = correct
+            //show correct
             let resonseLabel = document.getElementById("incorrect")
             resonseLabel.innerHTML = "Correct!! You may move on";
             resonseLabel.style = "color: green";
@@ -165,7 +179,7 @@ class Mergesort_input extends React.Component {
     // Applause Sound Effect
     applauseSound() {
         var aS = new Audio(applauseSFX)
-        aS.volume = 0.05;
+        aS.volume = 0.20;
         aS.play();
     }
 
@@ -299,7 +313,7 @@ function Element(props) {
 }
 
 
-//shows the substeps
+//shows the substeps input field
 function SubStepInput(props) {
     const numbers = props.numbers;
     const listItems = numbers.map((number, index) =>
@@ -310,7 +324,7 @@ function SubStepInput(props) {
     )
 }
 
-//shows the elements (i.e. numbers)
+//shows the elements input field
 function ElementsInput(props) {
     const numbers = props.numbers;
     const listItems = numbers.map((number, index) =>
@@ -321,7 +335,7 @@ function ElementsInput(props) {
     );
 }
 
-// the actual individal elements
+// the actual individal elements input
 function ElementInput(props) {
     return (
         <div className='elements'><input type="text" id={props.id} name={props.number.value} autocomplete="off"/></div>

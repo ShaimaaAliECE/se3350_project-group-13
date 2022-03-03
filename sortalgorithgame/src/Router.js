@@ -16,7 +16,6 @@ const Router = () => (
     <Switch>
       {/* redirect to home page */}
       <Route path="/" exact component={App} />
-
       <Route path="/mergeSort" component={MergeSort} />
       <Route path="/mergeSort-levels" component={LevlesPage} />
       <Route path="/level-one" component={MergeSort} />
