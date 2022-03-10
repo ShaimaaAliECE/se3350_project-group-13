@@ -26,9 +26,11 @@ class Mergesort_input extends React.Component {
                 })
             }
         }
+
         this.state = {
             step: 1, //what step you are currently on
-            stepsarr: stepsarr // the actual array of elements (the tree)
+            stepsarr: stepsarr, // the actual array of elements (the tree)
+            lives: 3
         }
     }
 
@@ -108,22 +110,31 @@ class Mergesort_input extends React.Component {
         }
 
         return (
-            <div className="mergesort-container">
-                <div className="button-container">
-                    <button className="prevBtn" onClick={this.onClickPrev.bind(this)}>previous step</button>
-                    <button className="nextBtn" onClick={this.onClickNext.bind(this)}>next step</button>
+            <div className="main-container">
+                <div className="level-header">
+                    <div className="left-container"></div>
+                    <div className="button-container">
+                        <button className="prevBtn" onClick={this.onClickPrev.bind(this)}>previous step</button>
+                        <button className="nextBtn" onClick={this.onClickNext.bind(this)}>next step</button>
+                    </div>
+                    <div className="lives-container">
+                        <div className='elements' id='error0'></div>
+                        <div className='elements' id='error1'></div>
+                        <div className='elements' id='error2'></div>
+                    </div>
                 </div>
                 <br></br>
-                <label className="step-container">
-                    {steptextArr}
-                </label>
+                <div className="mergesort-container">
+                    <label className="step-container">
+                        {steptextArr}
+                    </label>
 
-                <label id="incorrect" className='incorrect-container'></label>
-                {steps}
+                    <label id="incorrect" className='incorrect-container'></label>
+                    {steps}
 
-                <br></br>
-                <button className="submitBtn" id="checkbtn" onClick={this.checkAnswer.bind(this)}>Check</button>
-
+                    <br></br>
+                    <button className="submitBtn" id="checkbtn" onClick={this.checkAnswer.bind(this)}>Check</button>
+                </div>
             </div>
         );
     }
@@ -150,6 +161,7 @@ class Mergesort_input extends React.Component {
             resonseLabel.innerHTML = "You have " + incorrect + " number(s) out of place.";
             resonseLabel.style = "color: red";
             this.incorrectSound();
+            this.checkLives();
         } else { // no incorrect = correct
             //show correct
             let resonseLabel = document.getElementById("incorrect")
@@ -159,6 +171,23 @@ class Mergesort_input extends React.Component {
             this.nextStep = true;
 
         }
+
+    }
+
+    checkLives() {
+        //redirects user if lives are used up
+        if (this.state.lives === 1) {
+            //takes user to a you lost page
+            var url = window.location.pathname;
+            window.localStorage.setItem("url", url)
+            window.location.replace("/levelFailed");
+        }
+        this.setState({ lives: this.state.lives - 1 }); // decrement lives
+        
+        //show that error was made to user
+        let errorNo = JSON.stringify(3 - this.state.lives);
+        let errorText = document.getElementById("error" + errorNo);
+        errorText.innerHTML = 'X';
 
     }
 
@@ -189,8 +218,6 @@ class Mergesort_input extends React.Component {
         sS.volume = 0.05;
         sS.play();
     }
-
-
 
     //merges two lists
     merge(left, right) {
@@ -338,7 +365,7 @@ function ElementsInput(props) {
 // the actual individal elements input
 function ElementInput(props) {
     return (
-        <div className='elements'><input type="text" id={props.id} name={props.number.value} autocomplete="off"/></div>
+        <div className='elements'><input type="text" id={props.id} name={props.number.value} autocomplete="off" /></div>
     )
 }
 
