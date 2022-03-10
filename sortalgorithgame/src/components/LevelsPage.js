@@ -26,7 +26,7 @@ export default function LevlesPage() {
         // Holds all level references
         const levelsArray = ['custom','one','two','three','four','five'];
         // Concats name 
-        let levelName =  '/level-' + levelsArray[level];
+        let levelName =  '/mergeSort-levels-level-' + levelsArray[level];
         //Check if use is verified 
         if(verified){
             // Directs to level name 
@@ -38,7 +38,7 @@ export default function LevlesPage() {
     };
 
     return (
-        <div class ="center">
+        <div className ="center">
             <br></br>
             <a onClick={()=>route(1)}><button className="btnDiv">Level 1</button></a>
             <br></br>
