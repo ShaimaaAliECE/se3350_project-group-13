@@ -8,7 +8,7 @@ import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import Mergesort_input from "./components/Mergesort_input";
 import Login from "./components/Login";
 import Register from "./components/Register";
-import Lost from "./components/Lost";
+import LevelFail from "./components/LevelFailPage";
 
 //router component for switching between pages (views)
 const Router = () => (
@@ -26,7 +26,7 @@ const Router = () => (
       <Route path="/mergeSort-levels-level-five" render={(props) => <Mergesort_input len={50} min={1} max={100} showSteps={false} />} />
       <Route path="/login" component={Login} />
       <Route path="/register" component={Register} />
-      <Route path="/levelFailed" component={Lost} />
+      <Route path="/levelFailed" component={LevelFail} />
       {/* redirect to NO MATCH page */}
       <Route component={InvalidPath} />
 

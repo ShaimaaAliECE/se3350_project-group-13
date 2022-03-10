@@ -1,8 +1,8 @@
 import { React, useEffect, useState } from "react";
-import '../styles/LevelsPage.css';
+import '../styles/LevelFailed.css';
 import { useHistory } from "react-router-dom";
 
-export default function LostPage() {
+export default function LevelFailPage() {
     // Navigation 
     const history = useHistory();
 
@@ -27,15 +27,15 @@ export default function LostPage() {
 
     return (
         <div className="center">
-            <h1>Level Failed :(</h1>
+            <div className="ChooseAlgo">Level Failed :(</div>
             <br></br>
-            <a onClick={() => route(0)}><button className="btnDiv">Restart</button></a>
+            <a onClick={() => route(0)}><button className="failed-btnDiv">Restart</button></a>
             <br></br>
-            <a onClick={() => route(1)}><button className="btnDiv">Go back to Levels</button></a>
+            <a onClick={() => route(1)}><button className="failed-btnDiv">Go Back to Levels</button></a>
             <br></br>
-            <a onClick={() => route(2)}><button className="btnDiv">Return to Algorithms Page</button></a>
+            <a onClick={() => route(2)}><button className="failed-btnDiv">Return to Algorithms Page</button></a>
             <br></br>
-            <a onClick={() => route(3)}><button className="btnDiv">Quit</button></a>
+            <a onClick={() => route(3)}><button className="failed-btnDiv">Quit</button></a>
         </div>
     )
 }
