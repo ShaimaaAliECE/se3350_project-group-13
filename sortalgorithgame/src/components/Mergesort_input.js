@@ -118,7 +118,9 @@ class Mergesort_input extends React.Component {
                         <button className="nextBtn" onClick={this.onClickNext.bind(this)}>next step</button>
                     </div>
                     <div className="lives-container">
-                        <button className="lives"> LIVES </button>
+                        <div className='elements' id='error0'></div>
+                        <div className='elements' id='error1'></div>
+                        <div className='elements' id='error2'></div>
                     </div>
                 </div>
                 <br></br>
@@ -173,15 +175,20 @@ class Mergesort_input extends React.Component {
     }
 
     checkLives() {
+        //redirects user if lives are used up
         if (this.state.lives === 1) {
             //takes user to a you lost page
             var url = window.location.pathname;
             window.localStorage.setItem("url", url)
             window.location.replace("/levelFailed");
         }
-        else {
-            this.setState({ lives: this.state.lives - 1 }); // decrement lives
-        }
+        this.setState({ lives: this.state.lives - 1 }); // decrement lives
+        
+        //show that error was made to user
+        let errorNo = JSON.stringify(3 - this.state.lives);
+        let errorText = document.getElementById("error" + errorNo);
+        errorText.innerHTML = 'X';
+
     }
 
     // Correct Sound Effect

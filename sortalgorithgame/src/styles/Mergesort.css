@@ -73,7 +73,10 @@
     float: right;
     width: 25%;
     text-align: right;
-
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
 }
 
 .button-container {
