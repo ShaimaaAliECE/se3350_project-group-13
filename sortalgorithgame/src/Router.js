@@ -25,6 +25,7 @@ const Router = () => (
       <Route path="/level-four" render={(props) => <Mergesort_input len = {20} min = {1} max = {50} showSteps  = {false}/>}/>
       <Route path="/level-five" render={(props) => <Mergesort_input len = {50} min = {1} max = {100} showSteps  = {false}/>}/>
       <Route path="/level-custom" component ={CustomPage}/>
+      <Route path="/level-custom-play" render={(props) => <Mergesort_input len = {50} min = {1} max = {100} showSteps  = {false}/>}/>
       <Route path="/login" component ={Login}/>
       <Route path="/register" component ={Register}/>
       {/* redirect to NO MATCH page */}
