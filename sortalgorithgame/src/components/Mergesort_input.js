@@ -16,6 +16,12 @@ class Mergesort_input extends React.Component {
         super(props);
         let stepsarr = [[Array.from({ length: props.len }, () => Math.floor((Math.random() * (props.max - props.min + 1)) + props.min))]]; // generate list of random array
 
+        this.elementSize = {
+            width: Math.min(window.innerWidth / (props.len*2.75), window.innerWidth/50),
+            height: Math.min(window.innerWidth / (props.len*2.75), window.innerWidth/50),
+            fontSize: Math.min(window.innerWidth / (props.len*3), window.innerWidth/100),
+        }
+
         this.mergeSort(stepsarr); //generate the mergesort array
 
         //make each element a object with a value and a color
@@ -54,7 +60,7 @@ class Mergesort_input extends React.Component {
             let inputs = document.querySelectorAll("input");
             for (let input of inputs) {
                 input.value = "";
-                input.parentElement.style = "background-color: transparent"
+                input.parentElement.style.backgroundColor = "transparent"
             }
             //reset response label text
             let resonseLabel = document.getElementById("incorrect")
@@ -104,9 +110,9 @@ class Mergesort_input extends React.Component {
         }
 
         let steps = []; //holds the steps and also the next step if it exists
-        steps.push(<Steps numbers={this.state.stepsarr.slice(0, this.state.step)} empty={false} />);
+        steps.push(<Steps numbers={this.state.stepsarr.slice(0, this.state.step)} empty={false} passStyle = {this.elementSize}/>);
         if (this.state.stepsarr[this.state.step]) { //if there is a next step
-            steps.push(<SubStepInput numbers={this.state.stepsarr[this.state.step]} />)
+            steps.push(<SubStepInput numbers={this.state.stepsarr[this.state.step]} passStyle = {this.elementSize}/>)
         }
 
         return (
@@ -149,9 +155,9 @@ class Mergesort_input extends React.Component {
         for (let input of inputs) {
             if (input.value != input.name) { //if it's wrong
                 incorrect++;
-                input.parentElement.style = "background-color: red"
+                input.parentElement.style.backgroundColor = "red"
             } else { //if it's right
-                input.parentElement.style = "background-color: green"
+                input.parentElement.style.backgroundColor = "green"
             }
         }
 
@@ -303,7 +309,7 @@ class Mergesort_input extends React.Component {
 function Steps(props) {
     const numbers = props.numbers;
     const listItems = numbers.map((number) =>
-        <SubStep numbers={number} />
+        <SubStep numbers={number} passStyle = {props.passStyle} />
     );
     return (
         <div>{listItems}</div>
@@ -314,7 +320,7 @@ function Steps(props) {
 function SubStep(props) {
     const numbers = props.numbers;
     const listItems = numbers.map((number, index) =>
-        <Elements numbers={number} />
+        <Elements numbers={number} passStyle = {props.passStyle} />
     );
     return (
         <div className='elements-container' >{listItems}</div>
@@ -325,17 +331,17 @@ function SubStep(props) {
 function Elements(props) {
     const numbers = props.numbers;
     const listItems = numbers.map((number, index) =>
-        <Element number={number} />
+        <Element number={number} passStyle = {props.passStyle}/>
     );
     return (
-        <div className='substep'>{listItems}</div>
+        <div className='substep' style={{marginLeft: props.passStyle.width/2, marginRight: props.passStyle.width/2}}>{listItems}</div>
     );
 }
 
 // the actual individal elements
 function Element(props) {
     return (
-        <div className='elements'>{props.number.value}</div>
+        <div className='elements' style = {props.passStyle}>{props.number.value}</div>
     )
 }
 
@@ -344,7 +350,7 @@ function Element(props) {
 function SubStepInput(props) {
     const numbers = props.numbers;
     const listItems = numbers.map((number, index) =>
-        <ElementsInput numbers={number} index={index} />
+        <ElementsInput numbers={number} index={index} passStyle = {props.passStyle}/>
     );
     return (
         <div className='elements-container'>{listItems}</div>
@@ -355,17 +361,17 @@ function SubStepInput(props) {
 function ElementsInput(props) {
     const numbers = props.numbers;
     const listItems = numbers.map((number, index) =>
-        <ElementInput number={number} id={props.index + " " + index} />
+        <ElementInput number={number} id={props.index + " " + index} passStyle = {props.passStyle}/>
     );
     return (
-        <div className='substep'>{listItems}</div>
+        <div className='substep' style={{marginLeft: props.passStyle.width/2, marginRight: props.passStyle.width/2}}>{listItems}</div>
     );
 }
 
 // the actual individal elements input
 function ElementInput(props) {
     return (
-        <div className='elements'><input type="text" id={props.id} name={props.number.value} autocomplete="off" /></div>
+        <div className='elements' style = {props.passStyle}><input type="text" id={props.id} name={props.number.value} autocomplete="off" style = {props.passStyle}/></div>
     )
 }
 
