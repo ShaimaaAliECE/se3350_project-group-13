@@ -1,11 +1,11 @@
-import React, { useState } from 'react';
+import React from 'react';
 import '../styles/Mergesort.css';
 import stepText from '../json/level1.json'
 
 //array constraints
 const min = 1;
 const max = 20;
-const len = 10
+const len = 10;
 
 //shows all the mergesort steps
 
@@ -34,7 +34,7 @@ function Elements(props) {
 // the actual individal elements
 function Element(props) {
     return (
-        <div style={{ backgroundColor: props.color }} className='elements'>{props.value}</div>
+        <div substep = {props.substep} step = {props.step} style={{backgroundColor: props.color }} className='elements'>{props.value}</div>
     )
 }
 class Mergesort extends React.Component {
@@ -61,15 +61,43 @@ class Mergesort extends React.Component {
             step: 1, //what step you are currently on
             substep: 0, //what substep you are currently on
             elementstep: 0, //what element step  you are currently on
-            stepsarr: stepsarr // the actual array of elements (the tree)
+            stepsarr: stepsarr, // the actual array of elements (the tree)
+            currentStep: 1
         }
     }
 
+    reset(){
+        for (let prevStep = 0; prevStep < this.state.step; prevStep++) {
+            // Get length of reference array 
+            this.state.stepsarr[prevStep].forEach((arr) => {
+                arr.forEach((element) => {
+                    element.color = 'transparent';
+                });
+            });
+        }
+    }
     //holds the array of all the steps
 
 
     // Next button onClick
     onClickNext() {
+        // Grey out elements that have been used 
+        for (let prevStep = 0; prevStep < this.state.step; prevStep++) {
+            // Get length of reference array 
+            this.state.stepsarr[prevStep].forEach((arr) => {
+                if (this.state.step < 5) {
+                    arr.forEach((element) => {
+                        element.color = 'rgb(63, 63, 63)';
+                    });
+                } else if (this.state.step >= 5) {
+                    arr.forEach((element) => {
+                        if (element.color == 'green') {
+                            element.color = 'rgb(63, 63, 63)';
+                        }
+                    });
+                }
+            });
+        }
 
         if (this.state.step < this.state.stepsarr.length / 2) { //check if the steps are splitting
             if (this.state.step < this.state.stepsarr.length) { //check if it's not last step
@@ -93,15 +121,6 @@ class Mergesort extends React.Component {
 
             let stepsarr = this.state.stepsarr; // temp value to hold the state
 
-            //turn all the element backround transparents (i.e reset background because we are gonna change it later so the previous change might still be there)
-            for (let step = 0; step < stepsarr.length; step++) {
-                for (let substep = 0; substep < stepsarr[step].length; substep++) {
-                    for (let element = 0; element < stepsarr[step][substep].length; element++) {
-                        stepsarr[step][substep][element].color = "transparent";
-                    }
-                }
-            }
-
             if (this.state.elementstep == 0 && this.state.substep == 0) { //if this is the first step
                 this.mergeWindow = 0; //reset merge window
             }
@@ -110,6 +129,9 @@ class Mergesort extends React.Component {
             let left = stepsarr[this.state.step - 1][this.mergeWindow][this.left]
             let right = stepsarr[this.state.step - 1][this.mergeWindow + 1][this.right]
             let current = stepsarr[this.state.step][this.state.substep][this.state.elementstep]
+
+            // Grey out previous steps
+           
 
             // if there is only one element
             if (stepsarr[this.state.step][this.state.substep].length === 1) {
@@ -145,10 +167,28 @@ class Mergesort extends React.Component {
             }
             this.setState({ stepsarr: stepsarr }) //set the steparr to include new colors
         }
+             
     }
 
     // Previous button onClick
     onClickPrev() {
+        // Reset all elements to be transparent for consistency 
+        this.reset();
+        // Grey out boxes of used elements 
+        if (this.state.step > 2) {
+            for (let prevStep = 0; prevStep < this.state.step-1; prevStep++) {
+                this.state.stepsarr[prevStep].forEach((arr) => {
+                    
+                    if (this.state.step > 0) {
+                        arr.forEach((element) => {
+                            element.color = 'rgb(63, 63, 63)';
+                        });
+                    }
+                });
+            }
+        }
+        
+
         if (this.state.step > 1) { //check if there is a previous step
             this.setState({ step: this.state.step - 1 }); // decrement step
             //reset all the substeps and elment steps and merge window and left and right
@@ -159,19 +199,9 @@ class Mergesort extends React.Component {
             this.right = 0;
 
             let stepsarr = this.state.stepsarr; // temp to hold changes
-
-            //reset the background to be transparent
-            for (let step = 0; step < stepsarr.length; step++) {
-                for (let substep = 0; substep < stepsarr[step].length; substep++) {
-                    for (let element = 0; element < stepsarr[step][substep].length; element++) {
-                        stepsarr[step][substep][element].color = "transparent";
-                    }
-                }
-            }
-
             this.setState({ stepsarr: stepsarr }) //update the stepsarr
-        }
-    }
+        } 
+    } 
 
     // render method
     render() {
