@@ -31,7 +31,49 @@ app.get('/',(req,res)=>{
     res.send('Hello World');
 });
 
-// Routes 
+// Routes
+//insert into allaccount
+app.post("/newUser", (req, res) => {
+  
+    console.log(req.query);
+    const username = req.body.username;
+    const pass = req.body.pass;
+    const email = req.body.email;
+    db.query(
+      "INSERT INTO Account (username, pass, email) VALUES (?,?,?)",
+      [
+        username,
+        pass,
+        email,
+      ],
+      (err, result) => {
+        if (err) {
+          console.log(err);
+          res.send(false);
+        } else {
+          res.send("values are properly inserted");
+        }
+      }
+    );
+  });
+  
+//verify that the given username and password are correct
+app.get("/verifylogin", (req, res) => {
+    db.query(
+      `SELECT id, pass FROM Account WHERE username = "${req.query.username}"`,
+      (err, result) => {
+        if (err) {
+          console.log(err);
+        } else {
+          if (result[0] != null && result[0].pass == req.query.password) {
+            res.send(result[0]);
+          } else {
+            res.send(false);
+          }
+        }
+      }
+    );
+  });
 
 // Start listening 
 app.listen(3001, ()=>{
