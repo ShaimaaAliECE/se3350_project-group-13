@@ -17,9 +17,9 @@ class Mergesort_input extends React.Component {
         let stepsarr = [[Array.from({ length: props.len }, () => Math.floor((Math.random() * (props.max - props.min + 1)) + props.min))]]; // generate list of random array
 
         this.elementSize = {
-            width: Math.min(window.innerWidth / (props.len*2.75), window.innerWidth/50),
-            height: Math.min(window.innerWidth / (props.len*2.75), window.innerWidth/50),
-            fontSize: Math.min(window.innerWidth / (props.len*3), window.innerWidth/100),
+            width: Math.min(window.innerWidth / (props.len * 2.75), window.innerWidth / 50),
+            height: Math.min(window.innerWidth / (props.len * 2.75), window.innerWidth / 50),
+            fontSize: Math.min(window.innerWidth / (props.len * 3), window.innerWidth / 100),
         }
 
         this.mergeSort(stepsarr); //generate the mergesort array
@@ -36,7 +36,8 @@ class Mergesort_input extends React.Component {
         this.state = {
             step: 1, //what step you are currently on
             stepsarr: stepsarr, // the actual array of elements (the tree)
-            lives: 3
+            lives: 3, //the number of lives the user has
+            time: "0:0:0" // time it takes on each level
         }
     }
 
@@ -98,8 +99,12 @@ class Mergesort_input extends React.Component {
 
     }
 
+   
+    
     // render method
     render() {
+
+        this.startTime();
 
         //get the step text if it's enabled in the prop
         let steptextArr = <div>Please perform the next step of the algorithm<br></br></div>;
@@ -110,10 +115,12 @@ class Mergesort_input extends React.Component {
         }
 
         let steps = []; //holds the steps and also the next step if it exists
-        steps.push(<Steps numbers={this.state.stepsarr.slice(0, this.state.step)} empty={false} passStyle = {this.elementSize}/>);
+        steps.push(<Steps numbers={this.state.stepsarr.slice(0, this.state.step)} empty={false} passStyle={this.elementSize} />);
         if (this.state.stepsarr[this.state.step]) { //if there is a next step
-            steps.push(<SubStepInput numbers={this.state.stepsarr[this.state.step]} passStyle = {this.elementSize}/>)
+            steps.push(<SubStepInput numbers={this.state.stepsarr[this.state.step]} passStyle={this.elementSize} />)
         }
+
+       
 
         return (
             <div className="main-container">
@@ -127,6 +134,7 @@ class Mergesort_input extends React.Component {
                         <div className='elements' id='error0'></div>
                         <div className='elements' id='error1'></div>
                         <div className='elements' id='error2'></div>
+                        <div className='element-time' id='time'></div>
                     </div>
                 </div>
                 <br></br>
@@ -145,6 +153,20 @@ class Mergesort_input extends React.Component {
         );
     }
 
+    startTime(){
+        let time = [0, 0, 0];
+        let totalSeconds = 0;
+        window.onload = () => {
+           let timer = setInterval(startTimer, 1000);
+            function startTimer() {
+                ++totalSeconds;
+                time[0] = Math.floor(totalSeconds / 3600);
+                time[1] = Math.floor((totalSeconds - time[0] * 3600) / 60);
+                time[2] = totalSeconds - (time[0] * 3600 + time[1] * 60);
+                document.getElementById("time").innerHTML = time[0] + " : " + time[1] + " : " + time[2];
+            }
+        }
+    }
     //check that the answer is right or wrong
     checkAnswer() {
         let incorrect = 0; //number of incorrect values
@@ -183,13 +205,15 @@ class Mergesort_input extends React.Component {
     checkLives() {
         //redirects user if lives are used up
         if (this.state.lives === 1) {
+            //*** Stop and store time!! ***/
+            // clearInterval(timer);
             //takes user to a you lost page
             var url = window.location.pathname;
             window.localStorage.setItem("url", url)
             window.location.replace("/levelFailed");
         }
         this.setState({ lives: this.state.lives - 1 }); // decrement lives
-        
+
         //show that error was made to user
         let errorNo = JSON.stringify(3 - this.state.lives);
         let errorText = document.getElementById("error" + errorNo);
@@ -309,7 +333,7 @@ class Mergesort_input extends React.Component {
 function Steps(props) {
     const numbers = props.numbers;
     const listItems = numbers.map((number) =>
-        <SubStep numbers={number} passStyle = {props.passStyle} />
+        <SubStep numbers={number} passStyle={props.passStyle} />
     );
     return (
         <div>{listItems}</div>
@@ -320,7 +344,7 @@ function Steps(props) {
 function SubStep(props) {
     const numbers = props.numbers;
     const listItems = numbers.map((number, index) =>
-        <Elements numbers={number} passStyle = {props.passStyle} />
+        <Elements numbers={number} passStyle={props.passStyle} />
     );
     return (
         <div className='elements-container' >{listItems}</div>
@@ -331,17 +355,17 @@ function SubStep(props) {
 function Elements(props) {
     const numbers = props.numbers;
     const listItems = numbers.map((number, index) =>
-        <Element number={number} passStyle = {props.passStyle}/>
+        <Element number={number} passStyle={props.passStyle} />
     );
     return (
-        <div className='substep' style={{marginLeft: props.passStyle.width/2, marginRight: props.passStyle.width/2}}>{listItems}</div>
+        <div className='substep' style={{ marginLeft: props.passStyle.width / 2, marginRight: props.passStyle.width / 2 }}>{listItems}</div>
     );
 }
 
 // the actual individal elements
 function Element(props) {
     return (
-        <div className='elements' style = {props.passStyle}>{props.number.value}</div>
+        <div className='elements' style={props.passStyle}>{props.number.value}</div>
     )
 }
 
@@ -350,7 +374,7 @@ function Element(props) {
 function SubStepInput(props) {
     const numbers = props.numbers;
     const listItems = numbers.map((number, index) =>
-        <ElementsInput numbers={number} index={index} passStyle = {props.passStyle}/>
+        <ElementsInput numbers={number} index={index} passStyle={props.passStyle} />
     );
     return (
         <div className='elements-container'>{listItems}</div>
@@ -361,17 +385,17 @@ function SubStepInput(props) {
 function ElementsInput(props) {
     const numbers = props.numbers;
     const listItems = numbers.map((number, index) =>
-        <ElementInput number={number} id={props.index + " " + index} passStyle = {props.passStyle}/>
+        <ElementInput number={number} id={props.index + " " + index} passStyle={props.passStyle} />
     );
     return (
-        <div className='substep' style={{marginLeft: props.passStyle.width/2, marginRight: props.passStyle.width/2}}>{listItems}</div>
+        <div className='substep' style={{ marginLeft: props.passStyle.width / 2, marginRight: props.passStyle.width / 2 }}>{listItems}</div>
     );
 }
 
 // the actual individal elements input
 function ElementInput(props) {
     return (
-        <div className='elements' style = {props.passStyle}><input type="text" id={props.id} name={props.number.value} autocomplete="off" style = {props.passStyle}/></div>
+        <div className='elements' style={props.passStyle}><input type="text" id={props.id} name={props.number.value} autocomplete="off" style={props.passStyle} /></div>
     )
 }
 
