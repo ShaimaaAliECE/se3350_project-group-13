@@ -41,8 +41,11 @@ function Router() {
 
   function CustomLevel() {
     let query = useQuery();
+    const len = parseInt(query.get("len"));
+    const min = parseInt(query.get("min"));
+    const max = parseInt(query.get("max"));
     return (
-      <Mergesort_input len={query.get("len")} min={query.get("min")} max={query.get("max")} showSteps={false} />
+      <Mergesort_input len={len} min={min} max={max} showSteps={false} />
     );
   }
 

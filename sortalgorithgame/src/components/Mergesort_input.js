@@ -14,7 +14,8 @@ class Mergesort_input extends React.Component {
 
     constructor(props) {
         super(props);
-        let stepsarr = [[Array.from({ length: props.len }, () => Math.floor((Math.random() * (props.max - props.min + 1)) + props.min))]]; // generate list of random array
+        console.log(`len: ${props.len} \nmin: ${props.min} \nmax: ${props.max}`)
+        let stepsarr = [[Array.from({ length: props.len }, () => Math.floor(Math.random() * (props.max - props.min + 1) + props.min))]]; // generate list of random array
 
         this.elementSize = {
             width: Math.min(window.innerWidth / (props.len * 2.75), window.innerWidth / 50),
