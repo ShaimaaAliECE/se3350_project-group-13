@@ -154,7 +154,7 @@ class Mergesort_input extends React.Component {
             time[0] = Math.floor(totalSeconds / 3600);
             time[1] = Math.floor((totalSeconds - time[0] * 3600) / 60);
             time[2] = totalSeconds - (time[0] * 3600 + time[1] * 60);
-            document.getElementById("time").innerHTML = time[0] + ":" + time[1] + ":" + time[2];
+            document.getElementById("time").innerHTML = String(time[0]).padStart(2, '0') + ":" +  String(time[1]).padStart(2, '0') + ":" + String(time[2]).padStart(2, '0');
         }
     }
 
