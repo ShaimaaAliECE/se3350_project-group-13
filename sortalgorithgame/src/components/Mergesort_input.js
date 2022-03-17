@@ -160,7 +160,7 @@ class Mergesort_input extends React.Component {
         }
         function startTimeout() {
             ++timeout;
-            if (timeout == 300) { // 5 minutes = 300 seconds
+            if (timeout >= 300) { // 5 minutes = 300 seconds
                 window.location.replace("/");
             }
         }
