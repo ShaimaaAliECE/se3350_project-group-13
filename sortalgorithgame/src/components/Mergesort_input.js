@@ -37,12 +37,9 @@ class Mergesort_input extends React.Component {
             step: 1, //what step you are currently on
             stepsarr: stepsarr, // the actual array of elements (the tree)
             lives: 3, //the number of lives the user has
-            time: "0:0:0" // time it takes on each level
+            timer: null // timer
         }
     }
-
-    //holds the array of all the steps
-
 
     // Next button onClick
     onClickNext() {
@@ -99,13 +96,8 @@ class Mergesort_input extends React.Component {
 
     }
 
-   
-    
     // render method
     render() {
-
-        this.startTime();
-
         //get the step text if it's enabled in the prop
         let steptextArr = <div>Please perform the next step of the algorithm<br></br></div>;
         if (this.props.showSteps) {
@@ -119,8 +111,6 @@ class Mergesort_input extends React.Component {
         if (this.state.stepsarr[this.state.step]) { //if there is a next step
             steps.push(<SubStepInput numbers={this.state.stepsarr[this.state.step]} passStyle={this.elementSize} />)
         }
-
-       
 
         return (
             <div className="main-container">
@@ -153,24 +143,24 @@ class Mergesort_input extends React.Component {
         );
     }
 
-    startTime(){
-        let time = [0, 0, 0];
-        let totalSeconds = 0;
-        window.onload = () => {
-           let timer = setInterval(startTimer, 1000);
-            function startTimer() {
-                ++totalSeconds;
-                time[0] = Math.floor(totalSeconds / 3600);
-                time[1] = Math.floor((totalSeconds - time[0] * 3600) / 60);
-                time[2] = totalSeconds - (time[0] * 3600 + time[1] * 60);
-                document.getElementById("time").innerHTML = time[0] + " : " + time[1] + " : " + time[2];
-            }
+    //starts timer when page loads
+    componentDidMount() {
+        let time = [0, 0, 0]; //time array
+        let totalSeconds = 0; //total time
+        this.setState({ timer: setInterval(startTimer, 1000) }); //starts timer in state so that it can be cleared (not sure if necessary)
+        //startTimer function to set the timer and display it to the user
+        function startTimer() {
+            ++totalSeconds;
+            time[0] = Math.floor(totalSeconds / 3600);
+            time[1] = Math.floor((totalSeconds - time[0] * 3600) / 60);
+            time[2] = totalSeconds - (time[0] * 3600 + time[1] * 60);
+            document.getElementById("time").innerHTML = time[0] + ":" + time[1] + ":" + time[2];
         }
     }
+
     //check that the answer is right or wrong
     checkAnswer() {
         let incorrect = 0; //number of incorrect values
-
         let inputs = document.querySelectorAll("input"); //get all inputs
 
         //go through each input
@@ -197,23 +187,23 @@ class Mergesort_input extends React.Component {
             resonseLabel.style = "color: green";
             this.correctSound();
             this.nextStep = true;
-
         }
-
     }
 
     checkLives() {
         //redirects user if lives are used up
         if (this.state.lives === 1) {
-            //*** Stop and store time!! ***/
-            // clearInterval(timer);
-            //takes user to a you lost page
+            //stops and can set time variable to store somewhere
+            this.setState({ timer: clearInterval(this.state.timer)});
+            var time = document.getElementById("test").innerHTML;
+
+            //takes user to a "level failed" page
             var url = window.location.pathname;
-            window.localStorage.setItem("url", url)
+            window.localStorage.setItem("url", url);
             window.location.replace("/levelFailed");
         }
         this.setState({ lives: this.state.lives - 1 }); // decrement lives
-
+        console.log(document.getElementById("time").innerHTML);
         //show that error was made to user
         let errorNo = JSON.stringify(3 - this.state.lives);
         let errorText = document.getElementById("error" + errorNo);
