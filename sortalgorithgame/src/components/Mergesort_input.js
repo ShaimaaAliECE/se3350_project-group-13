@@ -147,7 +147,9 @@ class Mergesort_input extends React.Component {
     componentDidMount() {
         let time = [0, 0, 0]; //time array
         let totalSeconds = 0; //total time
+        let timeout = 0;
         this.setState({ timer: setInterval(startTimer, 1000) }); //starts timer in state so that it can be cleared (not sure if necessary)
+        setInterval(startTimeout, 1000);
         //startTimer function to set the timer and display it to the user
         function startTimer() {
             ++totalSeconds;
@@ -155,6 +157,22 @@ class Mergesort_input extends React.Component {
             time[1] = Math.floor((totalSeconds - time[0] * 3600) / 60);
             time[2] = totalSeconds - (time[0] * 3600 + time[1] * 60);
             document.getElementById("time").innerHTML = String(time[0]).padStart(2, '0') + ":" +  String(time[1]).padStart(2, '0') + ":" + String(time[2]).padStart(2, '0');
+        }
+        function startTimeout() {
+            ++timeout;
+            console.log(timeout);
+            if (timeout == 300) { // 5 minutes = 300 seconds
+                window.location.replace("/");
+            }
+        }
+        document.onmousemove = () => {
+            timeout = 0;
+        }
+        document.onkeydown = (e) => { // debut and easier to demo
+            if (e.key === "`") {
+                timeout += 290;
+                totalSeconds += 290;
+            }
         }
     }
 
