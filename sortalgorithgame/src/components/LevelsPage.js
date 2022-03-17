@@ -24,7 +24,7 @@ export default function LevlesPage() {
     // OnClick routing to levels
     const route = (level) => {
         // Holds all level references
-        const levelsArray = ['custom', 'one', 'two', 'three', 'four', 'five'];
+        const levelsArray = ['customInput', 'one', 'two', 'three', 'four', 'five'];
         // Concats name 
         let levelName = '/mergeSort-levels-level-' + levelsArray[level];
         //Check if use is verified 
