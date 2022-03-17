@@ -160,7 +160,6 @@ class Mergesort_input extends React.Component {
         }
         function startTimeout() {
             ++timeout;
-            console.log(timeout);
             if (timeout == 300) { // 5 minutes = 300 seconds
                 window.location.replace("/");
             }
@@ -221,7 +220,6 @@ class Mergesort_input extends React.Component {
             window.location.replace("/levelFailed");
         }
         this.setState({ lives: this.state.lives - 1 }); // decrement lives
-        console.log(document.getElementById("time").innerHTML);
         //show that error was made to user
         let errorNo = JSON.stringify(3 - this.state.lives);
         let errorText = document.getElementById("error" + errorNo);
