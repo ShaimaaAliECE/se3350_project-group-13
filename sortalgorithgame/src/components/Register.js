@@ -1,5 +1,5 @@
 import React from "react";
-import axios from "utils/axios";
+import axios from "../utils/axios";
 import '../styles/Register.css';
 
 class Register extends React.Component{
