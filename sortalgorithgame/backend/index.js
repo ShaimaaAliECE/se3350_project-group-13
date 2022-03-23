@@ -9,6 +9,8 @@ const cors = require("cors");
 
 app.use(express.json());
 app.use(cors());
+
+//setup db connection
 const db = mysql.createConnection({
     user: "root",
     host: "localhost",
@@ -27,9 +29,10 @@ const port = 3001; //port number
 const server = `http://localhost:${port}`;
 app.listen(port, () => console.log(`Server started. Running at: ${server}`));
 // Default route 
+/*
 app.get('/',(req,res)=>{
     res.send('Hello World');
-});
+});*/
 
 // Routes
 //insert into allaccount
@@ -76,6 +79,15 @@ app.get("/verifylogin", (req, res) => {
   });
 
 // Start listening 
-app.listen(3001, ()=>{
+/*app.listen(3001, ()=>{
     console.log("Server started on port 3001");
-});
+});*/
+function Rollback(res) {
+  db.query(`ROLLBACK`, (err6, result6) => {
+    if (err6) {
+      console.log(err6);
+    } else {
+      res.send("ERROR - Rolledback");
+    }
+  });
+}
