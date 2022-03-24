@@ -20,7 +20,7 @@ class Login extends React.Component {
       axios.get(`http://localhost:3001/verifylogin?username=${username}&password=${password}`).then((res) => {
         if (res.data) {
           localStorage.setItem("Username", username);
-          localStorage.setItem("userID", res.data.id);
+          //localStorage.setItem("userID", res.data.id);
           
           this.props.history.push('/');
           window.location.reload();
