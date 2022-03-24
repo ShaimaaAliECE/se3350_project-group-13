@@ -1,7 +1,6 @@
 import React from "react";
 import axios from "../utils/axios";
 import '../styles/Login.css';
-import {useHistory} from 'react-router-dom';
 class Login extends React.Component {
 
     state = {
@@ -20,7 +19,7 @@ class Login extends React.Component {
       axios.get(`http://localhost:3001/verifylogin?username=${username}&password=${password}`).then((res) => {
         if (res.data) {
           localStorage.setItem("Username", username);
-          localStorage.setItem("userID", res.data.id);
+          //localStorage.setItem("userID", res.data.id);
           
           this.props.history.push('/');
           window.location.reload();
@@ -53,4 +52,6 @@ class Login extends React.Component {
   }
   
   export default Login;
+  
+    
   
