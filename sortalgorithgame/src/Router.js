@@ -9,6 +9,7 @@ import Mergesort_input from "./components/Mergesort_input";
 import Login from "./components/Login";
 import Register from "./components/Register";
 import LevelFail from "./components/LevelFailPage";
+import Profile from "./components/Profile";
 import CustomPage from "./components/CustomPage";
 
 //router component for switching between pages (views)
@@ -30,6 +31,7 @@ function Router() {
         <Route path="/mergeSort-levels-level-customInput" component={CustomPage} />
         <Route path="/login" component={Login} />
         <Route path="/register" component={Register} />
+        <Route path="/profile" component={Profile} />
         <Route path="/levelFailed" component={LevelFail} />
         {/* redirect to NO MATCH page */}
         <Route component={InvalidPath} />
