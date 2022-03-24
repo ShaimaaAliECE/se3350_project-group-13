@@ -9,7 +9,7 @@ export default function Home() {
             <br></br>
             <a href="/mergeSort-levels"><button className="btnDiv">Merge Sort</button></a>
             <br></br>
-            <button className="btnDiv">Another Sort</button>
+            <button className="btnDiv">Quick Sort</button>
             <br></br>
             <button className="btnDiv">...</button>
             <br></br>
