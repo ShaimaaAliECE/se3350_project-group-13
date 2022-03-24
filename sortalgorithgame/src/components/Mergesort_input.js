@@ -179,17 +179,15 @@ class Mergesort_input extends React.Component {
         document.onmousemove = () => {
             timeout = 0;
         }
-        document.onkeydown = (e) => { // debut and easier to demo
-            if (e.key === "`") {
-                timeout += 290;
-                totalSeconds += 290;
-            }
-        }
 
         document.onkeydown = (e) =>{
             if(e.key === "/"){
                 // Fill in function 
                 this.fillIn();
+            }
+            if (e.key === "`") {
+                timeout += 290;
+                totalSeconds += 290;
             }
         }   
     }
