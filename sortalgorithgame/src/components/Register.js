@@ -50,7 +50,7 @@ class Register extends React.Component{
                     {this.state.failedRegistser? <h3 style={{ color: 'red' }}>Choose another username/Fill required fields</h3> : ""}
                     <input className = "register-input" type="text" id="email" name="email" placeholder="Email" value={this.state.email} onChange={this.handleChange}/><br></br>
                     <input className = "register-input" type="text" id="username" name="username" placeholder="Username" value={this.state.username} onChange={this.handleChange}/><br></br>
-                    <input className = "register-input" type="password" id="password" name="password" placeholder="Password" value={this.state.pass} onChange={this.handleChange}/><br></br>
+                    <input className = "register-input" type="password" id="password" name="pass" placeholder="Password" value={this.state.pass} onChange={this.handleChange}/><br></br>
                     <input className = "register-input" type="submit" value="Register"/>
                 </form>
             </div>
