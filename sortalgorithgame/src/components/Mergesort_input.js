@@ -258,7 +258,6 @@ class Mergesort_input extends React.Component {
 
     checkLives() {
         this.setState({ lives: this.state.lives - 1 }); // decrement lives
-        console.log (this.state.lives);
         //show that error was made to user
         let errorNo = JSON.stringify(3 - this.state.lives);
         let errorText = document.getElementById("error" + errorNo);
@@ -269,11 +268,9 @@ class Mergesort_input extends React.Component {
             //stops and can set time variable to store somewhere
             this.setState({ timer: clearInterval(this.state.timer)});
             var time = document.getElementById("time").innerHTML;
-
             //takes user to a "level failed" page
             var url = window.location.pathname;
             window.localStorage.setItem("url", url);
-            console.log(url);
             window.location.replace("/levelFailed");
         }
     }
