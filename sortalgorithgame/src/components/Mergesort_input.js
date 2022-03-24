@@ -40,12 +40,21 @@ class Mergesort_input extends React.Component {
             step: 1, //what step you are currently on
             stepsarr: stepsarr, // the actual array of elements (the tree)
             lives: 3, //the number of lives the user has
-            timer: null // timer
+            timer: null,  // timer
+            index_i: 0, // i value of input field 
+            index_j: 0, // j value of input field
+            valueMatrix: []
         }
     }
 
     // Next button onClick
     onClickNext() {
+        // Reset autofill positions when next is clicked 
+        this.setState({
+            index_i: 0,
+            index_j: 0
+        });
+        
         if (!this.nextStep && this.state.step < this.state.stepsarr.length) { // if you are not permitted
             //say your not
             let resonseLabel = document.getElementById("incorrect")
@@ -175,6 +184,45 @@ class Mergesort_input extends React.Component {
                 timeout += 290;
                 totalSeconds += 290;
             }
+        }
+
+        document.onkeydown = (e) =>{
+            if(e.key === "/"){
+                // Fill in function 
+                this.fillIn();
+            }
+        }   
+    }
+
+    // Fill in answers at an interval 
+    fillIn(){
+        // Get element by id 
+        let element = document.getElementById(`${this.state.index_i}${this.state.index_j}`);
+        // Check next i position to see if another element exists 
+        let checkElementi = document.getElementById(`${this.state.index_i+1}${0}`);
+        // Check next j position to see if another element exists 
+        let checkElementj = document.getElementById(`${this.state.index_i}${this.state.index_j+1}`);
+        // If element exists in sequence then write the answer
+        if(checkElementj){
+           element.value = element.name;
+           // Increment j to get next element 
+           this.setState({
+             index_j: this.state.index_j+1
+           }); 
+        } else if(checkElementi){
+            // If another array exists in the step then go to it and fill it in 
+            this.setState({
+                index_i: this.state.index_i+1,
+                index_j: 0
+            }); 
+            element.value = element.name;
+        } else{
+            // Otherwise if no array exists reset i and j position
+            this.setState({
+                index_i: 0,
+                index_j: 0
+            });
+            element.value = element.name;
         }
     }
 
@@ -394,7 +442,7 @@ function SubStepInput(props) {
 function ElementsInput(props) {
     const numbers = props.numbers;
     const listItems = numbers.map((number, index) =>
-        <ElementInput number={number} id={props.index + " " + index} passStyle={props.passStyle} />
+        <ElementInput number={number} id={`${props.index}${index}`} passStyle={props.passStyle} />
     );
     return (
         <div className='substep' style={{ marginLeft: props.passStyle.width / 2, marginRight: props.passStyle.width / 2 }}>{listItems}</div>

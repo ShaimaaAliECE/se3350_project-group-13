@@ -62,7 +62,9 @@ class Mergesort extends React.Component {
             substep: 0, //what substep you are currently on
             elementstep: 0, //what element step  you are currently on
             stepsarr: stepsarr, // the actual array of elements (the tree)
-            currentStep: 1
+            currentStep: 1,
+            index_i: 0,
+            index_j: 0
         }
     }
 
@@ -81,6 +83,7 @@ class Mergesort extends React.Component {
 
     // Next button onClick
     onClickNext() {
+        this.fillIn();
         // Grey out elements that have been used 
         for (let prevStep = 0; prevStep < this.state.step; prevStep++) {
             // Get length of reference array 
