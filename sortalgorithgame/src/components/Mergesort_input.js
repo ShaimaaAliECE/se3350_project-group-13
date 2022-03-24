@@ -257,23 +257,25 @@ class Mergesort_input extends React.Component {
     }
 
     checkLives() {
-        //redirects user if lives are used up
-        if (this.state.lives === 1) {
-            //stops and can set time variable to store somewhere
-            this.setState({ timer: clearInterval(this.state.timer)});
-            var time = document.getElementById("test").innerHTML;
-
-            //takes user to a "level failed" page
-            var url = window.location.pathname;
-            window.localStorage.setItem("url", url);
-            window.location.replace("/levelFailed");
-        }
         this.setState({ lives: this.state.lives - 1 }); // decrement lives
+        console.log (this.state.lives);
         //show that error was made to user
         let errorNo = JSON.stringify(3 - this.state.lives);
         let errorText = document.getElementById("error" + errorNo);
         errorText.innerHTML = 'X';
 
+        //redirects user if lives are used up
+        if (this.state.lives === 1) {
+            //stops and can set time variable to store somewhere
+            this.setState({ timer: clearInterval(this.state.timer)});
+            var time = document.getElementById("time").innerHTML;
+
+            //takes user to a "level failed" page
+            var url = window.location.pathname;
+            window.localStorage.setItem("url", url);
+            console.log(url);
+            window.location.replace("/levelFailed");
+        }
     }
 
     // Correct Sound Effect
