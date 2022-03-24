@@ -12,3 +12,45 @@ INSERT INTO Account (username, pass, email)
 
 INSERT INTO Account (username, pass, email)
 	VALUES ("user1", "password1", "user1@gmail.com");
+
+CREATE TABLE LevelOne(
+username VARCHAR(32) NOT NULL UNIQUE,
+completionTime TIME,
+completed BOOL NOT NULL DEFAULT false,
+PRIMARY KEY (username),
+FOREIGN KEY (username) REFERENCES Account (username)
+);
+
+CREATE TABLE LevelTwo(
+username VARCHAR(32) NOT NULL UNIQUE,
+completionTime TIME,
+numberOfAttempts INT,
+completed BOOL NOT NULL DEFAULT false,
+PRIMARY KEY (username),
+FOREIGN KEY (username) REFERENCES Account (username)
+);
+CREATE TABLE LevelFour(
+username VARCHAR(32) NOT NULL UNIQUE,
+completionTime TIME,
+numberOfAttempts INT,
+completed BOOL NOT NULL DEFAULT false,
+PRIMARY KEY (username),
+FOREIGN KEY (username) REFERENCES Account (username)
+);
+CREATE TABLE LevelFive(
+username VARCHAR(32) NOT NULL UNIQUE,
+completionTime TIME,
+numberOfAttempts INT,
+completed BOOL NOT NULL DEFAULT false,
+PRIMARY KEY (username),
+FOREIGN KEY (username) REFERENCES Account (username)
+);
+CREATE TABLE CustomLevel(
+username VARCHAR(32) NOT NULL UNIQUE,
+completionTime TIME,
+numberOfAttempts INT,
+completed BOOL NOT NULL DEFAULT false,
+PRIMARY KEY (username),
+FOREIGN KEY (username) REFERENCES Account (username)
+);
+
