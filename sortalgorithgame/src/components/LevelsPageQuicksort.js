@@ -27,7 +27,7 @@ export default function LevlesPage() {
         // Holds all level references
         const levelsArray = ['customInput', 'one', 'two', 'three', 'four', 'five'];
         // Concats name 
-        let levelName = '/mergeSort-levels-level-' + levelsArray[level];
+        let levelName = '/quickSort-levels-level-' + levelsArray[level];
         //Check if use is verified 
         if (verified) {
             // Directs to level name 
