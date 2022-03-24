@@ -10,6 +10,7 @@ import Login from "./components/Login";
 import Register from "./components/Register";
 import LevelFail from "./components/LevelFailPage";
 import CustomPage from "./components/CustomPage";
+import LevelsPageQuicksort from "./components/LevelsPageQuicksort.js";
 
 //router component for switching between pages (views)
 function Router() {
@@ -28,6 +29,8 @@ function Router() {
         <Route path="/mergeSort-levels-level-five" render={(props) => <Mergesort_input len={50} min={1} max={100} showSteps={false} />} />
         <Route path="/mergeSort-levels-level-custom" component={CustomLevel} />
         <Route path="/mergeSort-levels-level-customInput" component={CustomPage} />
+        <Route path="/quickSort-levels" component={LevelsPageQuicksort} />
+        <Route path="/quickSort-levels-level-one" component={MergeSort} />
         <Route path="/login" component={Login} />
         <Route path="/register" component={Register} />
         <Route path="/levelFailed" component={LevelFail} />
