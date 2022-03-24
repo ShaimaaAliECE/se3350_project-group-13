@@ -16,7 +16,7 @@ const db = mysql.createConnection({
     host: "localhost",
   
     password: "password",
-    database: "AccountsDatabase"
+    database: "sortalgorithm"
 });
 //connect
 db.connect((err) => {

@@ -46,11 +46,12 @@ class Register extends React.Component{
             <div className="register-container">
             <div className="register-window">
             <h1>Register</h1>
-                <form className="box register-window" onSubmit={this.handleRegister}>
-                    <input className = "register-input" type="text" id="email" name="email" placeholder="Email"></input><br></br>
-                    <input className = "register-input" type="text" id="username" name="username" placeholder="Username"></input><br></br>
-                    <input className = "register-input" type="password" id="password" name="password" placeholder="Password"></input><br></br>
-                    <input className = "register-input" type="submit" value="Register"></input>
+                <form action="" onSubmit={this.handleRegister}>
+                    {this.state.failedRegistser? <h3 style={{ color: 'red' }}>Choose another username/Fill required fields</h3> : ""}
+                    <input className = "register-input" type="text" id="email" name="email" placeholder="Email" value={this.state.email} onChange={this.handleChange}/><br></br>
+                    <input className = "register-input" type="text" id="username" name="username" placeholder="Username" value={this.state.username} onChange={this.handleChange}/><br></br>
+                    <input className = "register-input" type="password" id="password" name="password" placeholder="Password" value={this.state.pass} onChange={this.handleChange}/><br></br>
+                    <input className = "register-input" type="submit" value="Register"/>
                 </form>
             </div>
             </div>
@@ -59,20 +60,3 @@ class Register extends React.Component{
 }
 
 export default Register;
-/**
-export default function Register() {
-    return (
-        <div className="register-container">
-            <div className="register-window">
-            <h1>Register</h1>
-                <form action="">
-                    <input className = "register-input" type="text" id="email" name="email" placeholder="Email"></input><br></br>
-                    <input className = "register-input" type="text" id="username" name="username" placeholder="Username"></input><br></br>
-                    <input className = "register-input" type="password" id="password" name="password" placeholder="Password"></input><br></br>
-                    <input className = "register-input" type="submit" value="Register"></input>
-                </form>
-            </div>
-        </div>
-
-    )
-} */
