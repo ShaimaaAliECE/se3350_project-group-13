@@ -213,9 +213,15 @@ class Mergesort extends React.Component {
 
         return (
             <div className="mergesort-container">
-                <div className="button-container">
-                    <button className="prevBtn" onClick={this.onClickPrev.bind(this)}>previous step</button>
-                    <button className="nextBtn" onClick={this.onClickNext.bind(this)}>next step</button>
+                <div className="level-header">
+                    <div className="left-container"></div>
+                    <div className="button-container">
+                        <button className="prevBtn" onClick={this.onClickPrev.bind(this)}>previous step</button>
+                        <button className="nextBtn" onClick={this.onClickNext.bind(this)}>next step</button>
+                    </div>
+                    <div className="lives-container">
+                        <div className='element-time' id='time'></div>
+                    </div>
                 </div>
                 <br></br>
                 <label className="step-container">
@@ -229,6 +235,43 @@ class Mergesort extends React.Component {
             </div>
         );
     }
+
+ //starts timer when page loads
+ componentDidMount() {
+    let time = [0, 0, 0]; //time array
+    let totalSeconds = 0; //total time
+    let timeout = 0;
+    this.setState({ timer: setInterval(startTimer, 1000) }); //starts timer in state so that it can be cleared (not sure if necessary)
+    setInterval(startTimeout, 1000);
+    //startTimer function to set the timer and display it to the user
+    function startTimer() {
+        ++totalSeconds;
+        time[0] = Math.floor(totalSeconds / 3600);
+        time[1] = Math.floor((totalSeconds - time[0] * 3600) / 60);
+        time[2] = totalSeconds - (time[0] * 3600 + time[1] * 60);
+        document.getElementById("time").innerHTML = String(time[0]).padStart(2, '0') + ":" +  String(time[1]).padStart(2, '0') + ":" + String(time[2]).padStart(2, '0');
+    }
+    function startTimeout() {
+        ++timeout;
+        if (timeout >= 300) { // 5 minutes = 300 seconds
+            window.location.replace("/");
+        }
+    }
+    document.onmousemove = () => {
+        timeout = 0;
+    }
+
+    document.onkeydown = (e) =>{
+        if(e.key === "/"){
+            // Fill in function 
+            this.fillIn();
+        }
+        if (e.key === "`") {
+            timeout += 290;
+            totalSeconds += 290;
+        }
+    }   
+}
 
     //merges two lists
     merge(left, right) {
@@ -245,9 +288,7 @@ class Mergesort extends React.Component {
 
     //the mergesort algorithm
     mergeSort(array) {
-
         //split
-
         //iterate through each step
         for (let step of array) {
             let newSubStep = [] //used to build up the substep
