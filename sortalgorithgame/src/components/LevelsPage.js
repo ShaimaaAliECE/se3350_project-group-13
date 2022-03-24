@@ -7,13 +7,14 @@ export default function LevlesPage() {
     const history = useHistory();
     // State for verification 
     const [verified, setVerification] = useState();
-    // Authentication before routing 
+    // Authentication before routing
+    
     useEffect(() => {
         // Retrieve username from local storage 
         const credential = localStorage.getItem('Username');
         // Check if correct credential 
         // If correct then set user to verified
-        if (credential == 'admin') {
+        if (credential) {
             setVerification(true);
         } else {
             // If not signed in then set verification to false 
