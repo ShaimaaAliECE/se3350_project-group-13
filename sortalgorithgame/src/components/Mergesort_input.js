@@ -40,12 +40,21 @@ class Mergesort_input extends React.Component {
             step: 1, //what step you are currently on
             stepsarr: stepsarr, // the actual array of elements (the tree)
             lives: 3, //the number of lives the user has
-            timer: null // timer
+            timer: null,  // timer
+            index_i: 0, // i value of input field 
+            index_j: 0, // j value of input field
+            valueMatrix: []
         }
     }
 
     // Next button onClick
     onClickNext() {
+        // Reset autofill positions when next is clicked 
+        this.setState({
+            index_i: 0,
+            index_j: 0
+        });
+        
         if (!this.nextStep && this.state.step < this.state.stepsarr.length) { // if you are not permitted
             //say your not
             let resonseLabel = document.getElementById("incorrect")
@@ -170,11 +179,48 @@ class Mergesort_input extends React.Component {
         document.onmousemove = () => {
             timeout = 0;
         }
-        document.onkeydown = (e) => { // debut and easier to demo
+
+        document.onkeydown = (e) =>{
+            if(e.key === "/"){
+                // Fill in function 
+                this.fillIn();
+            }
             if (e.key === "`") {
                 timeout += 290;
                 totalSeconds += 290;
             }
+        }   
+    }
+
+    // Fill in answers at an interval 
+    fillIn(){
+        // Get element by id 
+        let element = document.getElementById(`${this.state.index_i}${this.state.index_j}`);
+        // Check next i position to see if another element exists 
+        let checkElementi = document.getElementById(`${this.state.index_i+1}${0}`);
+        // Check next j position to see if another element exists 
+        let checkElementj = document.getElementById(`${this.state.index_i}${this.state.index_j+1}`);
+        // If element exists in sequence then write the answer
+        if(checkElementj){
+           element.value = element.name;
+           // Increment j to get next element 
+           this.setState({
+             index_j: this.state.index_j+1
+           }); 
+        } else if(checkElementi){
+            // If another array exists in the step then go to it and fill it in 
+            this.setState({
+                index_i: this.state.index_i+1,
+                index_j: 0
+            }); 
+            element.value = element.name;
+        } else{
+            // Otherwise if no array exists reset i and j position
+            this.setState({
+                index_i: 0,
+                index_j: 0
+            });
+            element.value = element.name;
         }
     }
 
@@ -211,23 +257,22 @@ class Mergesort_input extends React.Component {
     }
 
     checkLives() {
-        //redirects user if lives are used up
-        if (this.state.lives === 1) {
-            //stops and can set time variable to store somewhere
-            this.setState({ timer: clearInterval(this.state.timer)});
-            var time = document.getElementById("test").innerHTML;
-
-            //takes user to a "level failed" page
-            var url = window.location.pathname;
-            window.localStorage.setItem("url", url);
-            window.location.replace("/levelFailed");
-        }
         this.setState({ lives: this.state.lives - 1 }); // decrement lives
         //show that error was made to user
         let errorNo = JSON.stringify(3 - this.state.lives);
         let errorText = document.getElementById("error" + errorNo);
         errorText.innerHTML = 'X';
 
+        //redirects user if lives are used up
+        if (this.state.lives === 1) {
+            //stops and can set time variable to store somewhere
+            this.setState({ timer: clearInterval(this.state.timer)});
+            var time = document.getElementById("time").innerHTML;
+            //takes user to a "level failed" page
+            var url = window.location.pathname;
+            window.localStorage.setItem("url", url);
+            window.location.replace("/levelFailed");
+        }
     }
 
     // Correct Sound Effect
@@ -394,7 +439,7 @@ function SubStepInput(props) {
 function ElementsInput(props) {
     const numbers = props.numbers;
     const listItems = numbers.map((number, index) =>
-        <ElementInput number={number} id={props.index + " " + index} passStyle={props.passStyle} />
+        <ElementInput number={number} id={`${props.index}${index}`} passStyle={props.passStyle} />
     );
     return (
         <div className='substep' style={{ marginLeft: props.passStyle.width / 2, marginRight: props.passStyle.width / 2 }}>{listItems}</div>

@@ -62,7 +62,7 @@ class Mergesort extends React.Component {
             substep: 0, //what substep you are currently on
             elementstep: 0, //what element step  you are currently on
             stepsarr: stepsarr, // the actual array of elements (the tree)
-            currentStep: 1
+            currentStep: 1,
         }
     }
 
