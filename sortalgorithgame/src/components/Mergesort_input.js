@@ -88,6 +88,10 @@ class Mergesort_input extends React.Component {
 
             // if it is the last step
             if (this.state.step === this.state.stepsarr.length - 1) {
+                this.setState({
+                    completed: true,
+                    completionTime: document.getElementById("time").innerHTML
+                }); 
                 // display congradulations
                 this.applauseSound();
                 let resonseLabel = document.getElementById("incorrect")
@@ -166,10 +170,6 @@ class Mergesort_input extends React.Component {
         );
     }
     handleCompletion() {
-        this.setState({
-            completed: true,
-            completionTime: document.getElementById("time").innerHTML
-        }); 
         const lvlInfo = {...this.state };
         //check if inputted values can be inserted in database
         axios.put(`http://localhost:3001/levelInfo/${this.state.username}`, lvlInfo).then((res) => {
