@@ -22,13 +22,27 @@ class Navbar extends React.Component {
         }
     }
 
+    logOut(){
+        localStorage.clear();
+        window.location.reload();
+    }
+
     render() {
         return (
             <ul className ="bar">
                 <li> <a href="/"><b>Sorting Algorithm Education Game</b></a> </li>
                 <li> <a href="/about">About Us</a> </li>
                 <li> <a href="/">Sorting Algorithms</a> </li>
-                <li> <a href="/profile">Profile</a></li>
+                {/* State when authenticated */
+                this.state.auth?
+                <li> <a href="/profile">Profile</a></li>:
+                <></>
+                }
+                {/* State when authenticated */
+                this.state.auth?
+                <li onClick={this.logOut}> <a href="/">Log Out</a></li>:
+                <></>
+                }
                 {/* State when authenticated */
                 this.state.auth?
                 <p className="login-profile-nav"> Hello, {this.state.username} </p> :

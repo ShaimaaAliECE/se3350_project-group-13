@@ -28,14 +28,9 @@ db.connect((err) => {
 const port = 3001; //port number
 const server = `http://localhost:${port}`;
 app.listen(port, () => console.log(`Server started. Running at: ${server}`));
-// Default route 
-/*
-app.get('/',(req,res)=>{
-    res.send('Hello World');
-});*/
 
 // Routes
-//insert into allaccount
+//insert into accounts
 app.post("/newUser", (req, res) => {
   
     console.log(req.query);
@@ -43,7 +38,7 @@ app.post("/newUser", (req, res) => {
     const pass = req.body.pass;
     const email = req.body.email;
     db.query(
-      "INSERT INTO Account (username, pass, email) VALUES (?,?,?)",
+      "INSERT INTO Accounts (username, pass, email) VALUES (?,?,?)",
       [
         username,
         pass,
@@ -59,11 +54,34 @@ app.post("/newUser", (req, res) => {
       }
     );
   });
-  
-//verify that the given username and password are correct
+//insert into levelOneTime
+app.put("/levelOneTime/:username", (req, res) => { 
+  let username = req.body.username;
+  const completionTime = req.body.completionTime;
+  const completed = req.body.completed;
+  db.query(
+    "UPDATE LevelOne SET completionTime = ?, completed = ? WHERE username = ?",
+    [
+      completionTime,
+      completed,
+      username,
+    ],
+    (err, result) => {
+      if (err) {
+        console.log(err);
+        res.send(false);
+      } else {
+        res.send("values are properly updated");
+      }
+    }
+  );
+});
+//get level one logged info
+app.get("/getLevelOneAct");
+//verify login credentials
 app.get("/verifylogin", (req, res) => {
     db.query(
-      `SELECT id, pass FROM Account WHERE username = "${req.query.username}"`,
+      `SELECT id, pass FROM Accounts WHERE username = "${req.query.username}"`,
       (err, result) => {
         if (err) {
           console.log(err);
@@ -78,10 +96,7 @@ app.get("/verifylogin", (req, res) => {
     );
   });
 
-// Start listening 
-/*app.listen(3001, ()=>{
-    console.log("Server started on port 3001");
-});*/
+
 function Rollback(res) {
   db.query(`ROLLBACK`, (err6, result6) => {
     if (err6) {
