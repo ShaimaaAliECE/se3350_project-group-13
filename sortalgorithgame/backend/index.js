@@ -55,14 +55,13 @@ app.post("/newUser", (req, res) => {
     );
   });
 //insert into levelOneTime
-app.post("/levelOneTime", (req, res) => {
-  
+app.put("/levelOneTime/:username", (req, res) => {
   console.log(req.query);
   const username = req.body.username;
   const completionTime = req.body.completionTime;
   const completed = req.body.completed;
   db.query(
-    "INSERT INTO LevelOne (username, completionTime, completed) VALUES (?,?,?)",
+    "UPDATE LevelOne SET completionTime = ?, completed = ? WHERE username = ?",
     [
       username,
       completionTime,
