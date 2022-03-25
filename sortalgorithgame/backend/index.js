@@ -76,7 +76,7 @@ app.put("/levelOneTime/:username", (req, res) => {
     }
   );
 });
-//update level 2-5 info
+//update level 2-5 and custom level info
 app.put("/levelInfo/:username", (req, res) => { 
   let username = req.body.username;
   let level = req.body.level;

@@ -47,7 +47,7 @@ function CustomLevel() {
   const min = parseInt(query.get("min"));
   const max = parseInt(query.get("max"));
   return (
-    <Mergesort_input len={len} min={min} max={max} showSteps={false} />
+    <Mergesort_input len={len} min={min} max={max} showSteps={false} level={"CustomLevel"}/>
   );
 }
 
