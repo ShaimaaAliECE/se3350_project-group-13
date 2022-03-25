@@ -30,6 +30,7 @@ class Profile extends React.Component {
         axios.get(`http://localhost:3001/getLevelInfo?level=leveltwo&username=${username}`).then((res) => {
             if (res.data) {
                 this.setState({ level2: res.data[0] });
+                console.log(res.data[0])
             }
             else {
                 console.log(res);
@@ -90,7 +91,7 @@ class Profile extends React.Component {
                         </tr>
                     </thead>
                     <tbody>
-                    <tr>
+                        <tr>
                             <td>
                                 Level 1
                             </td>
@@ -100,8 +101,8 @@ class Profile extends React.Component {
                             <td>
                                 N/A
                             </td>
-                            
-                            
+
+
                         </tr>
                         <tr>
                             <td>
@@ -111,9 +112,9 @@ class Profile extends React.Component {
                                 {this.state.level2.completionTime}
                             </td>
                             <td>
-                                {this.state.level2.numberOfAttempts}/3
+                                {this.state.level2.completionTime === null ? "" : this.state.level2.numberOfAttempts + '/3'}
                             </td>
-                            
+
                         </tr>
 
 
@@ -125,9 +126,9 @@ class Profile extends React.Component {
                                 {this.state.level3.completionTime}
                             </td>
                             <td>
-                                {this.state.level3.numberOfAttempts}/3
+                                {this.state.level3.completionTime === null ? "" : this.state.level3.numberOfAttempts + '/3'}
                             </td>
-                            
+
                         </tr>
 
 
@@ -139,10 +140,10 @@ class Profile extends React.Component {
                                 {this.state.level4.completionTime}
                             </td>
                             <td>
-                                {this.state.level5.numberOfAttempts}/3
+                                {this.state.level4.completionTime === null ? "" : this.state.level4.numberOfAttempts + '/3'}
                             </td>
-                            
-                            
+
+
                         </tr>
 
                         <tr>
@@ -153,10 +154,10 @@ class Profile extends React.Component {
                                 {this.state.level5.completionTime}
                             </td>
                             <td>
-                                {this.state.level5.numberOfAttempts}/3
+                                {this.state.level5.completionTime === null ? "" : this.state.level5.numberOfAttempts + '/3'}
                             </td>
-                            
-                            
+
+
                         </tr>
 
                         <tr>
@@ -167,10 +168,8 @@ class Profile extends React.Component {
                                 {this.state.custom.completionTime}
                             </td>
                             <td>
-                                {this.state.custom.numberOfAttempts}/3
+                                {this.state.custom.completionTime === null ? "" : this.state.custom.numberOfAttempts + '/3'}
                             </td>
-                            
-                            
                         </tr>
                     </tbody>
 
