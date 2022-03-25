@@ -103,7 +103,7 @@ app.put("/levelInfo/:username", (req, res) => {
 });
 /*app.get("/getLevelAttemptsInfo", (req, res) => {
   db.query(
-    `SELECT SELECT numberOfAttempts FROM ${req.query.level} WHERE username = ${req.query.username}`,
+    `SELECT numberOfAttempts FROM ${req.query.level} WHERE username = "${req.query.username}"`,
     (err, result) => {
       if (err) {
         console.log(err);
@@ -117,7 +117,7 @@ app.put("/levelInfo/:username", (req, res) => {
 //get levels 2-5, custom level logged info
 app.get("/getLevelInfo", (req, res) => {
   db.query(
-    `SELECT SELECT completionTime, numberOfAttempts, completed FROM ${req.query.level} WHERE username = ${req.query.username}`,
+    `SELECT completionTime, numberOfAttempts, completed FROM ${req.query.level} WHERE username = "${req.query.username}"`,
     (err, result) => {
       if (err) {
         console.log(err);
@@ -130,7 +130,7 @@ app.get("/getLevelInfo", (req, res) => {
 //get level one logged info
 app.get("/getLevelOneInfo", (req, res) => {
   db.query(
-    `SELECT SELECT completionTime, completed FROM LevelOne WHERE username = ${req.query.username}`,
+    `SELECT completionTime, completed FROM LevelOne WHERE username = "${req.query.username}"`,
     (err, result) => {
       if (err) {
         console.log(err);
