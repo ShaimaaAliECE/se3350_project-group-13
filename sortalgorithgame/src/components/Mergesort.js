@@ -103,11 +103,15 @@ class Mergesort extends React.Component {
                 }
             });
         }
-
+        if(this.state.step >= this.state.stepsarr.length) {
+            //mark completed
+            this.setState({completed: true}); 
+        }
         if (this.state.step < this.state.stepsarr.length / 2) { //check if the steps are splitting
             if (this.state.step < this.state.stepsarr.length) { //check if it's not last step
                 this.setState({ step: this.state.step + 1 }); //increment steps
             }
+            
         } else { // merge steps
             if (this.state.elementstep === this.state.stepsarr[this.state.step][this.state.substep].length - 1) { //check if elements reached end of substep
                 if (this.state.substep === this.state.stepsarr[this.state.step].length - 1) { //check if substep reached end of step
@@ -115,8 +119,6 @@ class Mergesort extends React.Component {
                         this.setState({ step: this.state.step + 1 }); //increment steps
                         this.setState({ substep: 0 }); //make substeps back to 0
                         this.setState({ elementstep: 0 }); // make element steps back to 0
-                        //mark completed
-                        this.setState({completed: true}); 
                     }
                 } else { //if there is still substeps left
                     this.setState({ substep: this.state.substep + 1 }); //increment substeps
@@ -273,7 +275,7 @@ class Mergesort extends React.Component {
             time[1] = Math.floor((totalSeconds - time[0] * 3600) / 60);
             time[2] = totalSeconds - (time[0] * 3600 + time[1] * 60);
             document.getElementById("time").innerHTML = String(time[0]).padStart(2, '0') + ":" +  String(time[1]).padStart(2, '0') + ":" + String(time[2]).padStart(2, '0');
-            if(this.state.completed)
+            if(this.state.completed == true)
                 this.setState({completionTime: document.getElementById("time").innerHTML})
                 this.handleCompletion();
         }
