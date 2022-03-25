@@ -51,6 +51,9 @@ class Mergesort_input extends React.Component {
             completed: false,
             completionTime: '0:0:0'
         }
+        /*axios.get(`http://localhost:3001/getLevelAttemptsInfo?username=${this.state.username}&level=${this.state.level}`).then((res) => {
+            this.setState({attempts: res.data});
+        });*/
     }
 
     // Next button onClick
@@ -90,8 +93,7 @@ class Mergesort_input extends React.Component {
                 let resonseLabel = document.getElementById("incorrect")
                 resonseLabel.innerHTML = "Congratulations!! You have completed this level";
                 resonseLabel.style = "color: green";
-                this.setState({completed: true}); 
-                this.setState({completionTime: document.getElementById("time").innerHTML});
+                //insert into database
                 this.handleCompletion();
             }
         }
@@ -164,6 +166,10 @@ class Mergesort_input extends React.Component {
         );
     }
     handleCompletion() {
+        this.setState({
+            completed: true,
+            completionTime: document.getElementById("time").innerHTML
+        }); 
         const lvlInfo = {...this.state };
         //check if inputted values can be inserted in database
         axios.put(`http://localhost:3001/levelInfo/${this.state.username}`, lvlInfo).then((res) => {
@@ -278,6 +284,7 @@ class Mergesort_input extends React.Component {
 
     checkLives() {
         this.setState({ lives: this.state.lives - 1 }); // decrement lives
+        this.setState({ attempts: this.state.attempts + 1 }); //incr attempts
         //show that error was made to user
         let errorNo = JSON.stringify(3 - this.state.lives);
         let errorText = document.getElementById("error" + errorNo);

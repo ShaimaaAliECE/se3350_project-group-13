@@ -23,10 +23,10 @@ function Router() {
         <Route path="/mergeSort" component={MergeSort} />
         <Route path="/mergeSort-levels" component={LevlesPage} />
         <Route path="/mergeSort-levels-level-one" component={MergeSort} />
-        <Route path="/mergeSort-levels-level-two" render={(props) => <Mergesort_input len={10} min={1} max={20} showSteps={true} level={2} />} />
-        <Route path="/mergeSort-levels-level-three" render={(props) => <Mergesort_input len={10} min={1} max={20} showSteps={false} level={3} />} />
-        <Route path="/mergeSort-levels-level-four" render={(props) => <Mergesort_input len={20} min={1} max={50} showSteps={false} level={4} />} />
-        <Route path="/mergeSort-levels-level-five" render={(props) => <Mergesort_input len={50} min={1} max={100} showSteps={false} level={5} />} />
+        <Route path="/mergeSort-levels-level-two" render={(props) => <Mergesort_input len={10} min={1} max={20} showSteps={true} level={"LevelTwo"} />} />
+        <Route path="/mergeSort-levels-level-three" render={(props) => <Mergesort_input len={10} min={1} max={20} showSteps={false} level={"LevelThree"} />} />
+        <Route path="/mergeSort-levels-level-four" render={(props) => <Mergesort_input len={20} min={1} max={50} showSteps={false} level={"LevelFour"} />} />
+        <Route path="/mergeSort-levels-level-five" render={(props) => <Mergesort_input len={50} min={1} max={100} showSteps={false} level={"LevelFive"} />} />
         <Route path="/mergeSort-levels-level-custom" component={CustomLevel} />
         <Route path="/mergeSort-levels-level-customInput" component={CustomPage} />
         <Route path="/login" component={Login} />

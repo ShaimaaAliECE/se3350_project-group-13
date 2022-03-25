@@ -84,7 +84,7 @@ app.put("/levelInfo/:username", (req, res) => {
   const completed = req.body.completed;
   const attempts = req.body.attempts;
   db.query(
-    "UPDATE Level" +level+ " SET completionTime = ?, numberOfAttempts = ?, completed = ? WHERE username = ?",
+    `UPDATE ${level} SET completionTime = ?, numberOfAttempts = ?, completed = ? WHERE username = ?`,
     [
       completionTime,
       attempts,
@@ -101,6 +101,18 @@ app.put("/levelInfo/:username", (req, res) => {
     }
   );
 });
+/*app.get("/getLevelAttemptsInfo", (req, res) => {
+  db.query(
+    `SELECT SELECT numberOfAttempts FROM ${req.query.level} WHERE username = ${req.query.username}`,
+    (err, result) => {
+      if (err) {
+        console.log(err);
+      } else {
+        res.send(result);
+      }
+    }
+  );
+});*/
 //get level one logged info
 app.get("/getLevelOneAct");
 //verify login credentials
