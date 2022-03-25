@@ -1,6 +1,6 @@
 import React from 'react';
 import '../styles/Mergesort.css';
-import stepText from '../json/level1.json'
+import stepText from '../json/level1Quicksort.json'
 
 //array constraints
 const min = 1;
@@ -47,7 +47,7 @@ class quickSort extends React.Component {
         super(props);
         let stepsarr = [[Array.from({ length: len }, () => Math.floor((Math.random() * (max - min + 1)) + min))]]; // generate list of random array
 
-        this.quickSort(stepsarr); //generate the quickSort array
+        this.QuickSort(stepsarr, 0, stepsarr.length - 1); //generate the quickSort array
 
         //make each element a object with a value and a color
         for (let step = 0; step < stepsarr.length; step++) {
@@ -230,23 +230,36 @@ class quickSort extends React.Component {
         );
     }
 
-    //merges two lists
-    merge(left, right) {
-        let arr = [] //holds merged
-        while (left.length && right.length) { //there is elements left
-            if (left[0] < right[0]) { //if left is smaller
-                arr.push(left.shift()) //push left
-            } else { //right is smaller
-                arr.push(right.shift()) //push right
+    swap(array, leftIndex, rightIndex){
+        var temp = array[leftIndex];
+        array[leftIndex] = array[rightIndex];
+        array[rightIndex] = temp;
+    }
+
+    partition(array, left, right) {
+        var pivot   = array[Math.floor((right + left) / 2)], //middle element
+            i       = left, //left pointer
+            j       = right; //right pointer
+        while (i <= j) {
+            while (array[i] < pivot) {
+                i++;
+            }
+            while (array[j] > pivot) {
+                j--;
+            }
+            if (i <= j) {
+                this.swap(array, i, j); //swapping two elements
+                i++;
+                j--;
             }
         }
-        return [...arr, ...left, ...right] //return sorted arrray as well as any left overs if one ran out first.
+        return i;
     }
 
     //the quickSort algorithm
-    quickSort(array) {
+    QuickSort(array, left, right) {
 
-        //split
+        var index;
 
         //iterate through each step
         for (let step of array) {
@@ -255,21 +268,15 @@ class quickSort extends React.Component {
 
             //iterate through each substep
             for (let substep of array[array.length - 1]) {
-                if (substep.length >= 1) { //if the substep has more than one element (i.e. should be split)
-                    if (substep.length === 1) { //boundary case where the length is one we don't want to split but we still want to show it
-                        newSubStep.push([...substep]); //add it
-                    } else { //it should be split
-                        valid = true; //means new elements were split in this step
-                        let half = substep.length / 2; //get half
-                        let left = substep.slice(0, half); //get left side
-                        let right = substep.slice(half, substep.length); //get right side
-
-                        newSubStep.push([...left]); //add the left side
-                        newSubStep.push([...right]); //add the right side
-                    }
+                index = this.partition(array, left, right); //index returned from partition
+                if (left < index - 1) { //more elements on the left side of the pivot
+                    this.QuickSort(array, left, index - 1);
+                }
+                if (index < right) { //more elements on the right side of the pivot
+                    this.QuickSort(array, index, right);
                 }
             }
-
+    
             //if the step did something new
             if (valid) {
                 array.push(newSubStep); //push it to the array
@@ -302,7 +309,7 @@ class quickSort extends React.Component {
             prevstep = newSubStep; //update previous step
 
             array.push(newSubStep); //push new step
-        }
+        } 
         let mid = array.length / 2
 
         array.splice(mid - 1, 1);
