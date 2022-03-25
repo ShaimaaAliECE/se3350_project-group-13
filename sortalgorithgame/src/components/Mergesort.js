@@ -106,6 +106,8 @@ class Mergesort extends React.Component {
         if(this.state.step >= this.state.stepsarr.length) {
             //mark completed
             this.setState({completed: true}); 
+            this.setState({completionTime: document.getElementById("time").innerHTML});
+            this.handleCompletion();
         }
         if (this.state.step < this.state.stepsarr.length / 2) { //check if the steps are splitting
             if (this.state.step < this.state.stepsarr.length) { //check if it's not last step
@@ -275,9 +277,6 @@ class Mergesort extends React.Component {
             time[1] = Math.floor((totalSeconds - time[0] * 3600) / 60);
             time[2] = totalSeconds - (time[0] * 3600 + time[1] * 60);
             document.getElementById("time").innerHTML = String(time[0]).padStart(2, '0') + ":" +  String(time[1]).padStart(2, '0') + ":" + String(time[2]).padStart(2, '0');
-            if(this.state.completed == true)
-                this.setState({completionTime: document.getElementById("time").innerHTML})
-                this.handleCompletion();
         }
         function startTimeout() {
             ++timeout;

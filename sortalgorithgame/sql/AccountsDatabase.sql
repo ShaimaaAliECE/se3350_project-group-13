@@ -1,5 +1,6 @@
 select * from Accounts;
-select * from levelone;
+select * from levelfive;
+
 CREATE TABLE Accounts(
 id INT NOT NULL AUTO_INCREMENT,
 username VARCHAR(32) NOT NULL UNIQUE,
@@ -12,7 +13,7 @@ PRIMARY KEY (id)
 
 CREATE TABLE LevelOne(
 username VARCHAR(32) NOT NULL UNIQUE,
-completionTime TIME,
+completionTime VARCHAR(8),
 completed BOOL NOT NULL DEFAULT false,
 PRIMARY KEY (username),
 FOREIGN KEY (username) REFERENCES Accounts (username)
@@ -20,7 +21,7 @@ FOREIGN KEY (username) REFERENCES Accounts (username)
 
 CREATE TABLE LevelTwo(
 username VARCHAR(32) NOT NULL UNIQUE,
-completionTime TIME,
+completionTime VARCHAR(8),
 numberOfAttempts INT,
 completed BOOL NOT NULL DEFAULT false,
 PRIMARY KEY (username),
@@ -28,7 +29,7 @@ FOREIGN KEY (username) REFERENCES Accounts (username)
 );
 CREATE TABLE LevelThree(
 username VARCHAR(32) NOT NULL UNIQUE,
-completionTime TIME,
+completionTime VARCHAR(8),
 numberOfAttempts INT,
 completed BOOL NOT NULL DEFAULT false,
 PRIMARY KEY (username),
@@ -36,7 +37,7 @@ FOREIGN KEY (username) REFERENCES Accounts (username)
 );
 CREATE TABLE LevelFour(
 username VARCHAR(32) NOT NULL UNIQUE,
-completionTime TIME,
+completionTime VARCHAR(8),
 numberOfAttempts INT,
 completed BOOL NOT NULL DEFAULT false,
 PRIMARY KEY (username),
@@ -44,7 +45,7 @@ FOREIGN KEY (username) REFERENCES Accounts (username)
 );
 CREATE TABLE LevelFive(
 username VARCHAR(32) NOT NULL UNIQUE,
-completionTime TIME,
+completionTime VARCHAR(8),
 numberOfAttempts INT,
 completed BOOL NOT NULL DEFAULT false,
 PRIMARY KEY (username),
@@ -52,7 +53,7 @@ FOREIGN KEY (username) REFERENCES Accounts (username)
 );
 CREATE TABLE CustomLevel(
 username VARCHAR(32) NOT NULL UNIQUE,
-completionTime TIME,
+completionTime VARCHAR(8),
 numberOfAttempts INT,
 completed BOOL NOT NULL DEFAULT false,
 PRIMARY KEY (username),
