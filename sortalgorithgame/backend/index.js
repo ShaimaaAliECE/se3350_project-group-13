@@ -54,7 +54,7 @@ app.post("/newUser", (req, res) => {
       }
     );
   });
-//insert into levelOneTime
+//update levelOneTime
 app.put("/levelOneTime/:username", (req, res) => { 
   let username = req.body.username;
   const completionTime = req.body.completionTime;
@@ -63,6 +63,31 @@ app.put("/levelOneTime/:username", (req, res) => {
     "UPDATE LevelOne SET completionTime = ?, completed = ? WHERE username = ?",
     [
       completionTime,
+      completed,
+      username,
+    ],
+    (err, result) => {
+      if (err) {
+        console.log(err);
+        res.send(false);
+      } else {
+        res.send("values are properly updated");
+      }
+    }
+  );
+});
+//update level 2-5 info
+app.put("/levelInfo/:username", (req, res) => { 
+  let username = req.body.username;
+  let level = req.body.level;
+  const completionTime = req.body.completionTime;
+  const completed = req.body.completed;
+  const attempts = req.body.attempts;
+  db.query(
+    "UPDATE Level" +level+ " SET completionTime = ?, numberOfAttempts = ?, completed = ? WHERE username = ?",
+    [
+      completionTime,
+      attempts,
       completed,
       username,
     ],

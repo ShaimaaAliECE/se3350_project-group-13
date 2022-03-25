@@ -44,7 +44,12 @@ class Mergesort_input extends React.Component {
             timer: null,  // timer
             index_i: 0, // i value of input field 
             index_j: 0, // j value of input field
-            valueMatrix: []
+            valueMatrix: [],
+            username: localStorage.getItem('Username'),
+            level: props.level,
+            attempts: 0,
+            completed: false,
+            completionTime: '0:0:0'
         }
     }
 
@@ -85,6 +90,9 @@ class Mergesort_input extends React.Component {
                 let resonseLabel = document.getElementById("incorrect")
                 resonseLabel.innerHTML = "Congratulations!! You have completed this level";
                 resonseLabel.style = "color: green";
+                this.setState({completed: true}); 
+                this.setState({completionTime: document.getElementById("time").innerHTML});
+                this.handleCompletion();
             }
         }
     }
@@ -155,7 +163,18 @@ class Mergesort_input extends React.Component {
             </div>
         );
     }
-
+    handleCompletion() {
+        const lvlInfo = {...this.state };
+        //check if inputted values can be inserted in database
+        axios.put(`http://localhost:3001/levelInfo/${this.state.username}`, lvlInfo).then((res) => {
+            if (res.data) { 
+                console.log("success");
+            } 
+            else { // if failed to register
+                console.log("fail");
+            }
+        });
+    }
     //starts timer when page loads
     componentDidMount() {
         let time = [0, 0, 0]; //time array
