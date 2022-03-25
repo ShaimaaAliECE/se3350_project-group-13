@@ -22,6 +22,11 @@ class Navbar extends React.Component {
         }
     }
 
+    logOut(){
+        localStorage.clear();
+        window.location.reload();
+    }
+
     render() {
         return (
             <ul className ="bar">
@@ -31,6 +36,11 @@ class Navbar extends React.Component {
                 {/* State when authenticated */
                 this.state.auth?
                 <li> <a href="/profile">Profile</a></li>:
+                <></>
+                }
+                {/* State when authenticated */
+                this.state.auth?
+                <li onClick={this.logOut}> <a href="/">Log Out</a></li>:
                 <></>
                 }
                 {/* State when authenticated */
