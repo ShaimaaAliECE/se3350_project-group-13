@@ -243,14 +243,14 @@ class Mergesort extends React.Component {
         );
     }
     handleCompletion() {
-        //event.preventDefault();
+        //this.preventDefault();
         //get form data from input fields
         //let username = event.target[0].value;
         
-        const lvlInfo = { username, completionTime, completed };
+        const lvlInfo = {...this.state };
 
         //check if inputted values can be inserted in database
-        axios.post(`http://localhost:3001/levelOneTime`, lvlInfo).then((res) => {
+        axios.put(`http://localhost:3001/levelOneTime/${this.state.username}`, lvlInfo).then((res) => {
             if (res.data) { 
                 console.log("success");
             } 

@@ -55,24 +55,23 @@ app.post("/newUser", (req, res) => {
     );
   });
 //insert into levelOneTime
-app.put("/levelOneTime/:username", (req, res) => {
-  console.log(req.query);
-  const username = req.body.username;
+app.put("/levelOneTime/:username", (req, res) => { 
+  let username = req.body.username;
   const completionTime = req.body.completionTime;
   const completed = req.body.completed;
   db.query(
     "UPDATE LevelOne SET completionTime = ?, completed = ? WHERE username = ?",
     [
-      username,
       completionTime,
       completed,
+      username,
     ],
     (err, result) => {
       if (err) {
         console.log(err);
         res.send(false);
       } else {
-        res.send("values are properly inserted");
+        res.send("values are properly updated");
       }
     }
   );
