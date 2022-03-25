@@ -58,12 +58,16 @@ class Mergesort extends React.Component {
                 })
             }
         }
+        //level states
         this.state = {
             step: 1, //what step you are currently on
             substep: 0, //what substep you are currently on
             elementstep: 0, //what element step  you are currently on
             stepsarr: stepsarr, // the actual array of elements (the tree)
             currentStep: 1,
+            username: localStorage.getItem('Username'),
+            completed: false,
+            completionTime: '0:0:0'
         }
     }
 
@@ -111,6 +115,8 @@ class Mergesort extends React.Component {
                         this.setState({ step: this.state.step + 1 }); //increment steps
                         this.setState({ substep: 0 }); //make substeps back to 0
                         this.setState({ elementstep: 0 }); // make element steps back to 0
+                        //mark completed
+                        this.setState({completed: true}); 
                     }
                 } else { //if there is still substeps left
                     this.setState({ substep: this.state.substep + 1 }); //increment substeps
@@ -203,7 +209,7 @@ class Mergesort extends React.Component {
             this.setState({ stepsarr: stepsarr }) //update the stepsarr
         } 
     } 
-
+    
     // render method
     render() {
         let steps = []; //holds the steps and also the next step if it exists
@@ -236,43 +242,62 @@ class Mergesort extends React.Component {
             </div>
         );
     }
+    handleCompletion() {
+        //event.preventDefault();
+        //get form data from input fields
+        //let username = event.target[0].value;
+        
+        const lvlInfo = { username, completionTime, completed };
 
- //starts timer when page loads
- componentDidMount() {
-    let time = [0, 0, 0]; //time array
-    let totalSeconds = 0; //total time
-    let timeout = 0;
-    this.setState({ timer: setInterval(startTimer, 1000) }); //starts timer in state so that it can be cleared (not sure if necessary)
-    setInterval(startTimeout, 1000);
-    //startTimer function to set the timer and display it to the user
-    function startTimer() {
-        ++totalSeconds;
-        time[0] = Math.floor(totalSeconds / 3600);
-        time[1] = Math.floor((totalSeconds - time[0] * 3600) / 60);
-        time[2] = totalSeconds - (time[0] * 3600 + time[1] * 60);
-        document.getElementById("time").innerHTML = String(time[0]).padStart(2, '0') + ":" +  String(time[1]).padStart(2, '0') + ":" + String(time[2]).padStart(2, '0');
+        //check if inputted values can be inserted in database
+        axios.post(`http://localhost:3001/levelOneTime`, lvlInfo).then((res) => {
+            if (res.data) { 
+                console.log("success");
+            } 
+            else { // if failed to register
+                console.log("fail");
+            }
+        });
     }
-    function startTimeout() {
-        ++timeout;
-        if (timeout >= 300) { // 5 minutes = 300 seconds
-            window.location.replace("/");
+    //starts timer when page loads
+    componentDidMount() {
+        let time = [0, 0, 0]; //time array
+        let totalSeconds = 0; //total time
+        let timeout = 0;
+        this.setState({ timer: setInterval(startTimer, 1000) }); //starts timer in state so that it can be cleared (not sure if necessary)
+        setInterval(startTimeout, 1000);
+        //startTimer function to set the timer and display it to the user
+        function startTimer() {
+            ++totalSeconds;
+            time[0] = Math.floor(totalSeconds / 3600);
+            time[1] = Math.floor((totalSeconds - time[0] * 3600) / 60);
+            time[2] = totalSeconds - (time[0] * 3600 + time[1] * 60);
+            document.getElementById("time").innerHTML = String(time[0]).padStart(2, '0') + ":" +  String(time[1]).padStart(2, '0') + ":" + String(time[2]).padStart(2, '0');
+            if(this.state.completed)
+                this.setState({completionTime: document.getElementById("time").innerHTML})
+                this.handleCompletion();
         }
-    }
-    document.onmousemove = () => {
-        timeout = 0;
-    }
+        function startTimeout() {
+            ++timeout;
+            if (timeout >= 300) { // 5 minutes = 300 seconds
+                window.location.replace("/");
+            }
+        }
+        document.onmousemove = () => {
+            timeout = 0;
+        }
 
-    document.onkeydown = (e) =>{
-        if(e.key === "/"){
-            // Fill in function 
-            this.fillIn();
-        }
-        if (e.key === "`") {
-            timeout += 290;
-            totalSeconds += 290;
-        }
-    }   
-}
+        document.onkeydown = (e) =>{
+            if(e.key === "/"){
+                // Fill in function 
+                this.fillIn();
+            }
+            if (e.key === "`") {
+                timeout += 290;
+                totalSeconds += 290;
+            }
+        }   
+    }
 
     //merges two lists
     merge(left, right) {

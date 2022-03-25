@@ -28,11 +28,6 @@ db.connect((err) => {
 const port = 3001; //port number
 const server = `http://localhost:${port}`;
 app.listen(port, () => console.log(`Server started. Running at: ${server}`));
-// Default route 
-/*
-app.get('/',(req,res)=>{
-    res.send('Hello World');
-});*/
 
 // Routes
 //insert into allaccount
@@ -59,7 +54,30 @@ app.post("/newUser", (req, res) => {
       }
     );
   });
+//insert into allaccount
+app.post("/levelOneTime", (req, res) => {
   
+  console.log(req.query);
+  const username = req.body.username;
+  const completionTime = req.body.completionTime;
+  const completed = req.body.completed;
+  db.query(
+    "INSERT INTO LevelOne (username, completionTime, completed) VALUES (?,?,?)",
+    [
+      username,
+      completionTime,
+      completed,
+    ],
+    (err, result) => {
+      if (err) {
+        console.log(err);
+        res.send(false);
+      } else {
+        res.send("values are properly inserted");
+      }
+    }
+  );
+});
 //verify that the given username and password are correct
 app.get("/verifylogin", (req, res) => {
     db.query(
