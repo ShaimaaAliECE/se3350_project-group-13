@@ -91,14 +91,13 @@ class Mergesort_input extends React.Component {
                 this.setState({
                     completed: true,
                     completionTime: document.getElementById("time").innerHTML
-                }); 
+                }, ()=>this.handleCompletion()); 
                 // display congradulations
                 this.applauseSound();
                 let resonseLabel = document.getElementById("incorrect")
                 resonseLabel.innerHTML = "Congratulations!! You have completed this level";
                 resonseLabel.style = "color: green";
-                //insert into database
-                this.handleCompletion();
+                
             }
         }
     }
