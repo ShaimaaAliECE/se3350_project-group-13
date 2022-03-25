@@ -30,7 +30,7 @@ const server = `http://localhost:${port}`;
 app.listen(port, () => console.log(`Server started. Running at: ${server}`));
 
 // Routes
-//insert into allaccount
+//insert into accounts
 app.post("/newUser", (req, res) => {
   
     console.log(req.query);
@@ -54,7 +54,7 @@ app.post("/newUser", (req, res) => {
       }
     );
   });
-//insert into allaccount
+//insert into levelOneTime
 app.post("/levelOneTime", (req, res) => {
   
   console.log(req.query);
@@ -78,7 +78,9 @@ app.post("/levelOneTime", (req, res) => {
     }
   );
 });
-//verify that the given username and password are correct
+//get level one logged info
+app.get("/getLevelOneAct");
+//verify login credentials
 app.get("/verifylogin", (req, res) => {
     db.query(
       `SELECT id, pass FROM Accounts WHERE username = "${req.query.username}"`,
@@ -96,10 +98,7 @@ app.get("/verifylogin", (req, res) => {
     );
   });
 
-// Start listening 
-/*app.listen(3001, ()=>{
-    console.log("Server started on port 3001");
-});*/
+
 function Rollback(res) {
   db.query(`ROLLBACK`, (err6, result6) => {
     if (err6) {
