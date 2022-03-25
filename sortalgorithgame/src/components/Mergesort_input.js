@@ -44,8 +44,16 @@ class Mergesort_input extends React.Component {
             timer: null,  // timer
             index_i: 0, // i value of input field 
             index_j: 0, // j value of input field
-            valueMatrix: []
+            valueMatrix: [],
+            username: localStorage.getItem('Username'),
+            level: props.level,
+            attempts: 0,
+            completed: false,
+            completionTime: '0:0:0'
         }
+        /*axios.get(`http://localhost:3001/getLevelAttemptsInfo?username=${this.state.username}&level=${this.state.level}`).then((res) => {
+            this.setState({attempts: res.data});
+        });*/
     }
 
     // Next button onClick
@@ -80,11 +88,16 @@ class Mergesort_input extends React.Component {
 
             // if it is the last step
             if (this.state.step === this.state.stepsarr.length - 1) {
+                this.setState({
+                    completed: true,
+                    completionTime: document.getElementById("time").innerHTML
+                }, ()=>this.handleCompletion()); 
                 // display congradulations
                 this.applauseSound();
                 let resonseLabel = document.getElementById("incorrect")
                 resonseLabel.innerHTML = "Congratulations!! You have completed this level";
                 resonseLabel.style = "color: green";
+                
             }
         }
     }
@@ -155,7 +168,18 @@ class Mergesort_input extends React.Component {
             </div>
         );
     }
-
+    handleCompletion() {
+        const lvlInfo = {...this.state };
+        //check if inputted values can be inserted in database
+        axios.put(`http://localhost:3001/levelInfo/${this.state.username}`, lvlInfo).then((res) => {
+            if (res.data) { 
+                console.log("success");
+            } 
+            else { // if failed to register
+                console.log("fail");
+            }
+        });
+    }
     //starts timer when page loads
     componentDidMount() {
         let time = [0, 0, 0]; //time array
@@ -259,6 +283,7 @@ class Mergesort_input extends React.Component {
 
     checkLives() {
         this.setState({ lives: this.state.lives - 1 }); // decrement lives
+        this.setState({ attempts: this.state.attempts + 1 }); //incr attempts
         //show that error was made to user
         let errorNo = JSON.stringify(3 - this.state.lives);
         let errorText = document.getElementById("error" + errorNo);

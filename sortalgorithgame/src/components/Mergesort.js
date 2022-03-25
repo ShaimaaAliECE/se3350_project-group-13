@@ -103,7 +103,7 @@ class Mergesort extends React.Component {
                 }
             });
         }
-        if(this.state.step >= this.state.stepsarr.length) {
+        if(this.state.step >= this.state.stepsarr.length-1) {
             //mark completed
             this.setState({completed: true}); 
             this.setState({completionTime: document.getElementById("time").innerHTML});
@@ -247,10 +247,6 @@ class Mergesort extends React.Component {
         );
     }
     handleCompletion() {
-        //this.preventDefault();
-        //get form data from input fields
-        //let username = event.target[0].value;
-        
         const lvlInfo = {...this.state };
 
         //check if inputted values can be inserted in database

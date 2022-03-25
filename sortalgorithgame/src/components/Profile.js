@@ -3,6 +3,9 @@ import axios from "../utils/axios";
 import '../styles/Home.css';
 
 class Profile extends React.Component {
+    constructor(props) {
+        
+    }
     render() {
         return(
             <div>

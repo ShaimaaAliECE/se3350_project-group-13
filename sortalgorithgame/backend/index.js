@@ -54,7 +54,7 @@ app.post("/newUser", (req, res) => {
       }
     );
   });
-//insert into levelOneTime
+//update levelOneTime
 app.put("/levelOneTime/:username", (req, res) => { 
   let username = req.body.username;
   const completionTime = req.body.completionTime;
@@ -76,8 +76,70 @@ app.put("/levelOneTime/:username", (req, res) => {
     }
   );
 });
+//update level 2-5 and custom level info
+app.put("/levelInfo/:username", (req, res) => { 
+  let username = req.body.username;
+  let level = req.body.level;
+  const completionTime = req.body.completionTime;
+  const completed = req.body.completed;
+  const attempts = req.body.attempts;
+  db.query(
+    `UPDATE ${level} SET completionTime = ?, numberOfAttempts = ?, completed = ? WHERE username = ?`,
+    [
+      completionTime,
+      attempts,
+      completed,
+      username,
+    ],
+    (err, result) => {
+      if (err) {
+        console.log(err);
+        res.send(false);
+      } else {
+        res.send("values are properly updated");
+      }
+    }
+  );
+});
+/*app.get("/getLevelAttemptsInfo", (req, res) => {
+  db.query(
+    `SELECT SELECT numberOfAttempts FROM ${req.query.level} WHERE username = ${req.query.username}`,
+    (err, result) => {
+      if (err) {
+        console.log(err);
+      } else {
+        res.send(result);
+      }
+    }
+  );
+});*/
+//
+//get levels 2-5, custom level logged info
+app.get("/getLevelInfo", (req, res) => {
+  db.query(
+    `SELECT SELECT completionTime, numberOfAttempts, completed FROM ${req.query.level} WHERE username = ${req.query.username}`,
+    (err, result) => {
+      if (err) {
+        console.log(err);
+      } else {
+        res.send(result);
+      }
+    }
+  );
+});
 //get level one logged info
-app.get("/getLevelOneAct");
+app.get("/getLevelOneInfo", (req, res) => {
+  db.query(
+    `SELECT SELECT completionTime, completed FROM LevelOne WHERE username = ${req.query.username}`,
+    (err, result) => {
+      if (err) {
+        console.log(err);
+      } else {
+        res.send(result);
+      }
+    }
+  );
+});
 //verify login credentials
 app.get("/verifylogin", (req, res) => {
     db.query(
