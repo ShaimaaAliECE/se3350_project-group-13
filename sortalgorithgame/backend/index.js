@@ -113,8 +113,33 @@ app.put("/levelInfo/:username", (req, res) => {
     }
   );
 });*/
+//
+//get levels 2-5, custom level logged info
+app.get("/getLevelInfo", (req, res) => {
+  db.query(
+    `SELECT SELECT completionTime, numberOfAttempts, completed FROM ${req.query.level} WHERE username = ${req.query.username}`,
+    (err, result) => {
+      if (err) {
+        console.log(err);
+      } else {
+        res.send(result);
+      }
+    }
+  );
+});
 //get level one logged info
-app.get("/getLevelOneAct");
+app.get("/getLevelOneInfo", (req, res) => {
+  db.query(
+    `SELECT SELECT completionTime, completed FROM LevelOne WHERE username = ${req.query.username}`,
+    (err, result) => {
+      if (err) {
+        console.log(err);
+      } else {
+        res.send(result);
+      }
+    }
+  );
+});
 //verify login credentials
 app.get("/verifylogin", (req, res) => {
     db.query(
