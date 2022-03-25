@@ -38,7 +38,7 @@ app.post("/newUser", (req, res) => {
     const pass = req.body.pass;
     const email = req.body.email;
     db.query(
-      "INSERT INTO Account (username, pass, email) VALUES (?,?,?)",
+      "INSERT INTO Accounts (username, pass, email) VALUES (?,?,?)",
       [
         username,
         pass,
@@ -81,7 +81,7 @@ app.post("/levelOneTime", (req, res) => {
 //verify that the given username and password are correct
 app.get("/verifylogin", (req, res) => {
     db.query(
-      `SELECT id, pass FROM Account WHERE username = "${req.query.username}"`,
+      `SELECT id, pass FROM Accounts WHERE username = "${req.query.username}"`,
       (err, result) => {
         if (err) {
           console.log(err);

@@ -16,13 +16,13 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `account`
+-- Table structure for table `accounts`
 --
 
-DROP TABLE IF EXISTS `account`;
+DROP TABLE IF EXISTS `accounts`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `account` (
+CREATE TABLE `accounts` (
   `id` int NOT NULL AUTO_INCREMENT,
   `username` varchar(32) NOT NULL,
   `pass` varchar(32) NOT NULL,
@@ -30,19 +30,19 @@ CREATE TABLE `account` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `username` (`username`),
   UNIQUE KEY `email` (`email`),
-  CONSTRAINT `account_chk_1` CHECK ((char_length(`pass`) > 6)),
-  CONSTRAINT `account_chk_2` CHECK ((`email` like _utf8mb4'%@%.%'))
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  CONSTRAINT `accounts_chk_1` CHECK ((char_length(`pass`) > 6)),
+  CONSTRAINT `accounts_chk_2` CHECK ((`email` like _utf8mb4'%@%.%'))
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `account`
+-- Dumping data for table `accounts`
 --
 
-LOCK TABLES `account` WRITE;
-/*!40000 ALTER TABLE `account` DISABLE KEYS */;
-INSERT INTO `account` VALUES (1,'user','password','user@gmail.com'),(2,'user1','password1','user1@gmail.com'),(3,'hi','1234567','hi@gmail.com'),(4,'hoi','7654321','hoi@gmail.com');
-/*!40000 ALTER TABLE `account` ENABLE KEYS */;
+LOCK TABLES `accounts` WRITE;
+/*!40000 ALTER TABLE `accounts` DISABLE KEYS */;
+INSERT INTO `accounts` VALUES (1,'user','password','user@gmail.com'),(3,'user1','password1','user1@gmail.com');
+/*!40000 ALTER TABLE `accounts` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -59,7 +59,7 @@ CREATE TABLE `customlevel` (
   `completed` tinyint(1) NOT NULL DEFAULT '0',
   PRIMARY KEY (`username`),
   UNIQUE KEY `username` (`username`),
-  CONSTRAINT `customlevel_ibfk_1` FOREIGN KEY (`username`) REFERENCES `account` (`username`)
+  CONSTRAINT `customlevel_ibfk_1` FOREIGN KEY (`username`) REFERENCES `accounts` (`username`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -69,7 +69,7 @@ CREATE TABLE `customlevel` (
 
 LOCK TABLES `customlevel` WRITE;
 /*!40000 ALTER TABLE `customlevel` DISABLE KEYS */;
-INSERT INTO `customlevel` VALUES ('hi',NULL,NULL,0),('user',NULL,NULL,0),('user1',NULL,NULL,0);
+INSERT INTO `customlevel` VALUES ('user',NULL,NULL,0);
 /*!40000 ALTER TABLE `customlevel` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -87,7 +87,7 @@ CREATE TABLE `levelfive` (
   `completed` tinyint(1) NOT NULL DEFAULT '0',
   PRIMARY KEY (`username`),
   UNIQUE KEY `username` (`username`),
-  CONSTRAINT `levelfive_ibfk_1` FOREIGN KEY (`username`) REFERENCES `account` (`username`)
+  CONSTRAINT `levelfive_ibfk_1` FOREIGN KEY (`username`) REFERENCES `accounts` (`username`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -97,7 +97,7 @@ CREATE TABLE `levelfive` (
 
 LOCK TABLES `levelfive` WRITE;
 /*!40000 ALTER TABLE `levelfive` DISABLE KEYS */;
-INSERT INTO `levelfive` VALUES ('hi',NULL,NULL,0),('user',NULL,NULL,0),('user1',NULL,NULL,0);
+INSERT INTO `levelfive` VALUES ('user',NULL,NULL,0);
 /*!40000 ALTER TABLE `levelfive` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -115,7 +115,7 @@ CREATE TABLE `levelfour` (
   `completed` tinyint(1) NOT NULL DEFAULT '0',
   PRIMARY KEY (`username`),
   UNIQUE KEY `username` (`username`),
-  CONSTRAINT `levelfour_ibfk_1` FOREIGN KEY (`username`) REFERENCES `account` (`username`)
+  CONSTRAINT `levelfour_ibfk_1` FOREIGN KEY (`username`) REFERENCES `accounts` (`username`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -125,7 +125,7 @@ CREATE TABLE `levelfour` (
 
 LOCK TABLES `levelfour` WRITE;
 /*!40000 ALTER TABLE `levelfour` DISABLE KEYS */;
-INSERT INTO `levelfour` VALUES ('hi',NULL,NULL,0),('user',NULL,NULL,0),('user1',NULL,NULL,0);
+INSERT INTO `levelfour` VALUES ('user',NULL,NULL,0);
 /*!40000 ALTER TABLE `levelfour` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -142,7 +142,7 @@ CREATE TABLE `levelone` (
   `completed` tinyint(1) NOT NULL DEFAULT '0',
   PRIMARY KEY (`username`),
   UNIQUE KEY `username` (`username`),
-  CONSTRAINT `levelone_ibfk_1` FOREIGN KEY (`username`) REFERENCES `account` (`username`)
+  CONSTRAINT `levelone_ibfk_1` FOREIGN KEY (`username`) REFERENCES `accounts` (`username`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -152,7 +152,7 @@ CREATE TABLE `levelone` (
 
 LOCK TABLES `levelone` WRITE;
 /*!40000 ALTER TABLE `levelone` DISABLE KEYS */;
-INSERT INTO `levelone` VALUES ('hi',NULL,0),('user',NULL,0),('user1',NULL,0);
+INSERT INTO `levelone` VALUES ('user',NULL,0);
 /*!40000 ALTER TABLE `levelone` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -170,7 +170,7 @@ CREATE TABLE `levelthree` (
   `completed` tinyint(1) NOT NULL DEFAULT '0',
   PRIMARY KEY (`username`),
   UNIQUE KEY `username` (`username`),
-  CONSTRAINT `levelthree_ibfk_1` FOREIGN KEY (`username`) REFERENCES `account` (`username`)
+  CONSTRAINT `levelthree_ibfk_1` FOREIGN KEY (`username`) REFERENCES `accounts` (`username`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -180,7 +180,7 @@ CREATE TABLE `levelthree` (
 
 LOCK TABLES `levelthree` WRITE;
 /*!40000 ALTER TABLE `levelthree` DISABLE KEYS */;
-INSERT INTO `levelthree` VALUES ('hi',NULL,NULL,0),('user',NULL,NULL,0),('user1',NULL,NULL,0);
+INSERT INTO `levelthree` VALUES ('user',NULL,NULL,0);
 /*!40000 ALTER TABLE `levelthree` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -198,7 +198,7 @@ CREATE TABLE `leveltwo` (
   `completed` tinyint(1) NOT NULL DEFAULT '0',
   PRIMARY KEY (`username`),
   UNIQUE KEY `username` (`username`),
-  CONSTRAINT `leveltwo_ibfk_1` FOREIGN KEY (`username`) REFERENCES `account` (`username`)
+  CONSTRAINT `leveltwo_ibfk_1` FOREIGN KEY (`username`) REFERENCES `accounts` (`username`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -208,7 +208,7 @@ CREATE TABLE `leveltwo` (
 
 LOCK TABLES `leveltwo` WRITE;
 /*!40000 ALTER TABLE `leveltwo` DISABLE KEYS */;
-INSERT INTO `leveltwo` VALUES ('hi',NULL,NULL,0),('user',NULL,NULL,0),('user1',NULL,NULL,0);
+INSERT INTO `leveltwo` VALUES ('user',NULL,NULL,0);
 /*!40000 ALTER TABLE `leveltwo` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -221,4 +221,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-03-25  3:02:30
+-- Dump completed on 2022-03-25  3:55:21
