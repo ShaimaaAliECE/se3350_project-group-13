@@ -31,7 +31,7 @@ class Register extends React.Component {
         axios.post(`http://localhost:3001/newUser`, user).then((res) => {
             if (res.data) { // able to register 
                 localStorage.setItem("username", username);
-                localStorage.setItem("userID", res.data.id);
+                //localStorage.setItem("userID", res.data.id);
                 this.props.history.push('/login');
             } 
             else { // if failed to register

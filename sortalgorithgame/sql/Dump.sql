@@ -32,7 +32,7 @@ CREATE TABLE `account` (
   UNIQUE KEY `email` (`email`),
   CONSTRAINT `account_chk_1` CHECK ((char_length(`pass`) > 6)),
   CONSTRAINT `account_chk_2` CHECK ((`email` like _utf8mb4'%@%.%'))
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -41,7 +41,7 @@ CREATE TABLE `account` (
 
 LOCK TABLES `account` WRITE;
 /*!40000 ALTER TABLE `account` DISABLE KEYS */;
-INSERT INTO `account` VALUES (1,'user','password','user@gmail.com'),(2,'user1','password1','user1@gmail.com'),(3,'hi','1234567','hi@gmail.com');
+INSERT INTO `account` VALUES (1,'user','password','user@gmail.com'),(2,'user1','password1','user1@gmail.com'),(3,'hi','1234567','hi@gmail.com'),(4,'hoi','7654321','hoi@gmail.com');
 /*!40000 ALTER TABLE `account` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -69,6 +69,7 @@ CREATE TABLE `customlevel` (
 
 LOCK TABLES `customlevel` WRITE;
 /*!40000 ALTER TABLE `customlevel` DISABLE KEYS */;
+INSERT INTO `customlevel` VALUES ('hi',NULL,NULL,0),('user',NULL,NULL,0),('user1',NULL,NULL,0);
 /*!40000 ALTER TABLE `customlevel` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -96,6 +97,7 @@ CREATE TABLE `levelfive` (
 
 LOCK TABLES `levelfive` WRITE;
 /*!40000 ALTER TABLE `levelfive` DISABLE KEYS */;
+INSERT INTO `levelfive` VALUES ('hi',NULL,NULL,0),('user',NULL,NULL,0),('user1',NULL,NULL,0);
 /*!40000 ALTER TABLE `levelfive` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -123,6 +125,7 @@ CREATE TABLE `levelfour` (
 
 LOCK TABLES `levelfour` WRITE;
 /*!40000 ALTER TABLE `levelfour` DISABLE KEYS */;
+INSERT INTO `levelfour` VALUES ('hi',NULL,NULL,0),('user',NULL,NULL,0),('user1',NULL,NULL,0);
 /*!40000 ALTER TABLE `levelfour` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -149,7 +152,36 @@ CREATE TABLE `levelone` (
 
 LOCK TABLES `levelone` WRITE;
 /*!40000 ALTER TABLE `levelone` DISABLE KEYS */;
+INSERT INTO `levelone` VALUES ('hi',NULL,0),('user',NULL,0),('user1',NULL,0);
 /*!40000 ALTER TABLE `levelone` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `levelthree`
+--
+
+DROP TABLE IF EXISTS `levelthree`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `levelthree` (
+  `username` varchar(32) NOT NULL,
+  `completionTime` time DEFAULT NULL,
+  `numberOfAttempts` int DEFAULT NULL,
+  `completed` tinyint(1) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`username`),
+  UNIQUE KEY `username` (`username`),
+  CONSTRAINT `levelthree_ibfk_1` FOREIGN KEY (`username`) REFERENCES `account` (`username`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `levelthree`
+--
+
+LOCK TABLES `levelthree` WRITE;
+/*!40000 ALTER TABLE `levelthree` DISABLE KEYS */;
+INSERT INTO `levelthree` VALUES ('hi',NULL,NULL,0),('user',NULL,NULL,0),('user1',NULL,NULL,0);
+/*!40000 ALTER TABLE `levelthree` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -176,6 +208,7 @@ CREATE TABLE `leveltwo` (
 
 LOCK TABLES `leveltwo` WRITE;
 /*!40000 ALTER TABLE `leveltwo` DISABLE KEYS */;
+INSERT INTO `leveltwo` VALUES ('hi',NULL,NULL,0),('user',NULL,NULL,0),('user1',NULL,NULL,0);
 /*!40000 ALTER TABLE `leveltwo` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -188,4 +221,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-03-24 18:23:53
+-- Dump completed on 2022-03-25  3:02:30

@@ -12,7 +12,12 @@ INSERT INTO Account (username, pass, email)
 
 INSERT INTO Account (username, pass, email)
 	VALUES ("user1", "password1", "user1@gmail.com");
-
+INSERT INTO LevelOne (username) (SELECT username FROM Account);
+INSERT INTO LevelTwo (username) (SELECT username FROM Account);
+INSERT INTO LevelThree (username) (SELECT username FROM Account);
+INSERT INTO LevelFour (username) (SELECT username FROM Account);
+INSERT INTO LevelFive (username) (SELECT username FROM Account);
+INSERT INTO CustomLevel (username) (SELECT username FROM Account);
 CREATE TABLE LevelOne(
 username VARCHAR(32) NOT NULL UNIQUE,
 completionTime TIME,
@@ -21,7 +26,16 @@ PRIMARY KEY (username),
 FOREIGN KEY (username) REFERENCES Account (username)
 );
 
+select * from account;
 CREATE TABLE LevelTwo(
+username VARCHAR(32) NOT NULL UNIQUE,
+completionTime TIME,
+numberOfAttempts INT,
+completed BOOL NOT NULL DEFAULT false,
+PRIMARY KEY (username),
+FOREIGN KEY (username) REFERENCES Account (username)
+);
+CREATE TABLE LevelThree(
 username VARCHAR(32) NOT NULL UNIQUE,
 completionTime TIME,
 numberOfAttempts INT,
@@ -53,4 +67,20 @@ completed BOOL NOT NULL DEFAULT false,
 PRIMARY KEY (username),
 FOREIGN KEY (username) REFERENCES Account (username)
 );
+
+-- TRIGGERS
+DELIMITER $$
+CREATE TRIGGER Accounts
+AFTER INSERT
+ON Account FOR EACH ROW
+BEGIN
+	INSERT INTO LevelOne(username)(SELECT username FROM Account);
+    INSERT INTO LevelTwo (username) (SELECT username FROM Account);
+	INSERT INTO LevelThree (username) (SELECT username FROM Account);
+	INSERT INTO LevelFour (username) (SELECT username FROM Account);
+	INSERT INTO LevelFive (username) (SELECT username FROM Account);
+	INSERT INTO CustomLevel (username) (SELECT username FROM Account);
+END$$
+
+DELIMITER ;
 
