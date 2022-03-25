@@ -61,7 +61,7 @@ FOREIGN KEY (username) REFERENCES Accounts (username)
 -- TRIGGERS
 DELIMITER $$
 CREATE TRIGGER addUser
-BEFORE INSERT
+AFTER INSERT
 ON Accounts FOR EACH ROW
 BEGIN 
 	INSERT INTO LevelOne(username)(SELECT username FROM Accounts);
