@@ -1,4 +1,5 @@
 select * from Accounts;
+select * from levelone;
 CREATE TABLE Accounts(
 id INT NOT NULL AUTO_INCREMENT,
 username VARCHAR(32) NOT NULL UNIQUE,
@@ -58,18 +59,18 @@ PRIMARY KEY (username),
 FOREIGN KEY (username) REFERENCES Accounts (username)
 );
 
--- TRIGGERS
+-- TRIGGER
 DELIMITER $$
 CREATE TRIGGER addUser
 AFTER INSERT
 ON Accounts FOR EACH ROW
 BEGIN 
-	INSERT INTO LevelOne(username)(SELECT username FROM Accounts);
-    INSERT INTO LevelTwo (username) (SELECT username FROM Accounts);
-	INSERT INTO LevelThree (username) (SELECT username FROM Accounts);
-	INSERT INTO LevelFour (username) (SELECT username FROM Accounts);
-	INSERT INTO LevelFive (username) (SELECT username FROM Accounts);
-	INSERT INTO CustomLevel (username) (SELECT username FROM Accounts);
+	INSERT INTO LevelOne(username) value (new.username);
+    INSERT INTO LevelTwo(username) value (new.username);
+    INSERT INTO LevelThree(username) value (new.username);
+    INSERT INTO LevelFour(username) value (new.username);
+    INSERT INTO LevelFive(username) value (new.username);
+    INSERT INTO CustomLevel(username) value (new.username);
 END$$
 DELIMITER ;
 show triggers;

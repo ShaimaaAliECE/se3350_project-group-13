@@ -32,7 +32,7 @@ CREATE TABLE `accounts` (
   UNIQUE KEY `email` (`email`),
   CONSTRAINT `accounts_chk_1` CHECK ((char_length(`pass`) > 6)),
   CONSTRAINT `accounts_chk_2` CHECK ((`email` like _utf8mb4'%@%.%'))
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -41,7 +41,7 @@ CREATE TABLE `accounts` (
 
 LOCK TABLES `accounts` WRITE;
 /*!40000 ALTER TABLE `accounts` DISABLE KEYS */;
-INSERT INTO `accounts` VALUES (1,'user','password','user@gmail.com'),(3,'user1','password1','user1@gmail.com');
+INSERT INTO `accounts` VALUES (1,'user','password','user@gmail.com'),(5,'user1','password1','user1@gmail.com');
 /*!40000 ALTER TABLE `accounts` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -69,7 +69,7 @@ CREATE TABLE `customlevel` (
 
 LOCK TABLES `customlevel` WRITE;
 /*!40000 ALTER TABLE `customlevel` DISABLE KEYS */;
-INSERT INTO `customlevel` VALUES ('user',NULL,NULL,0);
+INSERT INTO `customlevel` VALUES ('user',NULL,NULL,0),('user1',NULL,NULL,0);
 /*!40000 ALTER TABLE `customlevel` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -97,7 +97,7 @@ CREATE TABLE `levelfive` (
 
 LOCK TABLES `levelfive` WRITE;
 /*!40000 ALTER TABLE `levelfive` DISABLE KEYS */;
-INSERT INTO `levelfive` VALUES ('user',NULL,NULL,0);
+INSERT INTO `levelfive` VALUES ('user',NULL,NULL,0),('user1',NULL,NULL,0);
 /*!40000 ALTER TABLE `levelfive` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -125,7 +125,7 @@ CREATE TABLE `levelfour` (
 
 LOCK TABLES `levelfour` WRITE;
 /*!40000 ALTER TABLE `levelfour` DISABLE KEYS */;
-INSERT INTO `levelfour` VALUES ('user',NULL,NULL,0);
+INSERT INTO `levelfour` VALUES ('user',NULL,NULL,0),('user1',NULL,NULL,0);
 /*!40000 ALTER TABLE `levelfour` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -152,7 +152,7 @@ CREATE TABLE `levelone` (
 
 LOCK TABLES `levelone` WRITE;
 /*!40000 ALTER TABLE `levelone` DISABLE KEYS */;
-INSERT INTO `levelone` VALUES ('user',NULL,0);
+INSERT INTO `levelone` VALUES ('user',NULL,0),('user1',NULL,0);
 /*!40000 ALTER TABLE `levelone` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -180,7 +180,7 @@ CREATE TABLE `levelthree` (
 
 LOCK TABLES `levelthree` WRITE;
 /*!40000 ALTER TABLE `levelthree` DISABLE KEYS */;
-INSERT INTO `levelthree` VALUES ('user',NULL,NULL,0);
+INSERT INTO `levelthree` VALUES ('user',NULL,NULL,0),('user1',NULL,NULL,0);
 /*!40000 ALTER TABLE `levelthree` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -208,7 +208,7 @@ CREATE TABLE `leveltwo` (
 
 LOCK TABLES `leveltwo` WRITE;
 /*!40000 ALTER TABLE `leveltwo` DISABLE KEYS */;
-INSERT INTO `leveltwo` VALUES ('user',NULL,NULL,0);
+INSERT INTO `leveltwo` VALUES ('user',NULL,NULL,0),('user1',NULL,NULL,0);
 /*!40000 ALTER TABLE `leveltwo` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -221,4 +221,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-03-25  3:55:21
+-- Dump completed on 2022-03-25  5:16:32
