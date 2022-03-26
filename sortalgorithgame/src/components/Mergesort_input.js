@@ -68,7 +68,7 @@ class Mergesort_input extends React.Component {
             //say your not
             let resonseLabel = document.getElementById("incorrect")
             resonseLabel.innerHTML = "Not so fast, you must complete this step before moving forward.";
-            resonseLabel.style = "color: yellow";
+            resonseLabel.style.color = "yellow";
             this.stuckSound();
 
         }
@@ -96,7 +96,7 @@ class Mergesort_input extends React.Component {
                 this.applauseSound();
                 let resonseLabel = document.getElementById("incorrect")
                 resonseLabel.innerHTML = "Congratulations!! You have completed this level";
-                resonseLabel.style = "color: green";
+                resonseLabel.style.color = "green";
                 
             }
         }
@@ -268,14 +268,14 @@ class Mergesort_input extends React.Component {
             //display incorrect stuff
             let resonseLabel = document.getElementById("incorrect")
             resonseLabel.innerHTML = "You have " + incorrect + " number(s) out of place.";
-            resonseLabel.style = "color: red";
+            resonseLabel.style.color = "red";
             this.incorrectSound();
             this.checkLives();
         } else { // no incorrect = correct
             //show correct
             let resonseLabel = document.getElementById("incorrect")
             resonseLabel.innerHTML = "Correct!! You may move on";
-            resonseLabel.style = "color: green";
+            resonseLabel.style.color = "green";
             this.correctSound();
             this.nextStep = true;
         }
