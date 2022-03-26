@@ -111,7 +111,7 @@ class Mergesort_input extends React.Component {
             let inputs = document.querySelectorAll("input");
             for (let input of inputs) {
                 input.value = "";
-                input.parentElement.style = "background-color: transparent"
+                input.parentElement.backgroundColor = "transparent"
             }
 
             //reset response label text
