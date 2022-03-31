@@ -27,7 +27,7 @@ class Profile extends React.Component {
             }
         });
 
-        axios.get(`http://localhost:3001/getLevelInfo?level=leveltwo&username=${username}`).then((res) => {
+        axios.get(`http://localhost:3001/getLevelInfo?level=LevelTwo&username=${username}`).then((res) => {
             if (res.data) {
                 this.setState({ level2: res.data[0] });
                 console.log(res.data[0])
@@ -37,7 +37,7 @@ class Profile extends React.Component {
             }
         });
 
-        axios.get(`http://localhost:3001/getLevelInfo?level=levelthree&username=${username}`).then((res) => {
+        axios.get(`http://localhost:3001/getLevelInfo?level=LevelThree&username=${username}`).then((res) => {
             if (res.data) {
                 this.setState({ level3: res.data[0] });
             }
@@ -46,7 +46,7 @@ class Profile extends React.Component {
             }
         });
 
-        axios.get(`http://localhost:3001/getLevelInfo?level=levelfour&username=${username}`).then((res) => {
+        axios.get(`http://localhost:3001/getLevelInfo?level=LevelFour&username=${username}`).then((res) => {
             if (res.data) {
                 this.setState({ level4: res.data[0] });
             }
@@ -54,7 +54,7 @@ class Profile extends React.Component {
                 console.log(res);
             }
         });
-        axios.get(`http://localhost:3001/getLevelInfo?level=levelfive&username=${username}`).then((res) => {
+        axios.get(`http://localhost:3001/getLevelInfo?level=LevelFive&username=${username}`).then((res) => {
             if (res.data) {
                 this.setState({ level5: res.data[0] });
             }
@@ -62,7 +62,7 @@ class Profile extends React.Component {
                 console.log(res);
             }
         });
-        axios.get(`http://localhost:3001/getLevelInfo?level=customlevel&username=${username}`).then((res) => {
+        axios.get(`http://localhost:3001/getLevelInfo?level=CustomLevel&username=${username}`).then((res) => {
             if (res.data) {
                 this.setState({ custom: res.data[0] });
             }
