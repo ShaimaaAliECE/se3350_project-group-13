@@ -1,0 +1,55 @@
+.register-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    vertical-align: middle;
+    width: 500px;
+    height: 80vh;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.register-window {
+    width: 400px;
+    padding: 2rem;
+    background: #555555;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+
+.register-input[type=submit] {
+    padding: 5px 15px;
+    background: #ccc;
+    border: 0 none;
+    cursor: pointer;
+    -webkit-border-radius: 5px;
+    border-radius: 5px;
+    margin-top: 15px;
+}
+
+.register-input[type=text] {
+    padding: 5px 15px;
+    border: 0 none;
+    -webkit-border-radius: 5px;
+    border-radius: 5px;
+    margin-top: 20px;
+}
+
+.register-input[type=password] {
+    padding: 5px 15px;
+    border: 0 none;
+    -webkit-border-radius: 5px;
+    /*-webkit-text-security: disc !important;*/
+    border-radius: 5px;
+    margin-top: 20px;
+}
+
+h1 {
+    color: white;
+    margin-bottom: 10px;
+    margin-top: 0px;
+}

@@ -1,0 +1,11 @@
+[
+    ["Here we have a randomized array", "[1] The first step would be to split this unsorted-array in half"],
+    ["[2] Below we have the array split in half", "The next step should be to split the array in half again"],
+    ["[3] However, the size of the new split is still too big", "The next step is to split the array again"],
+    ["[3] However, the size of the new split is still too big", "The next step is to split the array again"],
+    ["[4] Now we have the array split into individual pieces, which means it is ready to merge", "The next step is to merge by taking the smallest elements of each sub-array and putting it first"],
+    ["[5] The next step is to merge the arrays, choosing the smallest element from each sub-array"],
+    ["[6] The next step is to continue merging two sub-arrays until there are none left"],
+    ["[7] There are now two seperate sorted arrays", "The next step is to merge one last time"],
+    ["[8] And just like that, we've succesfully sorted the", "randomized array using the merge-sort algorithm!"]
+]

@@ -1,14 +1,13 @@
 import React from 'react';
-import axios from "../utils/axios";
 import '../styles/Mergesort.css';
-import stepText from '../json/level1.json'
+import stepText from '../json/level1Quicksort.json'
 
 //array constraints
 const min = 1;
 const max = 20;
 const len = 10;
 
-//shows all the mergesort steps
+//shows all the quickSort steps
 
 //shows the substeps
 function SubStep(props) {
@@ -38,7 +37,7 @@ function Element(props) {
         <div substep = {props.substep} step = {props.step} style={{backgroundColor: props.color }} className='elements'>{props.value}</div>
     )
 }
-class Mergesort extends React.Component {
+class quickSort extends React.Component {
 
     mergeWindow = 0; // how many substeps we passed in the merge
     left = 0; // the left element index of the merge
@@ -48,7 +47,7 @@ class Mergesort extends React.Component {
         super(props);
         let stepsarr = [[Array.from({ length: len }, () => Math.floor((Math.random() * (max - min + 1)) + min))]]; // generate list of random array
 
-        this.mergeSort(stepsarr); //generate the mergesort array
+        this.QuickSort(stepsarr, 0, stepsarr.length - 1); //generate the quickSort array
 
         //make each element a object with a value and a color
         for (let step = 0; step < stepsarr.length; step++) {
@@ -58,16 +57,12 @@ class Mergesort extends React.Component {
                 })
             }
         }
-        //level states
         this.state = {
             step: 1, //what step you are currently on
             substep: 0, //what substep you are currently on
             elementstep: 0, //what element step  you are currently on
             stepsarr: stepsarr, // the actual array of elements (the tree)
             currentStep: 1,
-            username: localStorage.getItem('Username'),
-            completed: false,
-            completionTime: '0:0:0'
         }
     }
 
@@ -103,17 +98,11 @@ class Mergesort extends React.Component {
                 }
             });
         }
-        if(this.state.step >= this.state.stepsarr.length-1) {
-            //mark completed
-            this.setState({completed: true}); 
-            this.setState({completionTime: document.getElementById("time").innerHTML});
-            this.handleCompletion();
-        }
+
         if (this.state.step < this.state.stepsarr.length / 2) { //check if the steps are splitting
             if (this.state.step < this.state.stepsarr.length) { //check if it's not last step
                 this.setState({ step: this.state.step + 1 }); //increment steps
             }
-            
         } else { // merge steps
             if (this.state.elementstep === this.state.stepsarr[this.state.step][this.state.substep].length - 1) { //check if elements reached end of substep
                 if (this.state.substep === this.state.stepsarr[this.state.step].length - 1) { //check if substep reached end of step
@@ -213,7 +202,7 @@ class Mergesort extends React.Component {
             this.setState({ stepsarr: stepsarr }) //update the stepsarr
         } 
     } 
-    
+
     // render method
     render() {
         let steps = []; //holds the steps and also the next step if it exists
@@ -224,15 +213,9 @@ class Mergesort extends React.Component {
 
         return (
             <div className="mergesort-container">
-                <div className="level-header">
-                    <div className="left-container"></div>
-                    <div className="button-container">
-                        <button className="prevBtn" onClick={this.onClickPrev.bind(this)}>previous step</button>
-                        <button className="nextBtn" onClick={this.onClickNext.bind(this)}>next step</button>
-                    </div>
-                    <div className="lives-container">
-                        <div className='element-time' id='time'></div>
-                    </div>
+                <div className="button-container">
+                    <button className="prevBtn" onClick={this.onClickPrev.bind(this)}>previous step</button>
+                    <button className="nextBtn" onClick={this.onClickNext.bind(this)}>next step</button>
                 </div>
                 <br></br>
                 <label className="step-container">
@@ -246,72 +229,38 @@ class Mergesort extends React.Component {
             </div>
         );
     }
-    handleCompletion() {
-        const lvlInfo = {...this.state };
 
-        //check if inputted values can be inserted in database
-        axios.put(`http://localhost:3001/levelOneTime/${this.state.username}`, lvlInfo).then((res) => {
-            if (res.data) { 
-                console.log("success");
-            } 
-            else { // if failed to register
-                console.log("fail");
-            }
-        });
-    }
-    //starts timer when page loads
-    componentDidMount() {
-        let time = [0, 0, 0]; //time array
-        let totalSeconds = 0; //total time
-        let timeout = 0;
-        this.setState({ timer: setInterval(startTimer, 1000) }); //starts timer in state so that it can be cleared (not sure if necessary)
-        setInterval(startTimeout, 1000);
-        //startTimer function to set the timer and display it to the user
-        function startTimer() {
-            ++totalSeconds;
-            time[0] = Math.floor(totalSeconds / 3600);
-            time[1] = Math.floor((totalSeconds - time[0] * 3600) / 60);
-            time[2] = totalSeconds - (time[0] * 3600 + time[1] * 60);
-            document.getElementById("time").innerHTML = String(time[0]).padStart(2, '0') + ":" +  String(time[1]).padStart(2, '0') + ":" + String(time[2]).padStart(2, '0');
-        }
-        function startTimeout() {
-            ++timeout;
-            if (timeout >= 300) { // 5 minutes = 300 seconds
-                window.location.replace("/");
-            }
-        }
-        document.onmousemove = () => {
-            timeout = 0;
-        }
-
-        document.onkeydown = (e) =>{
-            if(e.key === "/"){
-                // Fill in function 
-                this.fillIn();
-            }
-            if (e.key === "`") {
-                timeout += 290;
-                totalSeconds += 290;
-            }
-        }   
+    swap(array, leftIndex, rightIndex){
+        var temp = array[leftIndex];
+        array[leftIndex] = array[rightIndex];
+        array[rightIndex] = temp;
     }
 
-    //merges two lists
-    merge(left, right) {
-        let arr = [] //holds merged
-        while (left.length && right.length) { //there is elements left
-            if (left[0] < right[0]) { //if left is smaller
-                arr.push(left.shift()) //push left
-            } else { //right is smaller
-                arr.push(right.shift()) //push right
+    partition(array, left, right) {
+        var pivot   = array[Math.floor((right + left) / 2)], //middle element
+            i       = left, //left pointer
+            j       = right; //right pointer
+        while (i <= j) {
+            while (array[i] < pivot) {
+                i++;
+            }
+            while (array[j] > pivot) {
+                j--;
+            }
+            if (i <= j) {
+                this.swap(array, i, j); //swapping two elements
+                i++;
+                j--;
             }
         }
-        return [...arr, ...left, ...right] //return sorted arrray as well as any left overs if one ran out first.
+        return i;
     }
 
-    //the mergesort algorithm
-    mergeSort(array) {
-        //split
+    //the quickSort algorithm
+    QuickSort(array, left, right) {
+
+        var index;
+
         //iterate through each step
         for (let step of array) {
             let newSubStep = [] //used to build up the substep
@@ -319,21 +268,15 @@ class Mergesort extends React.Component {
 
             //iterate through each substep
             for (let substep of array[array.length - 1]) {
-                if (substep.length >= 1) { //if the substep has more than one element (i.e. should be split)
-                    if (substep.length === 1) { //boundary case where the length is one we don't want to split but we still want to show it
-                        newSubStep.push([...substep]); //add it
-                    } else { //it should be split
-                        valid = true; //means new elements were split in this step
-                        let half = substep.length / 2; //get half
-                        let left = substep.slice(0, half); //get left side
-                        let right = substep.slice(half, substep.length); //get right side
-
-                        newSubStep.push([...left]); //add the left side
-                        newSubStep.push([...right]); //add the right side
-                    }
+                index = this.partition(array, left, right); //index returned from partition
+                if (left < index - 1) { //more elements on the left side of the pivot
+                    this.QuickSort(array, left, index - 1);
+                }
+                if (index < right) { //more elements on the right side of the pivot
+                    this.QuickSort(array, index, right);
                 }
             }
-
+    
             //if the step did something new
             if (valid) {
                 array.push(newSubStep); //push it to the array
@@ -366,7 +309,7 @@ class Mergesort extends React.Component {
             prevstep = newSubStep; //update previous step
 
             array.push(newSubStep); //push new step
-        }
+        } 
         let mid = array.length / 2
 
         array.splice(mid - 1, 1);
@@ -387,4 +330,4 @@ function Steps(props) {
 
 
 
-export default Mergesort;
+export default quickSort;
