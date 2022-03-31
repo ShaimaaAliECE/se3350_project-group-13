@@ -16,7 +16,7 @@ class Login extends React.Component {
       let password = event.target[1].value
   
       //login logic (verify with server)
-      axios.get(`http://localhost:3001/verifylogin?username=${username}&password=${password}`).then((res) => {
+      axios.get(`http://35.206.82.164:3001/verifylogin?username=${username}&password=${password}`).then((res) => {
         if (res.data) {
           localStorage.setItem("Username", username);
           

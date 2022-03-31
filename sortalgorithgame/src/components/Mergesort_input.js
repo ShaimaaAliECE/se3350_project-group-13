@@ -171,7 +171,7 @@ class Mergesort_input extends React.Component {
     handleCompletion() {
         const lvlInfo = {...this.state };
         //check if inputted values can be inserted in database
-        axios.put(`http://localhost:3001/levelInfo/${this.state.username}`, lvlInfo).then((res) => {
+        axios.put(`http://35.206.82.164:3001/levelInfo/${this.state.username}`, lvlInfo).then((res) => {
             if (res.data) { 
                 console.log("success");
             } 
