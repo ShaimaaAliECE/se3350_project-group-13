@@ -75,7 +75,7 @@ BEGIN
 END$$
 DELIMITER ;
 show triggers;
-drop trigger addUser;
+-- drop trigger addUser;
 INSERT INTO Accounts (username, pass, email)
 	VALUES ("user", "password", "user@gmail.com");
 INSERT INTO Accounts (username, pass, email)
